@@ -41,7 +41,7 @@
   .grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 16px;
+    gap: 20px;
   }
 
   /* Card */
@@ -49,78 +49,90 @@
     background: var(--paper-2);
     border: 1px solid var(--warm-300);
     border-radius: 8px;
-    padding: 20px;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
-    gap: 16px;
-    transition: border-color 0.15s ease;
+    transition: border-color 0.2s ease;
   }
   .card:hover { border-color: var(--bn-orange); }
 
-  .card-link {
-    color: var(--bn-black);
+  /* 預覽縮圖區（iframe 即時預覽） */
+  .card-preview-link {
     text-decoration: none;
+    color: var(--bn-black);
     display: block;
-    flex-grow: 1;
+  }
+  .card-preview {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    position: relative;
+    background: var(--paper);
+    border-bottom: 1px solid var(--hairline);
+  }
+  .card-preview iframe {
+    border: 0;
+    display: block;
+    position: absolute;
+    top: 0; left: 0;
+    transform-origin: top left;
+    pointer-events: none;  /* click 穿透到 .card-preview-link */
+  }
+  /* iframe 載入前的 placeholder */
+  .card-preview::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, var(--paper-2) 0%, var(--paper-3) 100%);
+    z-index: -1;
+  }
+
+  /* 卡片資訊 */
+  .card-info {
+    padding: 16px 20px;
   }
   .date {
     font-family: "JetBrains Mono", ui-monospace, monospace;
     font-size: 11px;
     color: var(--cool-600);
-    margin-bottom: 8px;
+    margin-bottom: 6px;
     letter-spacing: 0.06em;
   }
   .title {
     font-size: 15px;
     font-weight: 600;
     line-height: 1.55;
-    transition: color 0.15s;
+    transition: color 0.2s;
   }
-  .card-link:hover .title { color: var(--bn-orange); }
+  .card-preview-link:hover .title { color: var(--bn-orange); }
 
   /* Card actions */
   .card-actions {
-    display: flex;
-    gap: 8px;
+    padding: 12px 20px 16px;
     border-top: 1px solid var(--hairline);
-    padding-top: 14px;
-    flex-wrap: wrap;
   }
   .btn {
     font-family: "Inter", "Noto Sans TC", sans-serif;
     font-size: 12px;
     font-weight: 500;
-    padding: 7px 12px;
-    border: 1px solid var(--bn-black);
-    background: transparent;
-    color: var(--bn-black);
-    border-radius: 0;
+    padding: 8px 14px;
+    border: 1px solid var(--bn-orange);
+    background: var(--bn-orange);
+    color: #fff;
+    border-radius: 0 0 8px 8px;
     cursor: pointer;
     text-decoration: none;
     display: inline-flex;
     align-items: center;
     gap: 4px;
-    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
-    white-space: nowrap;
+    transition: background 0.2s ease;
+    width: 100%;
+    justify-content: center;
   }
-  .btn:hover {
+  .btn:hover { background: var(--bn-orange-deep); border-color: var(--bn-orange-deep); }
+  .btn.copied {
     background: var(--bn-black);
-    color: var(--paper);
-  }
-  .btn--primary {
-    background: var(--bn-orange);
-    color: #fff;
-    border-color: var(--bn-orange);
-    border-radius: 0 0 8px 8px;
-  }
-  .btn--primary:hover {
-    background: var(--bn-orange-deep);
-    border-color: var(--bn-orange-deep);
-  }
-  .btn--copy.copied {
-    background: var(--bn-orange);
-    color: #fff;
-    border-color: var(--bn-orange);
+    border-color: var(--bn-black);
   }
 
   /* Empty state */
@@ -178,14 +190,18 @@
 
   <div class="grid">
 
-    <div class="card">
-      <a class="card-link" href="2026/05-nitori-vs-muji-timeline.html" target="_blank" rel="noopener">
-        <div class="date">2026 / 05 / 21</div>
-        <div class="title">「家具界UNIQLO」不靈了？宜得利 vs 無印的市值黃金交叉</div>
+    <div class="card" data-iframe-source-width="880">
+      <a class="card-preview-link" href="2026/05-nitori-vs-muji-timeline.html" target="_blank" rel="noopener">
+        <div class="card-preview">
+          <iframe src="2026/05-nitori-vs-muji-timeline.html" loading="lazy" scrolling="no" tabindex="-1" aria-hidden="true"></iframe>
+        </div>
+        <div class="card-info">
+          <div class="date">2026 / 05 / 21</div>
+          <div class="title">「家具界UNIQLO」不靈了？宜得利 vs 無印的市值黃金交叉</div>
+        </div>
       </a>
       <div class="card-actions">
-        <a class="btn" href="2026/05-nitori-vs-muji-timeline.html" target="_blank" rel="noopener">預覽 →</a>
-        <button class="btn btn--copy btn--primary"
+        <button class="btn btn--copy"
                 data-src="https://richardchen-code.github.io/business-next-graph/2026/05-nitori-vs-muji-timeline.html"
                 data-height="1600"
                 data-title="宜得利 vs 無印良品市值黃金交叉折線圖">
@@ -207,6 +223,29 @@
 <div class="toast" id="toast">已複製嵌入碼到剪貼簿</div>
 
 <script>
+  /* === 卡片預覽縮圖縮放 === */
+  // 配件原始 max-width 是 880px，卡片預覽用 CSS scale 將 iframe 縮放到卡片寬度
+  function updateThumbnails() {
+    document.querySelectorAll('.card').forEach(card => {
+      const sourceWidth = parseInt(card.dataset.iframeSourceWidth || '880', 10);
+      const preview = card.querySelector('.card-preview');
+      const iframe = card.querySelector('.card-preview iframe');
+      if (!preview || !iframe) return;
+      const w = preview.offsetWidth;
+      const h = preview.offsetHeight;
+      if (w === 0) return;
+      const scale = w / sourceWidth;
+      iframe.style.transform = `scale(${scale})`;
+      iframe.style.width = sourceWidth + 'px';
+      iframe.style.height = (h / scale) + 'px';
+    });
+  }
+  window.addEventListener('load', updateThumbnails);
+  window.addEventListener('resize', updateThumbnails);
+  // 第一次先估算（避免 load 前空白）
+  document.addEventListener('DOMContentLoaded', updateThumbnails);
+
+  /* === 複製 iframe 嵌入碼 === */
   const toast = document.getElementById('toast');
   function showToast(msg) {
     toast.textContent = msg;
