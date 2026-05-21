@@ -4,54 +4,239 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Business Next Graph — 數位時代互動視覺配件</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
 <style>
   :root {
     --bn-orange: #FF6B1A;
+    --bn-orange-deep: #E55A0F;
     --bn-black: #1A1A1A;
-    --bn-paper: #FAF7F1;
-    --bn-gray: #707070;
+    --paper: #FAF7F1;
+    --paper-2: #F5F3EF;
+    --paper-3: #ECE8DF;
+    --cool-600: #5C6470;
+    --warm-300: #D4D0C8;
+    --hairline: rgba(15, 26, 46, 0.12);
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
-    font-family: -apple-system, BlinkMacSystemFont, "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
-    background: var(--bn-paper);
+    font-family: "Inter", "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+    background: var(--paper);
     color: var(--bn-black);
-    line-height: 1.6;
-    padding: 48px 24px;
+    line-height: 1.7;
+    padding: 48px 24px 64px;
   }
   .container { max-width: 1080px; margin: 0 auto; }
+
+  /* Header */
   header { border-left: 4px solid var(--bn-orange); padding-left: 16px; margin-bottom: 48px; }
-  h1 { font-size: 28px; font-weight: 700; margin-bottom: 8px; }
-  .lede { color: var(--bn-gray); font-size: 15px; }
-  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+  .kicker {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 11px; letter-spacing: 0.08em; font-weight: 500;
+    color: var(--bn-orange); text-transform: uppercase; margin-bottom: 8px;
+  }
+  h1 { font-size: 28px; font-weight: 800; margin-bottom: 8px; letter-spacing: -0.01em; }
+  .lede { color: var(--cool-600); font-size: 15px; }
+
+  /* Grid */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 16px;
+  }
+
+  /* Card */
   .card {
-    background: #fff;
-    border: 1px solid #E5E2DC;
+    background: var(--paper-2);
+    border: 1px solid var(--warm-300);
     border-radius: 8px;
     padding: 20px;
-    transition: border-color 0.15s;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    transition: border-color 0.15s ease;
   }
   .card:hover { border-color: var(--bn-orange); }
-  .card a { color: var(--bn-black); text-decoration: none; display: block; }
-  .card .date { color: var(--bn-gray); font-size: 12px; margin-bottom: 6px; }
-  .card .title { font-size: 16px; font-weight: 600; }
-  .empty { color: var(--bn-gray); font-style: italic; padding: 24px; border: 1px dashed #ccc; border-radius: 8px; text-align: center; }
-  footer { margin-top: 64px; color: var(--bn-gray); font-size: 12px; }
+
+  .card-link {
+    color: var(--bn-black);
+    text-decoration: none;
+    display: block;
+    flex-grow: 1;
+  }
+  .date {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 11px;
+    color: var(--cool-600);
+    margin-bottom: 8px;
+    letter-spacing: 0.06em;
+  }
+  .title {
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.55;
+    transition: color 0.15s;
+  }
+  .card-link:hover .title { color: var(--bn-orange); }
+
+  /* Card actions */
+  .card-actions {
+    display: flex;
+    gap: 8px;
+    border-top: 1px solid var(--hairline);
+    padding-top: 14px;
+    flex-wrap: wrap;
+  }
+  .btn {
+    font-family: "Inter", "Noto Sans TC", sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 7px 12px;
+    border: 1px solid var(--bn-black);
+    background: transparent;
+    color: var(--bn-black);
+    border-radius: 0;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    white-space: nowrap;
+  }
+  .btn:hover {
+    background: var(--bn-black);
+    color: var(--paper);
+  }
+  .btn--primary {
+    background: var(--bn-orange);
+    color: #fff;
+    border-color: var(--bn-orange);
+    border-radius: 0 0 8px 8px;
+  }
+  .btn--primary:hover {
+    background: var(--bn-orange-deep);
+    border-color: var(--bn-orange-deep);
+  }
+  .btn--copy.copied {
+    background: var(--bn-orange);
+    color: #fff;
+    border-color: var(--bn-orange);
+  }
+
+  /* Empty state */
+  .empty {
+    color: var(--cool-600); font-style: italic;
+    padding: 32px; border: 1px dashed var(--warm-300);
+    border-radius: 8px; text-align: center; grid-column: 1 / -1;
+  }
+
+  /* Toast */
+  .toast {
+    position: fixed; left: 50%; bottom: 32px;
+    transform: translateX(-50%) translateY(80px);
+    background: var(--bn-black); color: var(--paper);
+    font-family: "JetBrains Mono", "Noto Sans TC", monospace;
+    font-size: 13px; letter-spacing: 0.04em;
+    padding: 10px 20px; border-radius: 4px;
+    opacity: 0; transition: opacity 0.2s, transform 0.3s cubic-bezier(.2,.7,.2,1);
+    z-index: 100; pointer-events: none;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  /* Footer */
+  footer {
+    margin-top: 64px; padding-top: 24px;
+    border-top: 1px solid var(--hairline);
+    display: flex; align-items: center; gap: 12px;
+  }
+  .footer-logo {
+    width: 28px; height: 28px; object-fit: contain;
+    border-radius: 2px;
+  }
+  .footer-text {
+    font-family: "JetBrains Mono", "Noto Sans TC", monospace;
+    font-size: 11px; color: var(--cool-600);
+    letter-spacing: 0.06em; text-transform: uppercase;
+  }
+  .footer-text a { color: var(--cool-600); text-decoration: underline; text-decoration-color: var(--warm-300); text-underline-offset: 3px; }
+  .footer-text a:hover { color: var(--bn-orange); text-decoration-color: var(--bn-orange); }
+
+  @media (max-width: 480px) {
+    body { padding: 32px 12px 48px; }
+    h1 { font-size: 22px; }
+    .grid { grid-template-columns: 1fr; }
+  }
 </style>
 </head>
 <body>
 <div class="container">
   <header>
+    <div class="kicker">Business Next · Graph Library</div>
     <h1>Business Next Graph</h1>
     <p class="lede">《數位時代》互動視覺配件托管庫</p>
   </header>
+
   <div class="grid">
-    <a class="card" href="2026/05-nitori-vs-muji-timeline.html">
-      <div class="date">2026 / 05 / 21</div>
-      <div class="title">「家具界UNIQLO」不靈了？宜得利 vs 無印的市值黃金交叉</div>
-    </a>
+
+    <div class="card">
+      <a class="card-link" href="2026/05-nitori-vs-muji-timeline.html" target="_blank" rel="noopener">
+        <div class="date">2026 / 05 / 21</div>
+        <div class="title">「家具界UNIQLO」不靈了？宜得利 vs 無印的市值黃金交叉</div>
+      </a>
+      <div class="card-actions">
+        <a class="btn" href="2026/05-nitori-vs-muji-timeline.html" target="_blank" rel="noopener">預覽 →</a>
+        <button class="btn btn--copy btn--primary"
+                data-src="https://richardchen-code.github.io/business-next-graph/2026/05-nitori-vs-muji-timeline.html"
+                data-height="1600"
+                data-title="宜得利 vs 無印良品市值黃金交叉折線圖">
+          複製 iframe 嵌入碼
+        </button>
+      </div>
+    </div>
+
   </div>
-  <footer>由 visual-asset Skill 維護｜<a href="https://github.com/richardchen-code/business-next-graph" style="color: var(--bn-gray);">GitHub Repo</a></footer>
+
+  <footer>
+    <img src="_assets/logos/businessnext-logo.jpg" alt="數位時代" class="footer-logo">
+    <div class="footer-text">
+      由 visual-asset Skill 維護　|　<a href="https://github.com/richardchen-code/business-next-graph" target="_blank" rel="noopener">GitHub Repo</a>
+    </div>
+  </footer>
 </div>
+
+<div class="toast" id="toast">已複製嵌入碼到剪貼簿</div>
+
+<script>
+  const toast = document.getElementById('toast');
+  function showToast(msg) {
+    toast.textContent = msg;
+    toast.classList.add('show');
+    clearTimeout(toast._t);
+    toast._t = setTimeout(() => toast.classList.remove('show'), 1800);
+  }
+
+  document.querySelectorAll('.btn--copy').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const src = btn.dataset.src;
+      const height = btn.dataset.height;
+      const title = btn.dataset.title;
+      const code = `<iframe src="${src}"\n        width="100%" height="${height}"\n        style="border:0; max-width:880px; display:block; margin:24px auto;"\n        loading="lazy"\n        title="${title}"></iframe>`;
+
+      try {
+        await navigator.clipboard.writeText(code);
+        const original = btn.textContent;
+        btn.textContent = '✓ 已複製';
+        btn.classList.add('copied');
+        showToast('已複製 iframe 嵌入碼');
+        setTimeout(() => {
+          btn.textContent = original;
+          btn.classList.remove('copied');
+        }, 2000);
+      } catch (err) {
+        showToast('複製失敗，請手動複製');
+      }
+    });
+  });
+</script>
 </body>
 </html>
