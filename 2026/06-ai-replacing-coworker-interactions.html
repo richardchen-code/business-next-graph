@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI 已經變成最好聊的同事 ｜員工用 AI 取代的 5 種同事互動｜數位時代</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@500;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bn-orange: #FF6B1A;
+    --bn-orange-deep: #E55A0F;
+    --bn-navy: #0F1A2E;
+    --bn-black: #1A1A1A;
+    --paper: #FAF7F1;
+    --paper2: #F5F3EF;
+    --paper3: #ECE8DF;
+    --warm300: #D4D0C8;
+    --cool600: #5C6470;
+    --cool400: #8A93A0;
+    --hairline: rgba(15, 26, 46, 0.12);
+  }
+
+  body {
+    font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", -apple-system, sans-serif;
+    background: var(--paper);
+    color: var(--bn-black);
+    line-height: 1.7;
+    padding: 32px 16px;
+    text-wrap: pretty;
+  }
+
+  .num, .stat-num, .bar-pct, .bar-rank {
+    font-family: "Inter", "Noto Sans TC", sans-serif;
+    font-feature-settings: 'tnum' 1;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .wrapper {
+    max-width: 880px;
+    margin: 0 auto;
+    container-type: inline-size;
+    transition: max-width 0.25s ease;
+  }
+
+  /* === Header === */
+  header { padding: 8px 0 24px; border-bottom: 1px solid var(--hairline); margin-bottom: 24px; }
+  .kicker {
+    font-family: "JetBrains Mono", "Noto Sans TC", ui-monospace, monospace;
+    font-size: 12px; letter-spacing: 0.08em; font-weight: 500;
+    color: var(--bn-orange); text-transform: uppercase; margin-bottom: 12px;
+  }
+  h1 {
+    font-size: 30px; font-weight: 900; line-height: 1.4; margin-bottom: 14px;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+  .bn-underline {
+    text-decoration: underline;
+    text-decoration-thickness: 4px;
+    text-underline-offset: 6px;
+    text-decoration-color: var(--bn-orange);
+    text-decoration-skip-ink: none;
+  }
+  .deck {
+    font-size: 15.5px; color: var(--cool600); line-height: 1.75;
+    max-width: 760px;
+    text-wrap: pretty;
+  }
+
+  /* === Meta bar === */
+  .meta-bar {
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+    font-family: "JetBrains Mono", "Noto Sans TC", ui-monospace, monospace;
+    font-size: 11px; color: var(--cool600); padding: 12px 0 24px;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    border-bottom: 1px solid var(--hairline); margin-bottom: 28px;
+  }
+  .meta-bar strong { color: var(--bn-black); font-weight: 500; }
+  .meta-chunk { white-space: nowrap; }
+
+  /* === Stats strip：Z 世代驚人數據 === */
+  .stats {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
+    margin-bottom: 36px;
+  }
+  .stat {
+    background: var(--paper2);
+    border: 1px solid var(--warm300);
+    border-radius: 4px;
+    padding: 16px 14px;
+  }
+  .stat.peak {
+    background: rgba(255, 107, 26, 0.06);
+    border-color: var(--bn-orange);
+  }
+  .stat-label {
+    font-family: "JetBrains Mono", "Noto Sans TC", ui-monospace, monospace;
+    font-size: 11px; color: var(--cool600); margin-bottom: 8px;
+    letter-spacing: 0.06em; text-transform: uppercase;
+  }
+  .stat-num {
+    font-size: 30px; font-weight: 700; color: var(--bn-black);
+    line-height: 1.1; letter-spacing: -0.01em;
+  }
+  .stat.peak .stat-num { color: var(--bn-orange); }
+  .stat-unit {
+    font-size: 13px; font-weight: 500; color: var(--cool600);
+    margin-left: 4px; letter-spacing: 0.02em;
+  }
+  .stat.peak .stat-unit { color: var(--bn-black); }
+  .stat-sub {
+    font-family: "JetBrains Mono", "Noto Sans TC", ui-monospace, monospace;
+    font-size: 10.5px; color: var(--cool600); margin-top: 6px;
+    letter-spacing: 0.04em;
+  }
+  .stat.peak .stat-sub { color: var(--bn-orange); font-weight: 500; }
+
+  /* === Section === */
+  .section { margin-bottom: 40px; }
+  .section-title {
+    font-family: "JetBrains Mono", "Noto Sans TC", ui-monospace, monospace;
+    font-size: 11px; color: var(--cool600); letter-spacing: 0.08em;
+    font-weight: 500; margin-bottom: 8px; text-transform: uppercase;
+  }
+  .section-headline {
+    font-size: 22px; font-weight: 800; line-height: 1.45;
+    margin-bottom: 8px; letter-spacing: -0.005em;
+    text-wrap: balance;
+  }
+  .section-sub {
+    font-size: 14px; color: var(--cool600); line-height: 1.7;
+    margin-bottom: 24px;
+  }
+
+  /* === Bar chart === */
+  .bars { display: flex; flex-direction: column; gap: 18px; }
+
+  .bar-row {
+    display: grid;
+    grid-template-columns: 28px 1fr;
+    gap: 16px;
+    align-items: start;
+  }
+
+  .bar-rank {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--cool400);
+    padding-top: 4px;
+    letter-spacing: 0.04em;
+    text-align: right;
+  }
+
+  .bar-content { min-width: 0; }
+
+  .bar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 8px;
+  }
+  .bar-label {
+    font-size: 15.5px;
+    font-weight: 600;
+    color: var(--bn-black);
+    line-height: 1.4;
+  }
+  .bar-label-en {
+    display: block;
+    font-family: "Inter", sans-serif;
+    font-size: 11.5px;
+    font-weight: 400;
+    color: var(--cool600);
+    margin-top: 2px;
+    letter-spacing: 0.01em;
+  }
+  .bar-pct {
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--bn-black);
+    line-height: 1;
+    letter-spacing: -0.01em;
+    flex-shrink: 0;
+  }
+  .bar-row.peak .bar-pct { color: var(--bn-orange); font-size: 30px; }
+  .bar-row.peak .bar-rank { color: var(--bn-orange); font-weight: 700; }
+  .bar-row.peak .bar-label { font-weight: 700; }
+
+  /* 橫條本體 */
+  .bar-track {
+    width: 100%;
+    height: 12px;
+    background: var(--paper3);
+    border-radius: 0;
+    overflow: hidden;
+    border: 1px solid var(--warm300);
+  }
+  .bar-fill {
+    height: 100%;
+    background: var(--cool400);
+    transition: width 0.3s ease;
+  }
+  .bar-row.peak .bar-fill { background: var(--bn-orange); }
+  .bar-row.emotional .bar-fill { background: var(--bn-navy); }
+
+  /* 情緒微註解（為「尋求陪伴」「困難對話」補充） */
+  .bar-note {
+    font-size: 12.5px;
+    color: var(--cool600);
+    line-height: 1.6;
+    margin-top: 8px;
+    padding-left: 10px;
+    border-left: 2px solid var(--warm300);
+    font-style: normal;
+  }
+  .bar-row.emotional .bar-note {
+    border-left-color: var(--bn-navy);
+    color: var(--bn-black);
+  }
+
+  /* === Insight box === */
+  .insight {
+    background: var(--paper3);
+    border-left: 4px solid var(--bn-orange);
+    padding: 20px 22px;
+    margin-bottom: 36px;
+  }
+  .insight-kicker {
+    font-family: "JetBrains Mono", "Noto Sans TC", ui-monospace, monospace;
+    font-size: 11px; letter-spacing: 0.08em; font-weight: 500;
+    color: var(--bn-orange); text-transform: uppercase; margin-bottom: 10px;
+  }
+  .insight-body {
+    font-size: 15px; line-height: 1.75; color: var(--bn-black);
+  }
+  .insight-body strong { font-weight: 700; }
+
+  /* === Footer === */
+  footer {
+    margin-top: 32px;
+    padding-top: 20px;
+    border-top: 1px solid var(--hairline);
+    display: flex; align-items: center; gap: 12px;
+    flex-wrap: wrap;
+  }
+  .footer-logo { width: 28px; height: 28px; object-fit: contain; }
+  .footer-text {
+    font-family: "JetBrains Mono", "Noto Sans TC", ui-monospace, monospace;
+    font-size: 11px; color: var(--cool600);
+    letter-spacing: 0.06em; text-transform: uppercase;
+    line-height: 1.6;
+  }
+  .footer-text strong { color: var(--bn-black); font-weight: 500; }
+
+  /* === 手機雙軌 === */
+  @container (max-width: 640px) {
+    h1 { font-size: 24px; line-height: 1.4; }
+    .deck { font-size: 14.5px; }
+    .meta-bar { flex-direction: column; gap: 4px; }
+    .stats { grid-template-columns: 1fr; gap: 8px; }
+    .stat { padding: 14px; }
+    .stat-num { font-size: 26px; }
+    .section-headline { font-size: 19px; }
+    .bars { gap: 22px; }
+    .bar-row { grid-template-columns: 22px 1fr; gap: 10px; }
+    .bar-header { flex-direction: column; align-items: flex-start; gap: 4px; }
+    .bar-label { font-size: 15px; }
+    .bar-pct { font-size: 24px; }
+    .bar-row.peak .bar-pct { font-size: 28px; }
+    .insight { padding: 16px 18px; }
+    .insight-body { font-size: 14.5px; }
+  }
+
+  /* === 真實 viewport 邊距 === */
+  @media (max-width: 640px) {
+    body { padding: 20px 12px; }
+  }
+
+  /* === 預覽工具列（編輯內部使用） === */
+  .preview-toolbar {
+    display: none;
+    position: fixed;
+    top: 14px;
+    right: 14px;
+    z-index: 9999;
+    background: var(--bn-navy);
+    padding: 4px;
+    border-radius: 6px;
+    gap: 2px;
+    font-family: "Inter", "Noto Sans TC", sans-serif;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+  }
+  .preview-toolbar.show { display: flex; }
+  .preview-toolbar button {
+    border: 0;
+    padding: 7px 13px;
+    font-size: 12px;
+    font-weight: 700;
+    background: transparent;
+    color: rgba(250, 247, 241, 0.55);
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.15s;
+    font-family: inherit;
+  }
+  .preview-toolbar button:hover { color: var(--paper); }
+  .preview-toolbar button.active {
+    background: var(--bn-orange);
+    color: var(--paper);
+  }
+  .preview-toolbar .label {
+    font-size: 10px;
+    color: rgba(250, 247, 241, 0.45);
+    padding: 0 8px;
+    align-self: center;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+  <header>
+    <div class="kicker">Workplace · AI 與職場關係</div>
+    <h1>AI 已經變成<span class="bn-underline">最好聊的同事</span></h1>
+    <p class="deck">速度快、不會挑戰你的想法、不會給你社交壓力——AI 正在悄悄取代職場上原本要走去問同事的場景。每 4 個員工就有 3 個用 AI 找建議，連「為困難對話做準備」這種高度人際的工作，都有 1/5 員工先打開 ChatGPT。</p>
+  </header>
+
+  <div class="meta-bar">
+    <span class="meta-chunk">資料來源：<strong>Workday《The Human Connection Workplace Index》</strong></span>
+    <span class="meta-chunk">樣本：<strong>全球 2,150 名全職員工</strong>（每週至少使用 AI 一次）</span>
+  </div>
+
+  <!-- Stats strip：Z 世代驚人數據 -->
+  <div class="stats">
+    <div class="stat peak">
+      <div class="stat-label">Z 世代日用 AI</div>
+      <div><span class="stat-num">81</span><span class="stat-unit">%</span></div>
+      <div class="stat-sub">每天都使用 AI 工具</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">員工找 AI 求建議</div>
+      <div><span class="stat-num">76</span><span class="stat-unit">%</span></div>
+      <div class="stat-sub">每 4 人就有 3 人</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">用 AI 尋求陪伴</div>
+      <div><span class="stat-num">37</span><span class="stat-unit">%</span></div>
+      <div class="stat-sub">不只工作，還有情緒</div>
+    </div>
+  </div>
+
+  <!-- Figure 01：橫條排行 -->
+  <div class="section">
+    <div class="section-title">FIGURE 01 · 過去 12 個月使用比例</div>
+    <h2 class="section-headline">員工正在用 AI 取代這些同事互動</h2>
+    <p class="section-sub">員工被問及「過去 12 個月曾使用 AI 工具做以下事情」的比例。原本這些情境都需要走到隔壁桌、敲主管門、找前輩聊。現在第一個被打開的視窗是 ChatGPT。</p>
+
+    <div class="bars">
+
+      <!-- 1. 獲取建議（峰值，BN Orange） -->
+      <div class="bar-row peak">
+        <div class="bar-rank">01</div>
+        <div class="bar-content">
+          <div class="bar-header">
+            <div class="bar-label">
+              獲取建議
+              <span class="bar-label-en">Get advice</span>
+            </div>
+            <div class="bar-pct">76%</div>
+          </div>
+          <div class="bar-track"><div class="bar-fill" style="width: 100%;"></div></div>
+        </div>
+      </div>
+
+      <!-- 2. 腦力激盪 -->
+      <div class="bar-row">
+        <div class="bar-rank">02</div>
+        <div class="bar-content">
+          <div class="bar-header">
+            <div class="bar-label">
+              腦力激盪
+              <span class="bar-label-en">Brainstorm</span>
+            </div>
+            <div class="bar-pct">52%</div>
+          </div>
+          <div class="bar-track"><div class="bar-fill" style="width: 68.4%;"></div></div>
+        </div>
+      </div>
+
+      <!-- 3. 尋求陪伴（情緒張力） -->
+      <div class="bar-row emotional">
+        <div class="bar-rank">03</div>
+        <div class="bar-content">
+          <div class="bar-header">
+            <div class="bar-label">
+              尋求陪伴
+              <span class="bar-label-en">Seek companionship</span>
+            </div>
+            <div class="bar-pct">37%</div>
+          </div>
+          <div class="bar-track"><div class="bar-fill" style="width: 48.7%;"></div></div>
+          <div class="bar-note">超過 1/3 員工把 AI 當作「不會評價自己」的傾訴對象，這條原本應該屬於同事午餐、下班小酌的時間。</div>
+        </div>
+      </div>
+
+      <!-- 4. 詢問職涯指引 -->
+      <div class="bar-row">
+        <div class="bar-rank">04</div>
+        <div class="bar-content">
+          <div class="bar-header">
+            <div class="bar-label">
+              詢問職涯指引
+              <span class="bar-label-en">Ask for career mentorship</span>
+            </div>
+            <div class="bar-pct">31%</div>
+          </div>
+          <div class="bar-track"><div class="bar-fill" style="width: 40.8%;"></div></div>
+        </div>
+      </div>
+
+      <!-- 5. 為與同事的困難對話做準備（情緒張力） -->
+      <div class="bar-row emotional">
+        <div class="bar-rank">05</div>
+        <div class="bar-content">
+          <div class="bar-header">
+            <div class="bar-label">
+              為與同事的困難對話做準備
+              <span class="bar-label-en">Prepare for a difficult conversation with a colleague</span>
+            </div>
+            <div class="bar-pct">20%</div>
+          </div>
+          <div class="bar-track"><div class="bar-fill" style="width: 26.3%;"></div></div>
+          <div class="bar-note">每 5 個員工就有 1 個，在跟同事攤牌前先讓 AI 幫忙演練台詞。人際磨擦的第一手練習對象不再是另一個人。</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Insight -->
+  <div class="insight">
+    <div class="insight-kicker">為什麼 AI 贏了同事</div>
+    <div class="insight-body">
+      AI 不會挑戰你的想法、不會白眼、不會在會議上反問「你做過功課了嗎」、更不會在茶水間轉述你的求助。對需要快速答案又怕被評價的員工（尤其是 Z 世代），這比走到資深前輩桌前難得多的「<strong>低社交摩擦力</strong>」，正是 AI 真正取代的東西。問題是，當 76% 的求助都繞過真人，職場上的信任關係要從哪裡長出來？
+    </div>
+  </div>
+
+  <footer>
+    <img src="../_assets/logos/businessnext-logo.jpg" alt="數位時代" class="footer-logo" onerror="this.style.display='none'">
+    <div class="footer-text">
+      <strong>《數位時代》</strong>　|　資料整理：編輯部　|　製圖：2026.06.05
+    </div>
+  </footer>
+
+</div>
+
+<div class="preview-toolbar" id="previewToolbar" role="toolbar" aria-label="預覽模式切換">
+  <span class="label">預覽</span>
+  <button type="button" class="active" data-mode="desktop" aria-pressed="true">桌機</button>
+  <button type="button" data-mode="mobile" aria-pressed="false">手機</button>
+</div>
+
+<script>
+(function() {
+  if (!new URLSearchParams(location.search).has('preview')) return;
+  var toolbar = document.getElementById('previewToolbar');
+  var wrapper = document.querySelector('.wrapper');
+  if (!toolbar || !wrapper) return;
+  toolbar.classList.add('show');
+  toolbar.addEventListener('click', function(e) {
+    var btn = e.target.closest('button[data-mode]');
+    if (!btn) return;
+    var mode = btn.dataset.mode;
+    toolbar.querySelectorAll('button').forEach(function(b) {
+      b.classList.toggle('active', b === btn);
+      b.setAttribute('aria-pressed', b === btn ? 'true' : 'false');
+    });
+    wrapper.style.maxWidth = (mode === 'mobile') ? '390px' : '880px';
+  });
+})();
+</script>
+</body>
+</html>
