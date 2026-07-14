@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>15 兆美元：被隱形的熟齡女性商機｜阿姨經濟｜數位時代</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@500;700&family=Inter:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bn-orange: #FF6B1A;
+    --bn-orange-deep: #E55A0F;
+    --bn-navy: #0F1A2E;
+    --bn-black: #1A1A1A;
+    --paper: #FAF7F1;
+    --paper2: #F5F3EF;
+    --paper3: #ECE8DF;
+    --warm300: #D4D0C8;
+    --cool600: #5C6470;
+    --cool400: #8A93A0;
+    --hairline: rgba(15, 26, 46, 0.12);
+  }
+
+  body {
+    font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", -apple-system, sans-serif;
+    background: var(--paper);
+    color: var(--bn-black);
+    line-height: 1.7;
+    padding: 32px 16px;
+    text-wrap: pretty;
+  }
+
+  .num, .hero-num, .stat-num { font-family: "Inter", "Noto Sans TC", sans-serif; font-feature-settings: 'tnum' 1; font-variant-numeric: tabular-nums; }
+
+  .wrapper {
+    max-width: 880px;
+    margin: 0 auto;
+    container-type: inline-size;
+    transition: max-width 0.25s ease;
+  }
+
+  h1, h2, .section-headline, .deck { text-wrap: balance; }
+
+  /* === Header === */
+  header { padding: 8px 0 24px; border-bottom: 1px solid var(--hairline); margin-bottom: 28px; }
+  .kicker {
+    font-family: "JetBrains Mono", "Noto Sans TC", ui-monospace, monospace;
+    font-size: 12px; letter-spacing: 0.08em; font-weight: 500;
+    color: var(--bn-orange); text-transform: uppercase; margin-bottom: 12px;
+  }
+  h1 { font-size: 30px; font-weight: 900; line-height: 1.4; margin-bottom: 14px; letter-spacing: -0.01em; }
+  .bn-underline {
+    text-decoration: underline; text-decoration-thickness: 4px;
+    text-underline-offset: 6px; text-decoration-color: var(--bn-orange);
+    text-decoration-skip-ink: none;
+  }
+  .deck { font-size: 15.5px; color: var(--cool600); line-height: 1.75; max-width: 760px; }
+
+  /* === Meta bar === */
+  .meta-bar {
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+    font-family: "JetBrains Mono", "Noto Sans TC", ui-monospace, monospace;
+    font-size: 11px; color: var(--cool600); padding: 0 0 24px;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    border-bottom: 1px solid var(--hairline); margin-bottom: 32px;
+  }
+  .meta-bar strong { color: var(--bn-black); font-weight: 500; }
+  .meta-chunk { white-space: nowrap; }
+
+  /* === Hero big number === */
+  .hero {
+    background: rgba(255, 107, 26, 0.06);
+    border: 1px solid var(--bn-orange);
+    border-radius: 8px;
+    padding: 32px 28px;
+    margin-bottom: 20px;
+    display: flex; align-items: center; gap: 28px; flex-wrap: wrap;
+  }
+  .hero-figure { flex: 0 0 auto; }
+  .hero-num { font-size: 100px; font-weight: 900; color: var(--bn-orange); line-height: 0.9; letter-spacing: -0.03em; }
+  .hero-unit { font-size: 30px; font-weight: 700; color: var(--bn-black); margin-left: 6px; }
+  .hero-body { flex: 1 1 300px; min-width: 240px; }
+  .hero-lead { font-size: 18px; font-weight: 700; line-height: 1.55; margin-bottom: 10px; }
+  .hero-sub { font-size: 14.5px; color: var(--cool600); line-height: 1.7; }
+  .hero-sub strong { color: var(--bn-black); font-weight: 700; }
+  .hero-src {
+    font-family: "JetBrains Mono", "Noto Sans TC", ui-monospace, monospace;
+    font-size: 10.5px; color: var(--cool600); letter-spacing: 0.04em;
+    margin-top: 12px; line-height: 1.6;
+  }
+
+  /* === Section === */
+  .section { margin-bottom: 36px; }
+  .section-title {
+    font-family: "JetBrains Mono", "Noto Sans TC", ui-monospace, monospace;
+    font-size: 11px; color: var(--cool600); letter-spacing: 0.08em;
+    font-weight: 500; margin-bottom: 8px; text-transform: uppercase;
+  }
+  .section-headline { font-size: 22px; font-weight: 800; line-height: 1.45; margin-bottom: 8px; letter-spacing: -0.005em; }
+  .section-sub { font-size: 14px; color: var(--cool600); line-height: 1.7; margin-bottom: 24px; }
+
+  /* === Stats grid === */
+  .stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .stat {
+    background: var(--paper2);
+    border: 1px solid var(--warm300);
+    border-radius: 8px;
+    padding: 20px 20px;
+  }
+  .stat.wide { grid-column: 1 / -1; }
+  .stat.peak { background: rgba(255,107,26,0.06); border-color: var(--bn-orange); }
+  .stat-figure { display: flex; align-items: baseline; gap: 2px; margin-bottom: 8px; }
+  .stat-prefix { font-size: 15px; font-weight: 500; color: var(--cool600); margin-right: 4px; }
+  .stat-num { font-size: 40px; font-weight: 900; color: var(--bn-black); line-height: 1; letter-spacing: -0.02em; }
+  .stat.peak .stat-num { color: var(--bn-orange); }
+  .stat-unit { font-size: 18px; font-weight: 700; color: var(--bn-black); margin-left: 2px; }
+  .stat-label { font-size: 14.5px; font-weight: 600; color: var(--bn-black); line-height: 1.55; margin-bottom: 6px; }
+  .stat-desc { font-size: 13px; color: var(--cool600); line-height: 1.65; }
+  .stat-src {
+    font-family: "JetBrains Mono", "Noto Sans TC", ui-monospace, monospace;
+    font-size: 10px; color: var(--cool400); letter-spacing: 0.04em;
+    margin-top: 10px; text-transform: uppercase;
+  }
+  .stat.peak .stat-src { color: var(--bn-orange); }
+
+  /* === Insight === */
+  .insight {
+    background: var(--paper3);
+    border-left: 4px solid var(--bn-orange);
+    padding: 20px 22px; margin-top: 32px;
+  }
+  .insight-kicker {
+    font-family: "JetBrains Mono", "Noto Sans TC", ui-monospace, monospace;
+    font-size: 11px; letter-spacing: 0.08em; font-weight: 500;
+    color: var(--bn-orange); text-transform: uppercase; margin-bottom: 10px;
+  }
+  .insight-body { font-size: 15px; line-height: 1.75; color: var(--bn-black); }
+  .insight-body strong { font-weight: 700; }
+
+  /* === Footer === */
+  footer {
+    margin-top: 32px; padding-top: 20px;
+    border-top: 1px solid var(--hairline);
+    display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+  }
+  .footer-logo { width: 28px; height: 28px; object-fit: contain; }
+  .footer-text {
+    font-family: "JetBrains Mono", "Noto Sans TC", ui-monospace, monospace;
+    font-size: 11px; color: var(--cool600);
+    letter-spacing: 0.06em; text-transform: uppercase; line-height: 1.6;
+  }
+  .footer-text strong { color: var(--bn-black); font-weight: 500; }
+
+  /* === 手機雙軌 === */
+  @container (max-width: 640px) {
+    h1 { font-size: 24px; }
+    .deck { font-size: 14.5px; }
+    .meta-bar { flex-direction: column; gap: 4px; }
+    .hero { flex-direction: column; align-items: flex-start; gap: 16px; padding: 24px 20px; }
+    .hero-num { font-size: 74px; }
+    .hero-unit { font-size: 24px; }
+    .section-headline { font-size: 19px; }
+    .stats { grid-template-columns: 1fr; }
+    .stat.wide { grid-column: auto; }
+    .stat-num { font-size: 34px; }
+    .insight { padding: 16px 18px; }
+    .insight-body { font-size: 14.5px; }
+  }
+
+  @media (max-width: 640px) {
+    body { padding: 20px 12px; }
+  }
+
+  /* === 預覽工具列 === */
+  .preview-toolbar {
+    display: none; position: fixed; top: 14px; right: 14px; z-index: 9999;
+    background: var(--bn-navy); padding: 4px; border-radius: 6px; gap: 2px;
+    font-family: "Inter", "Noto Sans TC", sans-serif; box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+  }
+  .preview-toolbar.show { display: flex; }
+  .preview-toolbar button {
+    border: 0; padding: 7px 13px; font-size: 12px; font-weight: 700;
+    background: transparent; color: rgba(250,247,241,0.55); cursor: pointer;
+    border-radius: 4px; transition: all 0.15s; font-family: inherit;
+  }
+  .preview-toolbar button:hover { color: var(--paper); }
+  .preview-toolbar button.active { background: var(--bn-orange); color: var(--paper); }
+  .preview-toolbar .label {
+    font-size: 10px; color: rgba(250,247,241,0.45); padding: 0 8px;
+    align-self: center; letter-spacing: 0.5px; text-transform: uppercase;
+  }
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+  <header>
+    <div class="kicker">阿姨經濟 · THE QUEENAGER ECONOMY　3 / 3</div>
+    <h1>最有錢、卻最<span class="bn-underline">被廣告忽略</span>的一群人</h1>
+    <p class="deck">美國 SXSW 大會一場名為「Midlife: A Missed Opportunity for Monetization（中年：被錯過的變現機會）」的研討會指出，40 到 50 多歲女性是經濟實力最雄厚、卻被市場隱形的消費群體。她們消費力強勁，卻普遍覺得自己被主流廣告忽略，中間就是一塊巨大的商機空白。</p>
+  </header>
+
+  <div class="meta-bar">
+    <span class="meta-chunk">核心數據：<strong>SXSW 大會研討會</strong></span>
+    <span class="meta-chunk">台灣數據：<strong>Line 購物「她勢力」報告</strong></span>
+  </div>
+
+  <!-- Hero big number -->
+  <div class="hero">
+    <div class="hero-figure">
+      <span class="hero-num">15</span><span class="hero-unit">兆美元</span>
+    </div>
+    <div class="hero-body">
+      <div class="hero-lead">40 到 50 多歲女性掌握的消費實力</div>
+      <div class="hero-sub">她們是<strong>經濟實力最雄厚、卻被隱形</strong>的消費群體。市場一邊追逐年輕客群，一邊把這 15 兆美元的購買力晾在一旁。</div>
+      <div class="hero-src">來源：SXSW 大會研討會「Midlife: A Missed Opportunity for Monetization」</div>
+    </div>
+  </div>
+
+  <!-- Stats grid -->
+  <div class="section">
+    <div class="section-title">FIGURE 01 · 商機的 5 個側面</div>
+    <h2 class="section-headline">被隱形，不代表沒有實力</h2>
+    <p class="section-sub">從掌握家庭決策、消費金額，到美妝市場的未來成長，多項數據都指向同一件事：熟齡女性的購買力遠比市場想像得大。</p>
+
+    <div class="stats">
+
+      <div class="stat">
+        <div class="stat-figure">
+          <span class="stat-prefix">約</span><span class="stat-num">95</span><span class="stat-unit">%</span>
+        </div>
+        <div class="stat-label">家中消費決策由她們拍板</div>
+        <div class="stat-desc">「女王世代」（Queenagers，45 到 60 歲）掌握家庭裡約 95% 的消費決定。</div>
+        <div class="stat-src">Queenagers</div>
+      </div>
+
+      <div class="stat">
+        <div class="stat-figure">
+          <span class="stat-prefix">高出</span><span class="stat-num">150</span><span class="stat-unit">%</span>
+        </div>
+        <div class="stat-label">消費金額勝過年輕女性</div>
+        <div class="stat-desc">「女王世代」的消費金額，比年輕女性高出 150%。</div>
+        <div class="stat-src">Queenagers</div>
+      </div>
+
+      <div class="stat">
+        <div class="stat-figure">
+          <span class="stat-prefix">高</span><span class="stat-num">16</span><span class="stat-unit">%</span>
+        </div>
+        <div class="stat-label">美妝保健買更多</div>
+        <div class="stat-desc">美妝與保健的平均消費，比其他年齡層高出 16%。</div>
+        <div class="stat-src">Beauty &amp; Wellness</div>
+      </div>
+
+      <div class="stat">
+        <div class="stat-figure">
+          <span class="stat-prefix">逾</span><span class="stat-num">4</span><span class="stat-unit">成</span>
+        </div>
+        <div class="stat-label">撐起美妝市場的未來成長</div>
+        <div class="stat-desc">未來 10 年全球美妝市場的成長，超過 4 成由 45 歲以上女性消費者貢獻。</div>
+        <div class="stat-src">Global Beauty · 未來 10 年</div>
+      </div>
+
+      <div class="stat wide peak">
+        <div class="stat-figure">
+          <span class="stat-num">10</span><span class="stat-unit">倍以上</span>
+        </div>
+        <div class="stat-label">台灣熟齡女性的年均下單金額，是年輕世代的 10 倍以上</div>
+        <div class="stat-desc">台灣熟齡女性（X 世代）的年均下單金額，高過年輕世代女性 10 倍以上。這股「她勢力」在台灣同樣真實存在。</div>
+        <div class="stat-src">Line 購物「她勢力」報告</div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="insight">
+    <div class="insight-kicker">商機空白在哪裡</div>
+    <div class="insight-body">
+      一邊是掌握家庭決策、消費力遠勝年輕人的熟齡女性；另一邊，是她們普遍覺得自己<strong>被主流廣告與市場忽略</strong>。這中間的落差，就是品牌最容易被對手搶先的空白。誰先用對的形象認真對待這群人，誰就先接住這 15 兆美元。
+    </div>
+  </div>
+
+  <footer>
+    <img src="../_assets/logos/businessnext-logo.jpg" alt="數位時代" class="footer-logo" onerror="this.style.display='none'">
+    <div class="footer-text">
+      <strong>《數位時代》</strong>　|　資料整理：編輯部　|　製圖：2026.07.14
+    </div>
+  </footer>
+
+</div>
+
+<div class="preview-toolbar" id="previewToolbar" role="toolbar" aria-label="預覽模式切換">
+  <span class="label">預覽</span>
+  <button type="button" class="active" data-mode="desktop" aria-pressed="true">桌機</button>
+  <button type="button" data-mode="mobile" aria-pressed="false">手機</button>
+</div>
+
+<script>
+(function() {
+  if (!new URLSearchParams(location.search).has('preview')) return;
+  var toolbar = document.getElementById('previewToolbar');
+  var wrapper = document.querySelector('.wrapper');
+  if (!toolbar || !wrapper) return;
+  toolbar.classList.add('show');
+  toolbar.addEventListener('click', function(e) {
+    var btn = e.target.closest('button[data-mode]');
+    if (!btn) return;
+    var mode = btn.dataset.mode;
+    toolbar.querySelectorAll('button').forEach(function(b) {
+      b.classList.toggle('active', b === btn);
+      b.setAttribute('aria-pressed', b === btn ? 'true' : 'false');
+    });
+    wrapper.style.maxWidth = (mode === 'mobile') ? '390px' : '880px';
+  });
+})();
+</script>
+</body>
+</html>

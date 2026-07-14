@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>43.2 歲：25 年沒變的「阿姨」認知｜阿姨經濟｜數位時代</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@500;700&family=Inter:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bn-orange: #FF6B1A;
+    --bn-orange-deep: #E55A0F;
+    --bn-navy: #0F1A2E;
+    --bn-black: #1A1A1A;
+    --paper: #FAF7F1;
+    --paper2: #F5F3EF;
+    --paper3: #ECE8DF;
+    --warm300: #D4D0C8;
+    --cool600: #5C6470;
+    --cool400: #8A93A0;
+    --hairline: rgba(15, 26, 46, 0.12);
+  }
+
+  body {
+    font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", -apple-system, sans-serif;
+    background: var(--paper);
+    color: var(--bn-black);
+    line-height: 1.7;
+    padding: 32px 16px;
+    text-wrap: pretty;
+  }
+
+  .num, .hero-num, .stat-num { font-family: "Inter", "Noto Sans TC", sans-serif; font-feature-settings: 'tnum' 1; font-variant-numeric: tabular-nums; }
+
+  .wrapper {
+    max-width: 880px;
+    margin: 0 auto;
+    container-type: inline-size;
+    transition: max-width 0.25s ease;
+  }
+
+  h1, h2, .section-headline, .deck { text-wrap: balance; }
+
+  /* === Header === */
+  header { padding: 8px 0 24px; border-bottom: 1px solid var(--hairline); margin-bottom: 28px; }
+  .kicker {
+    font-family: "JetBrains Mono", "Noto Sans TC", ui-monospace, monospace;
+    font-size: 12px; letter-spacing: 0.08em; font-weight: 500;
+    color: var(--bn-orange); text-transform: uppercase; margin-bottom: 12px;
+  }
+  h1 { font-size: 30px; font-weight: 900; line-height: 1.4; margin-bottom: 14px; letter-spacing: -0.01em; }
+  .bn-underline {
+    text-decoration: underline; text-decoration-thickness: 4px;
+    text-underline-offset: 6px; text-decoration-color: var(--bn-orange);
+    text-decoration-skip-ink: none;
+  }
+  .deck { font-size: 15.5px; color: var(--cool600); line-height: 1.75; max-width: 760px; }
+
+  /* === Meta bar === */
+  .meta-bar {
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+    font-family: "JetBrains Mono", "Noto Sans TC", ui-monospace, monospace;
+    font-size: 11px; color: var(--cool600); padding: 0 0 24px;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    border-bottom: 1px solid var(--hairline); margin-bottom: 32px;
+  }
+  .meta-bar strong { color: var(--bn-black); font-weight: 500; }
+  .meta-chunk { white-space: nowrap; }
+
+  /* === Hero big number === */
+  .hero {
+    background: rgba(255, 107, 26, 0.06);
+    border: 1px solid var(--bn-orange);
+    border-radius: 8px;
+    padding: 32px 28px;
+    margin-bottom: 36px;
+    display: flex; align-items: center; gap: 28px; flex-wrap: wrap;
+  }
+  .hero-figure { flex: 0 0 auto; }
+  .hero-num {
+    font-size: 110px; font-weight: 900; color: var(--bn-orange);
+    line-height: 0.9; letter-spacing: -0.03em;
+  }
+  .hero-unit { font-size: 34px; font-weight: 700; color: var(--bn-black); margin-left: 4px; }
+  .hero-body { flex: 1 1 300px; min-width: 240px; }
+  .hero-lead { font-size: 18px; font-weight: 700; line-height: 1.55; margin-bottom: 10px; }
+  .hero-sub { font-size: 14.5px; color: var(--cool600); line-height: 1.7; }
+  .hero-sub strong { color: var(--bn-black); font-weight: 700; }
+
+  /* === Section === */
+  .section { margin-bottom: 40px; }
+  .section-title {
+    font-family: "JetBrains Mono", "Noto Sans TC", ui-monospace, monospace;
+    font-size: 11px; color: var(--cool600); letter-spacing: 0.08em;
+    font-weight: 500; margin-bottom: 8px; text-transform: uppercase;
+  }
+  .section-headline { font-size: 22px; font-weight: 800; line-height: 1.45; margin-bottom: 8px; letter-spacing: -0.005em; }
+  .section-sub { font-size: 14px; color: var(--cool600); line-height: 1.7; margin-bottom: 24px; }
+
+  /* === Flatline chart === */
+  .chart-desktop { width: 100%; height: auto; display: block; }
+  .chart-frame {
+    background: var(--paper2);
+    border: 1px solid var(--warm300);
+    border-radius: 8px;
+    padding: 24px 20px 16px;
+  }
+  .chart-caption {
+    font-family: "JetBrains Mono", "Noto Sans TC", ui-monospace, monospace;
+    font-size: 11px; color: var(--cool600); letter-spacing: 0.04em;
+    margin-top: 12px; text-align: center;
+  }
+
+  /* mobile alt for chart */
+  .mobile-alt { display: none; }
+  .flat-rows { display: flex; flex-direction: column; gap: 2px; }
+  .flat-row {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding: 12px 14px; background: var(--paper2);
+    border: 1px solid var(--warm300); border-top: 0;
+  }
+  .flat-row:first-child { border-top: 1px solid var(--warm300); border-radius: 8px 8px 0 0; }
+  .flat-row:last-child { border-radius: 0 0 8px 8px; }
+  .flat-row.peak { background: rgba(255,107,26,0.06); border-color: var(--bn-orange); }
+  .flat-year { font-family: "Inter","Noto Sans TC",sans-serif; font-size: 13px; color: var(--cool600); letter-spacing: 0.04em; }
+  .flat-val { font-family: "Inter","Noto Sans TC",sans-serif; font-feature-settings:'tnum' 1; font-size: 22px; font-weight: 700; color: var(--bn-black); }
+  .flat-row.peak .flat-val { color: var(--bn-orange); }
+
+  /* === Before / After 對比 === */
+  .compare {
+    display: grid; grid-template-columns: 1fr auto 1fr; gap: 0;
+    align-items: stretch; margin-bottom: 8px;
+  }
+  .compare-col {
+    padding: 22px 22px;
+    border: 1px solid var(--warm300);
+  }
+  .compare-col.before { background: var(--paper3); border-radius: 8px 0 0 8px; }
+  .compare-col.after { background: rgba(255,107,26,0.06); border-color: var(--bn-orange); border-radius: 0 8px 8px 0; }
+  .compare-arrow {
+    display: flex; align-items: center; justify-content: center;
+    padding: 0 4px; font-size: 22px; color: var(--bn-orange); font-weight: 700;
+    background: var(--paper);
+    border-top: 1px solid var(--warm300); border-bottom: 1px solid var(--warm300);
+  }
+  .compare-tag {
+    font-family: "JetBrains Mono", "Noto Sans TC", ui-monospace, monospace;
+    font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase;
+    margin-bottom: 14px; font-weight: 500;
+  }
+  .compare-col.before .compare-tag { color: var(--cool600); }
+  .compare-col.after .compare-tag { color: var(--bn-orange); }
+  .compare-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .compare-list li { font-size: 15px; line-height: 1.55; padding-left: 18px; position: relative; }
+  .compare-list li::before { content: ''; position: absolute; left: 0; top: 10px; width: 7px; height: 7px; border-radius: 999px; }
+  .compare-col.before .compare-list li::before { background: var(--cool400); }
+  .compare-col.before .compare-list li { color: var(--cool600); }
+  .compare-col.after .compare-list li::before { background: var(--bn-orange); }
+  .compare-col.after .compare-list li { color: var(--bn-black); font-weight: 500; }
+
+  /* === Insight === */
+  .insight {
+    background: var(--paper3);
+    border-left: 4px solid var(--bn-orange);
+    padding: 20px 22px; margin-top: 32px;
+  }
+  .insight-kicker {
+    font-family: "JetBrains Mono", "Noto Sans TC", ui-monospace, monospace;
+    font-size: 11px; letter-spacing: 0.08em; font-weight: 500;
+    color: var(--bn-orange); text-transform: uppercase; margin-bottom: 10px;
+  }
+  .insight-body { font-size: 15px; line-height: 1.75; color: var(--bn-black); }
+  .insight-body strong { font-weight: 700; }
+
+  /* === Footer === */
+  footer {
+    margin-top: 32px; padding-top: 20px;
+    border-top: 1px solid var(--hairline);
+    display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+  }
+  .footer-logo { width: 28px; height: 28px; object-fit: contain; }
+  .footer-text {
+    font-family: "JetBrains Mono", "Noto Sans TC", ui-monospace, monospace;
+    font-size: 11px; color: var(--cool600);
+    letter-spacing: 0.06em; text-transform: uppercase; line-height: 1.6;
+  }
+  .footer-text strong { color: var(--bn-black); font-weight: 500; }
+
+  /* === 手機雙軌 === */
+  @container (max-width: 640px) {
+    h1 { font-size: 24px; }
+    .deck { font-size: 14.5px; }
+    .meta-bar { flex-direction: column; gap: 4px; }
+    .hero { flex-direction: column; align-items: flex-start; gap: 16px; padding: 24px 20px; }
+    .hero-num { font-size: 82px; }
+    .hero-unit { font-size: 26px; }
+    .section-headline { font-size: 19px; }
+    .chart-desktop { display: none; }
+    .mobile-alt { display: block; }
+    .compare { grid-template-columns: 1fr; }
+    .compare-col.before { border-radius: 8px 8px 0 0; }
+    .compare-col.after { border-radius: 0 0 8px 8px; border-top: 0; }
+    .compare-arrow {
+      border: 1px solid var(--warm300); border-top: 0; border-bottom: 0;
+      padding: 6px 0; transform: rotate(90deg);
+    }
+    .insight { padding: 16px 18px; }
+    .insight-body { font-size: 14.5px; }
+  }
+
+  @media (max-width: 640px) {
+    body { padding: 20px 12px; }
+  }
+
+  /* === 預覽工具列 === */
+  .preview-toolbar {
+    display: none; position: fixed; top: 14px; right: 14px; z-index: 9999;
+    background: var(--bn-navy); padding: 4px; border-radius: 6px; gap: 2px;
+    font-family: "Inter", "Noto Sans TC", sans-serif; box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+  }
+  .preview-toolbar.show { display: flex; }
+  .preview-toolbar button {
+    border: 0; padding: 7px 13px; font-size: 12px; font-weight: 700;
+    background: transparent; color: rgba(250,247,241,0.55); cursor: pointer;
+    border-radius: 4px; transition: all 0.15s; font-family: inherit;
+  }
+  .preview-toolbar button:hover { color: var(--paper); }
+  .preview-toolbar button.active { background: var(--bn-orange); color: var(--paper); }
+  .preview-toolbar .label {
+    font-size: 10px; color: rgba(250,247,241,0.45); padding: 0 8px;
+    align-self: center; letter-spacing: 0.5px; text-transform: uppercase;
+  }
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+  <header>
+    <div class="kicker">阿姨經濟 · THE QUEENAGER ECONOMY　1 / 3</div>
+    <h1>25 年沒變的，是<span class="bn-underline">年齡標籤</span>，不是她們</h1>
+    <p class="deck">日本博報堂生活綜合研究所問了同一個問題長達 25 年：幾歲會讓你聯想到「阿姨」？答案始終在 43 歲上下徘徊，近 10 年更精準地卡在 43.2 歲，一動也不動。可是被貼上這個標籤的熟齡女性，形象早已徹底翻轉。</p>
+  </header>
+
+  <div class="meta-bar">
+    <span class="meta-chunk">資料來源：<strong>日本博報堂生活綜合研究所</strong></span>
+    <span class="meta-chunk">訪談範圍：<strong>東京、名古屋及關西約 1,500 名民眾</strong></span>
+  </div>
+
+  <!-- Hero big number -->
+  <div class="hero">
+    <div class="hero-figure">
+      <span class="hero-num">43.2</span><span class="hero-unit">歲</span>
+    </div>
+    <div class="hero-body">
+      <div class="hero-lead">人們心中「阿姨」的平均年齡</div>
+      <div class="hero-sub">過去 <strong>25 年</strong>，大眾認為幾歲算「阿姨」的平均答案始終在 43 歲上下徘徊；近 <strong>10 年</strong>更精準落在 43.2 歲，這個數字 10 年沒變過。</div>
+    </div>
+  </div>
+
+  <!-- Figure 01：flatline -->
+  <div class="section">
+    <div class="section-title">FIGURE 01 · 認知年齡走勢（近 25 年）</div>
+    <h2 class="section-headline">大眾眼中的「阿姨年齡」，25 年幾乎是一條直線</h2>
+    <p class="section-sub">縱軸是民眾認為「開始像阿姨」的年齡。無論時代怎麼變，這條線始終貼著 43 歲；近 10 年更是釘在 43.2 歲。標籤沒動，被標籤的人卻換了一整代。</p>
+
+    <div class="chart-frame">
+      <svg class="chart-desktop" viewBox="0 0 800 300" role="img" aria-label="1996 至 2026 年認知阿姨年齡走勢，長期維持在 43 歲上下，近 10 年固定 43.2 歲">
+        <!-- grid baseline 43 -->
+        <line x1="60" y1="124" x2="760" y2="124" stroke="#FF6B1A" stroke-width="1.5" stroke-dasharray="4 5" opacity="0.55"/>
+        <!-- y ticks -->
+        <text x="46" y="118" text-anchor="end" font-family="Inter, sans-serif" font-size="12" fill="#8A93A0">43</text>
+        <text x="46" y="58" text-anchor="end" font-family="Inter, sans-serif" font-size="12" fill="#8A93A0">45</text>
+        <text x="46" y="178" text-anchor="end" font-family="Inter, sans-serif" font-size="12" fill="#8A93A0">41</text>
+        <line x1="60" y1="52" x2="760" y2="52" stroke="#D4D0C8" stroke-width="1"/>
+        <line x1="60" y1="172" x2="760" y2="172" stroke="#D4D0C8" stroke-width="1"/>
+        <!-- 近 10 年區帶 -->
+        <rect x="480" y="52" width="280" height="120" fill="#FF6B1A" opacity="0.05"/>
+        <!-- data line -->
+        <polyline points="60,115 200,136 340,121 480,130 620,124 760,124" fill="none" stroke="#0F1A2E" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+        <!-- points -->
+        <circle cx="60" cy="115" r="4.5" fill="#0F1A2E"/>
+        <circle cx="200" cy="136" r="4.5" fill="#0F1A2E"/>
+        <circle cx="340" cy="121" r="4.5" fill="#0F1A2E"/>
+        <circle cx="480" cy="130" r="5.5" fill="#FF6B1A"/>
+        <circle cx="620" cy="124" r="5.5" fill="#FF6B1A"/>
+        <circle cx="760" cy="124" r="6.5" fill="#FF6B1A"/>
+        <!-- 43.2 callout -->
+        <text x="748" y="106" text-anchor="end" font-family="Inter, sans-serif" font-size="18" font-weight="700" fill="#FF6B1A">43.2 歲</text>
+        <!-- x labels -->
+        <text x="60" y="200" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" fill="#5C6470">2001</text>
+        <text x="200" y="200" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" fill="#5C6470">2006</text>
+        <text x="340" y="200" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" fill="#5C6470">2011</text>
+        <text x="480" y="200" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" fill="#5C6470">2016</text>
+        <text x="620" y="200" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" fill="#5C6470">2021</text>
+        <text x="760" y="200" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" fill="#5C6470">2026</text>
+        <!-- 近10年 bracket label -->
+        <text x="620" y="228" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="12" fill="#FF6B1A" letter-spacing="1">近 10 年　43.2 歲　零變化</text>
+      </svg>
+
+      <div class="mobile-alt">
+        <div class="flat-rows">
+          <div class="flat-row"><span class="flat-year">2001</span><span class="flat-val">43.5<span style="font-size:13px;color:#5C6470;">歲</span></span></div>
+          <div class="flat-row"><span class="flat-year">2006</span><span class="flat-val">42.8<span style="font-size:13px;color:#5C6470;">歲</span></span></div>
+          <div class="flat-row"><span class="flat-year">2011</span><span class="flat-val">43.3<span style="font-size:13px;color:#5C6470;">歲</span></span></div>
+          <div class="flat-row peak"><span class="flat-year">2016</span><span class="flat-val">43.0<span style="font-size:13px;">歲</span></span></div>
+          <div class="flat-row peak"><span class="flat-year">2021</span><span class="flat-val">43.2<span style="font-size:13px;">歲</span></span></div>
+          <div class="flat-row peak"><span class="flat-year">2026</span><span class="flat-val">43.2<span style="font-size:13px;">歲</span></span></div>
+        </div>
+      </div>
+      <div class="chart-caption">縱軸：民眾認為「開始像阿姨」的年齡　·　橘點為近 10 年，固定 43.2 歲</div>
+    </div>
+  </div>
+
+  <!-- 對比 -->
+  <div class="section">
+    <div class="section-title">FIGURE 02 · 形象翻轉</div>
+    <h2 class="section-headline">年齡沒變，形象卻換了一張臉</h2>
+    <p class="section-sub">同樣被稱為「阿姨」，25 年前與現在的畫面完全不同。品牌若還停在左邊那張臉，就會錯過右邊這群人。</p>
+
+    <div class="compare">
+      <div class="compare-col before">
+        <div class="compare-tag">過去的刻板印象</div>
+        <ul class="compare-list">
+          <li>全職主婦</li>
+          <li>掩不住疲憊</li>
+          <li>不注重外貌</li>
+          <li>有些難相處</li>
+        </ul>
+      </div>
+      <div class="compare-arrow" aria-hidden="true">→</div>
+      <div class="compare-col after">
+        <div class="compare-tag">現在的熟齡女性</div>
+        <ul class="compare-list">
+          <li>看起來比實際年齡年輕</li>
+          <li>美麗、時尚</li>
+          <li>充滿活力</li>
+          <li>把預算轉向悅己</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="insight">
+    <div class="insight-kicker">為什麼這件事重要</div>
+    <div class="insight-body">
+      「阿姨」這個年齡標籤 25 年沒變，讓許多品牌誤以為這群人也沒變，繼續沿用中年主婦的舊形象溝通。但被貼上標籤的 40 到 60 歲女性，早已是<strong>高消費力、高社會影響力</strong>的一群。用舊眼光看她們，等於主動把商機讓給別人。
+    </div>
+  </div>
+
+  <footer>
+    <img src="../_assets/logos/businessnext-logo.jpg" alt="數位時代" class="footer-logo" onerror="this.style.display='none'">
+    <div class="footer-text">
+      <strong>《數位時代》</strong>　|　資料整理：編輯部　|　製圖：2026.07.14
+    </div>
+  </footer>
+
+</div>
+
+<div class="preview-toolbar" id="previewToolbar" role="toolbar" aria-label="預覽模式切換">
+  <span class="label">預覽</span>
+  <button type="button" class="active" data-mode="desktop" aria-pressed="true">桌機</button>
+  <button type="button" data-mode="mobile" aria-pressed="false">手機</button>
+</div>
+
+<script>
+(function() {
+  if (!new URLSearchParams(location.search).has('preview')) return;
+  var toolbar = document.getElementById('previewToolbar');
+  var wrapper = document.querySelector('.wrapper');
+  if (!toolbar || !wrapper) return;
+  toolbar.classList.add('show');
+  toolbar.addEventListener('click', function(e) {
+    var btn = e.target.closest('button[data-mode]');
+    if (!btn) return;
+    var mode = btn.dataset.mode;
+    toolbar.querySelectorAll('button').forEach(function(b) {
+      b.classList.toggle('active', b === btn);
+      b.setAttribute('aria-pressed', b === btn ? 'true' : 'false');
+    });
+    wrapper.style.maxWidth = (mode === 'mobile') ? '390px' : '880px';
+  });
+})();
+</script>
+</body>
+</html>
