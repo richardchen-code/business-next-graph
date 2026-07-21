@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>貴一倍的模型，帳單反而更便宜：四種配置的成本×分數對照｜數位時代</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@500;700&family=Inter:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bn-orange: #FF6B1A;
+    --bn-orange-deep: #E55A0F;
+    --bn-navy: #0F1A2E;
+    --bn-black: #1A1A1A;
+    --paper: #FAF7F1;
+    --paper2: #F5F3EF;
+    --paper3: #ECE8DF;
+    --warm300: #D4D0C8;
+    --cool600: #5C6470;
+    --cool400: #8A93A0;
+    --hairline: rgba(15, 26, 46, 0.12);
+  }
+
+  body {
+    font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", -apple-system, sans-serif;
+    background: var(--paper);
+    color: var(--bn-black);
+    line-height: 1.7;
+    padding: 32px 16px;
+    text-wrap: pretty;
+  }
+
+  .num { font-family: "Inter", "Noto Sans TC", sans-serif; font-feature-settings: 'tnum' 1; font-variant-numeric: tabular-nums; }
+
+  .wrapper {
+    max-width: 880px;
+    margin: 0 auto;
+    container-type: inline-size;
+    transition: max-width 0.25s ease;
+  }
+
+  h1, h2, .section-headline, .deck { text-wrap: balance; }
+
+  /* === Header === */
+  header { padding: 8px 0 24px; border-bottom: 1px solid var(--hairline); margin-bottom: 28px; }
+  .kicker {
+    font-family: "JetBrains Mono", "Noto Sans TC", ui-monospace, monospace;
+    font-size: 12px; letter-spacing: 0.08em; font-weight: 500;
+    color: var(--bn-orange); text-transform: uppercase; margin-bottom: 12px;
+  }
+  h1 { font-size: 30px; font-weight: 900; line-height: 1.4; margin-bottom: 14px; letter-spacing: -0.01em; }
+  .bn-underline {
+    text-decoration: underline; text-decoration-thickness: 4px;
+    text-underline-offset: 6px; text-decoration-color: var(--bn-orange);
+    text-decoration-skip-ink: none;
+  }
+  .deck { font-size: 15.5px; color: var(--cool600); line-height: 1.75; max-width: 780px; }
+
+  /* === Meta bar === */
+  .meta-bar {
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+    font-family: "JetBrains Mono", "Noto Sans TC", ui-monospace, monospace;
+    font-size: 11px; color: var(--cool600); padding: 0 0 24px;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    border-bottom: 1px solid var(--hairline); margin-bottom: 28px;
+  }
+  .meta-bar strong { color: var(--bn-black); font-weight: 500; }
+  .meta-chunk { white-space: nowrap; }
+
+  /* === Section === */
+  .section { margin-bottom: 24px; }
+  .section-title {
+    font-family: "JetBrains Mono", "Noto Sans TC", ui-monospace, monospace;
+    font-size: 11px; color: var(--cool600); letter-spacing: 0.08em;
+    font-weight: 500; margin-bottom: 8px; text-transform: uppercase;
+  }
+  .section-headline { font-size: 22px; font-weight: 800; line-height: 1.45; margin-bottom: 8px; letter-spacing: -0.005em; }
+  .section-sub { font-size: 14px; color: var(--cool600); line-height: 1.7; margin-bottom: 20px; }
+
+  /* === Legend === */
+  .legend { display: flex; gap: 18px; flex-wrap: wrap; margin-bottom: 20px; font-size: 12.5px; color: var(--cool600); }
+  .legend-item { display: flex; align-items: center; gap: 7px; }
+  .lg-dot { width: 14px; height: 14px; border-radius: 999px; flex-shrink: 0; }
+  .lg-dot.sweet { background: var(--bn-orange); }
+  .lg-dot.filled { background: var(--bn-navy); }
+  .lg-dot.hollow { background: var(--paper); border: 2px solid var(--bn-navy); }
+
+  /* === Chart === */
+  .chart-desktop { display: block; width: 100%; height: auto; }
+  .svg-txt { font-family: "Inter", "Noto Sans TC", sans-serif; }
+
+  /* === Mobile alt === */
+  .mobile-alt { display: none; }
+  .cfg-cards { display: flex; flex-direction: column; gap: 12px; }
+  .cfg-card {
+    background: var(--paper2); border: 1px solid var(--warm300);
+    border-radius: 8px; padding: 16px 18px;
+  }
+  .cfg-card.sweet { border-left: 4px solid var(--bn-orange); background: var(--paper3); }
+  .cfg-name { font-size: 15px; font-weight: 700; color: var(--bn-black); margin-bottom: 3px; }
+  .cfg-tag {
+    display: inline-block; font-family: "JetBrains Mono", "Noto Sans TC", monospace;
+    font-size: 10px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;
+    color: var(--paper); background: var(--bn-orange); padding: 2px 8px; border-radius: 4px; margin-left: 6px;
+  }
+  .cfg-nums { display: flex; gap: 28px; margin-top: 10px; }
+  .cfg-metric .cfg-label { font-size: 11px; color: var(--cool600); letter-spacing: 0.04em; }
+  .cfg-metric .cfg-val { font-size: 24px; font-weight: 700; line-height: 1.1; }
+  .cfg-card.sweet .cfg-val.cost { color: var(--bn-orange); }
+
+  /* === Insight === */
+  .insight {
+    background: var(--paper3);
+    border-left: 4px solid var(--bn-orange);
+    padding: 20px 22px; margin-top: 28px;
+  }
+  .insight-kicker {
+    font-family: "JetBrains Mono", "Noto Sans TC", ui-monospace, monospace;
+    font-size: 11px; letter-spacing: 0.08em; font-weight: 500;
+    color: var(--bn-orange); text-transform: uppercase; margin-bottom: 10px;
+  }
+  .insight-body { font-size: 15px; line-height: 1.75; color: var(--bn-black); }
+  .insight-body strong { font-weight: 700; }
+
+  /* === Footer === */
+  footer {
+    margin-top: 30px; padding-top: 20px;
+    border-top: 1px solid var(--hairline);
+    display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+  }
+  .footer-logo { width: 28px; height: 28px; object-fit: contain; }
+  .footer-text {
+    font-family: "JetBrains Mono", "Noto Sans TC", ui-monospace, monospace;
+    font-size: 11px; color: var(--cool600);
+    letter-spacing: 0.06em; text-transform: uppercase; line-height: 1.6;
+  }
+  .footer-text strong { color: var(--bn-black); font-weight: 500; }
+
+  /* === 手機雙軌 === */
+  @container (max-width: 640px) {
+    h1 { font-size: 24px; }
+    .deck { font-size: 14.5px; }
+    .meta-bar { flex-direction: column; gap: 4px; }
+    .section-headline { font-size: 19px; }
+    .chart-desktop { display: none; }
+    .mobile-alt { display: block; }
+    .insight { padding: 16px 18px; }
+    .insight-body { font-size: 14.5px; }
+  }
+
+  @media (max-width: 640px) {
+    body { padding: 20px 12px; }
+  }
+
+  /* === 預覽工具列 === */
+  .preview-toolbar {
+    display: none; position: fixed; top: 14px; right: 14px; z-index: 9999;
+    background: var(--bn-navy); padding: 4px; border-radius: 6px; gap: 2px;
+    font-family: "Inter", "Noto Sans TC", sans-serif; box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+  }
+  .preview-toolbar.show { display: flex; }
+  .preview-toolbar button {
+    border: 0; padding: 7px 13px; font-size: 12px; font-weight: 700;
+    background: transparent; color: rgba(250,247,241,0.55); cursor: pointer;
+    border-radius: 4px; transition: all 0.15s; font-family: inherit;
+  }
+  .preview-toolbar button:hover { color: var(--paper); }
+  .preview-toolbar button.active { background: var(--bn-orange); color: var(--paper); }
+  .preview-toolbar .label {
+    font-size: 10px; color: rgba(250,247,241,0.45); padding: 0 8px;
+    align-self: center; letter-spacing: 0.5px; text-transform: uppercase;
+  }
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+  <header>
+    <div class="kicker">AI 編碼實測 · 1 / 2</div>
+    <h1>貴一倍的模型，<span class="bn-underline">帳單反而更便宜</span></h1>
+    <p class="deck">AI編碼公司Cognition把領導模型從Opus 4.8換成單價貴一倍的Fable 5，每次任務帳單反而更省、分數還更高。把四種配置攤在成本與分數的座標上，左上角「高分又低成本」的甜蜜點，正是懂得授權的Fable 5配上便宜副手。</p>
+  </header>
+
+  <div class="meta-bar">
+    <span class="meta-chunk">資料來源：<strong>Cognition 實測數據</strong></span>
+    <span class="meta-chunk">分數為任務基準測試表現，成本為每次任務平均</span>
+  </div>
+
+  <div class="section">
+    <div class="section-title">FIGURE 01 · 成本 × 分數象限散布</div>
+    <h2 class="section-headline">左上角，就是又便宜又高分的甜蜜點</h2>
+    <p class="section-sub">橫軸為每次任務成本，越往左越便宜；縱軸為任務分數，越往上越高。實心點代表「領導＋副手」搭配，空心點代表領導「單獨」作業。</p>
+
+    <div class="legend">
+      <span class="legend-item"><span class="lg-dot sweet"></span>Fable 5＋副手（甜蜜點）</span>
+      <span class="legend-item"><span class="lg-dot filled"></span>領導＋副手</span>
+      <span class="legend-item"><span class="lg-dot hollow"></span>領導單獨作業</span>
+    </div>
+
+    <!-- 桌機：SVG 象限散布圖 -->
+    <svg class="chart-desktop" viewBox="0 0 760 470" role="img" aria-label="四種配置的成本與分數象限散布圖">
+      <!-- 甜蜜點區塊 -->
+      <rect x="70" y="30" width="213.3" height="148" fill="#ECE8DF"/>
+      <text class="svg-txt" x="80" y="49" font-size="12" font-weight="700" fill="#FF6B1A" letter-spacing="0.03em">高分・低成本｜甜蜜點</text>
+
+      <!-- 格線 -->
+      <line x1="176.7" y1="30" x2="176.7" y2="400" stroke="#D4D0C8" stroke-width="1" stroke-dasharray="3 4"/>
+      <line x1="390" y1="30" x2="390" y2="400" stroke="#D4D0C8" stroke-width="1" stroke-dasharray="3 4"/>
+      <line x1="603.3" y1="30" x2="603.3" y2="400" stroke="#D4D0C8" stroke-width="1" stroke-dasharray="3 4"/>
+      <line x1="70" y1="326" x2="710" y2="326" stroke="#D4D0C8" stroke-width="1" stroke-dasharray="3 4"/>
+      <line x1="70" y1="252" x2="710" y2="252" stroke="#D4D0C8" stroke-width="1" stroke-dasharray="3 4"/>
+      <line x1="70" y1="178" x2="710" y2="178" stroke="#D4D0C8" stroke-width="1" stroke-dasharray="3 4"/>
+      <line x1="70" y1="104" x2="710" y2="104" stroke="#D4D0C8" stroke-width="1" stroke-dasharray="3 4"/>
+
+      <!-- 軸線 -->
+      <line x1="70" y1="30" x2="70" y2="400" stroke="#5C6470" stroke-width="1.5"/>
+      <line x1="70" y1="400" x2="710" y2="400" stroke="#5C6470" stroke-width="1.5"/>
+
+      <!-- Y 軸刻度 -->
+      <text class="svg-txt" x="60" y="330" font-size="12" fill="#5C6470" text-anchor="end">54</text>
+      <text class="svg-txt" x="60" y="256" font-size="12" fill="#5C6470" text-anchor="end">56</text>
+      <text class="svg-txt" x="60" y="182" font-size="12" fill="#5C6470" text-anchor="end">58</text>
+      <text class="svg-txt" x="60" y="108" font-size="12" fill="#5C6470" text-anchor="end">60</text>
+      <text class="svg-txt" x="60" y="34" font-size="12" fill="#5C6470" text-anchor="end">62</text>
+      <!-- X 軸刻度 -->
+      <text class="svg-txt" x="176.7" y="418" font-size="12" fill="#5C6470" text-anchor="middle">2.0</text>
+      <text class="svg-txt" x="390" y="418" font-size="12" fill="#5C6470" text-anchor="middle">3.0</text>
+      <text class="svg-txt" x="603.3" y="418" font-size="12" fill="#5C6470" text-anchor="middle">4.0</text>
+
+      <!-- 軸標題 -->
+      <text class="svg-txt" x="390" y="448" font-size="13" font-weight="700" fill="#1A1A1A" text-anchor="middle">每次任務成本（美元）　←　越左越便宜</text>
+      <text class="svg-txt" x="24" y="215" font-size="13" font-weight="700" fill="#1A1A1A" text-anchor="middle" transform="rotate(-90 24 215)">任務分數　↑　越高越好</text>
+
+      <!-- Fable 授權節省箭頭 -->
+      <line x1="592" y1="76" x2="168" y2="79" stroke="#5C6470" stroke-width="1.5" stroke-dasharray="5 4"/>
+      <polygon points="168,79 180,74 180,84" fill="#5C6470"/>
+      <text class="svg-txt" x="382" y="66" font-size="12" font-weight="700" fill="#5C6470" text-anchor="middle">同一個Fable，配副手後省54%</text>
+
+      <!-- 資料點 -->
+      <!-- Fable 單獨 (609.7, 74.4) hollow -->
+      <circle cx="609.7" cy="74.4" r="9" fill="#FAF7F1" stroke="#0F1A2E" stroke-width="2.5"/>
+      <text class="svg-txt" x="596" y="72" font-size="12.5" font-weight="700" fill="#1A1A1A" text-anchor="end">Fable 5單獨</text>
+      <text class="svg-txt num" x="596" y="90" font-size="12" fill="#5C6470" text-anchor="end">60.8分・4.03美元</text>
+
+      <!-- Opus 單獨 (402.8, 274.2) hollow -->
+      <circle cx="402.8" cy="274.2" r="9" fill="#FAF7F1" stroke="#0F1A2E" stroke-width="2.5"/>
+      <text class="svg-txt" x="420" y="272" font-size="12.5" font-weight="700" fill="#1A1A1A" text-anchor="start">Opus 4.8單獨</text>
+      <text class="svg-txt num" x="420" y="290" font-size="12" fill="#5C6470" text-anchor="start">55.4分・3.06美元</text>
+
+      <!-- Opus + 副手 (185.2, 303.8) filled navy -->
+      <circle cx="185.2" cy="303.8" r="9" fill="#0F1A2E"/>
+      <text class="svg-txt" x="203" y="301" font-size="12.5" font-weight="700" fill="#1A1A1A" text-anchor="start">Opus 4.8＋副手</text>
+      <text class="svg-txt num" x="203" y="319" font-size="12" fill="#5C6470" text-anchor="start">54.6分・2.04美元</text>
+
+      <!-- Fable + 副手 甜蜜點 (146.8, 78.1) orange -->
+      <circle cx="146.8" cy="78.1" r="15" fill="none" stroke="#FF6B1A" stroke-width="1.5" opacity="0.5"/>
+      <circle cx="146.8" cy="78.1" r="10" fill="#FF6B1A"/>
+      <text class="svg-txt" x="166" y="102" font-size="13" font-weight="700" fill="#FF6B1A" text-anchor="start">Fable 5＋副手</text>
+      <text class="svg-txt num" x="166" y="120" font-size="12" font-weight="700" fill="#1A1A1A" text-anchor="start">60.7分・1.86美元</text>
+    </svg>
+
+    <!-- 手機：配置卡片 -->
+    <div class="mobile-alt">
+      <div class="cfg-cards">
+        <div class="cfg-card sweet">
+          <div class="cfg-name">Fable 5（low）＋副手<span class="cfg-tag">甜蜜點</span></div>
+          <div class="cfg-nums">
+            <div class="cfg-metric"><div class="cfg-label">任務分數</div><div class="num cfg-val">60.7</div></div>
+            <div class="cfg-metric"><div class="cfg-label">每次成本</div><div class="num cfg-val cost">1.86<span style="font-size:14px;">美元</span></div></div>
+          </div>
+        </div>
+        <div class="cfg-card">
+          <div class="cfg-name">Fable 5（low）單獨</div>
+          <div class="cfg-nums">
+            <div class="cfg-metric"><div class="cfg-label">任務分數</div><div class="num cfg-val">60.8</div></div>
+            <div class="cfg-metric"><div class="cfg-label">每次成本</div><div class="num cfg-val">4.03<span style="font-size:14px;">美元</span></div></div>
+          </div>
+        </div>
+        <div class="cfg-card">
+          <div class="cfg-name">Opus 4.8（medium）＋副手</div>
+          <div class="cfg-nums">
+            <div class="cfg-metric"><div class="cfg-label">任務分數</div><div class="num cfg-val">54.6</div></div>
+            <div class="cfg-metric"><div class="cfg-label">每次成本</div><div class="num cfg-val">2.04<span style="font-size:14px;">美元</span></div></div>
+          </div>
+        </div>
+        <div class="cfg-card">
+          <div class="cfg-name">Opus 4.8（medium）單獨</div>
+          <div class="cfg-nums">
+            <div class="cfg-metric"><div class="cfg-label">任務分數</div><div class="num cfg-val">55.4</div></div>
+            <div class="cfg-metric"><div class="cfg-label">每次成本</div><div class="num cfg-val">3.06<span style="font-size:14px;">美元</span></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="insight">
+    <div class="insight-kicker">這張圖說了什麼</div>
+    <div class="insight-body">
+      同樣都是Fable 5領導，讓它獨自完成任務要花<strong>4.03美元</strong>；改成把工作委派給便宜的副手模型，成本直接降到<strong>1.86美元、省下54%</strong>，分數卻幾乎不變（60.8→60.7）。單價貴一倍的模型不見得比較貴，關鍵是它懂不懂得授權。
+    </div>
+  </div>
+
+  <footer>
+    <img src="../_assets/logos/businessnext-logo.jpg" alt="數位時代" class="footer-logo" onerror="this.style.display='none'">
+    <div class="footer-text">
+      <strong>《數位時代》</strong>　|　資料來源：Cognition　|　製圖：2026.07.21
+    </div>
+  </footer>
+
+</div>
+
+<div class="preview-toolbar" id="previewToolbar" role="toolbar" aria-label="預覽模式切換">
+  <span class="label">預覽</span>
+  <button type="button" class="active" data-mode="desktop" aria-pressed="true">桌機</button>
+  <button type="button" data-mode="mobile" aria-pressed="false">手機</button>
+</div>
+
+<script>
+(function() {
+  if (!new URLSearchParams(location.search).has('preview')) return;
+  var toolbar = document.getElementById('previewToolbar');
+  var wrapper = document.querySelector('.wrapper');
+  if (!toolbar || !wrapper) return;
+  toolbar.classList.add('show');
+  toolbar.addEventListener('click', function(e) {
+    var btn = e.target.closest('button[data-mode]');
+    if (!btn) return;
+    var mode = btn.dataset.mode;
+    toolbar.querySelectorAll('button').forEach(function(b) {
+      b.classList.toggle('active', b === btn);
+      b.setAttribute('aria-pressed', b === btn ? 'true' : 'false');
+    });
+    wrapper.style.maxWidth = (mode === 'mobile') ? '390px' : '880px';
+  });
+})();
+</script>
+</body>
+</html>
