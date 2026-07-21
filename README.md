@@ -28,8 +28,8 @@ business-next-graph/
 
 | 日期 | 配件 | 檔案 |
 |---|---|---|
-| 2026 / 07 / 21 | AI 編碼實測 1 / 2：貴一倍的模型帳單反而更便宜（成本×分數象限） | `2026/07-cognition-cost-score-quadrant.html` |
-| 2026 / 07 / 21 | AI 編碼實測 2 / 2：會授權的主管總成本更低（領導成本拆解與管理指標） | `2026/07-cognition-leadership-cost-breakdown.html` |
+| 2026 / 07 / 21 | AI程式開發實測 1 / 2：貴一倍的模型帳單反而更便宜（成本×分數象限） | `2026/07-cognition-cost-score-quadrant.html` |
+| 2026 / 07 / 21 | AI程式開發實測 2 / 2：會授權的主管總成本更低（領導成本拆解與管理指標） | `2026/07-cognition-leadership-cost-breakdown.html` |
 | 2026 / 07 / 17 | 搶銅新勢力 1 / 3：四大部門銅需求消長（2025→2040） | `2026/07-copper-demand-four-sectors.html` |
 | 2026 / 07 / 17 | 搶銅新勢力 2 / 3：電動車 vs 燃油車用銅一升一降 | `2026/07-copper-ev-vs-ice.html` |
 | 2026 / 07 / 17 | 搶銅新勢力 3 / 3：銅價十年翻 3 倍 | `2026/07-copper-price-tripled.html` |
