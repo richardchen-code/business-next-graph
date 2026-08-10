@@ -28,6 +28,7 @@ business-next-graph/
 
 | 日期 | 配件 | 檔案 |
 |---|---|---|
+| 2026 / 08 / 10 | HBM十七年：SK海力士與三星的兩條路（2019分岔點雙軌時間軸） | `2026/08-hbm-17years-sk-hynix-vs-samsung.html` |
 | 2026 / 07 / 27 | AI工程有哪些，差異一次看懂：五種AI工程一層包一層（提示→情境→駕馭→迴圈→圖結構工程） | `2026/07-ai-engineering-five-layers.html` |
 | 2026 / 07 / 21 | AI程式開發實測 1 / 2：貴一倍的模型帳單反而更便宜（成本×分數象限） | `2026/07-cognition-cost-score-quadrant.html` |
 | 2026 / 07 / 21 | AI程式開發實測 2 / 2：會授權的主管總成本更低（領導成本拆解與管理指標） | `2026/07-cognition-leadership-cost-breakdown.html` |
