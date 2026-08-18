@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>4,755兆韓元去了哪裡：韓國三大超級計畫的三種算法 ｜數位時代</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bn-orange: #FF6B1A;
+    --bn-navy: #0F1A2E;
+    --bn-black: #1A1A1A;
+    --paper: #FAF7F1;
+    --paper2: #F5F3EF;
+    --paper3: #ECE8DF;
+    --paper4: #E3DECF;
+    --warm300: #D4D0C8;
+    --cool600: #5C6470;
+    --cool400: #8A93A0;
+    --hairline: rgba(15, 26, 46, 0.12);
+  }
+
+  body {
+    font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", -apple-system, sans-serif;
+    background: var(--paper);
+    color: var(--bn-black);
+    line-height: 1.75;
+    padding: 32px 16px;
+    text-wrap: pretty;
+  }
+  h1, .section-headline, .deck { text-wrap: balance; }
+
+  .num, .stat-num, .bar-val, .sub-val {
+    font-family: "Inter", "Noto Sans TC", sans-serif;
+    font-feature-settings: 'tnum' 1;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .wrapper {
+    max-width: 880px; margin: 0 auto;
+    container-type: inline-size;
+    transition: max-width 0.25s ease;
+  }
+
+  /* ===== Header ===== */
+  header { padding: 8px 0 24px; border-bottom: 1px solid var(--hairline); margin-bottom: 20px; }
+  .kicker {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 12px; letter-spacing: 0.08em; font-weight: 500;
+    color: var(--bn-orange); text-transform: uppercase; margin-bottom: 12px;
+  }
+  h1 { font-size: 28px; font-weight: 900; line-height: 1.45; margin-bottom: 12px; letter-spacing: -0.01em; }
+  .bn-underline {
+    text-decoration: underline; text-decoration-thickness: 4px;
+    text-underline-offset: 6px; text-decoration-color: var(--bn-orange);
+    text-decoration-skip-ink: none;
+  }
+  .deck { font-size: 15px; color: var(--cool600); line-height: 1.8; max-width: 760px; }
+
+  .meta-bar {
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 11px; color: var(--cool600); padding: 12px 0 22px;
+    letter-spacing: 0.06em;
+    border-bottom: 1px solid var(--hairline); margin-bottom: 28px;
+  }
+  .meta-bar strong { color: var(--bn-black); font-weight: 500; }
+  .nw { white-space: nowrap; }
+
+  /* ===== Stats ===== */
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 34px; }
+  .stat { background: var(--paper2); border: 1px solid var(--warm300); border-radius: 8px; padding: 16px 14px; }
+  .stat.peak { background: rgba(255,107,26,.06); border-color: var(--bn-orange); }
+  .stat-label { font-size: 11.5px; color: var(--cool600); margin-bottom: 6px; letter-spacing: .04em; line-height: 1.5; font-weight: 500; }
+  .stat-num { font-size: 28px; font-weight: 700; line-height: 1.15; letter-spacing: -0.01em; }
+  .stat.peak .stat-num { color: var(--bn-orange); }
+  .stat-unit { font-size: 13px; font-weight: 500; color: var(--cool600); margin-left: 3px; }
+  .stat-sub {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 10.5px; color: var(--cool600); margin-top: 6px; letter-spacing: .03em; line-height: 1.6;
+  }
+  .stat.peak .stat-sub { color: var(--bn-orange); font-weight: 500; }
+
+  /* ===== Toggle ===== */
+  .toggle-label {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 11px; color: var(--cool600); letter-spacing: .08em;
+    text-transform: uppercase; margin-bottom: 10px;
+  }
+  .toggle { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 22px; }
+  .toggle button {
+    font-family: inherit; font-size: 14px; font-weight: 500;
+    padding: 9px 18px; border: 1px solid var(--bn-black);
+    background: var(--paper); color: var(--bn-black);
+    border-radius: 0; cursor: pointer; transition: all .18s cubic-bezier(.2,.7,.2,1);
+  }
+  .toggle button:hover { background: var(--paper3); }
+  .toggle button.active { background: var(--bn-orange); color: #fff; border-color: var(--bn-orange); border-radius: 0 0 8px 8px; }
+
+  /* ===== Chart ===== */
+  .chart-card { background: var(--paper2); border: 1px solid var(--warm300); border-radius: 8px; padding: 22px 20px 18px; }
+  .view-note {
+    font-size: 13px; color: var(--cool600); line-height: 1.7;
+    padding-bottom: 16px; margin-bottom: 18px; border-bottom: 1px solid var(--hairline);
+  }
+  .view-note b { color: var(--bn-black); font-weight: 700; }
+
+  .grp { margin-bottom: 26px; }
+  .grp:last-child { margin-bottom: 4px; }
+  .grp-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 8px; }
+  .grp-name { font-size: 16px; font-weight: 800; letter-spacing: .01em; }
+  .grp-sub { font-style: normal; font-size: 12.5px; font-weight: 400; color: var(--cool600); }
+  .grp-total { font-family: "Inter", sans-serif; font-feature-settings:'tnum' 1; font-size: 15px; font-weight: 700; color: var(--bn-orange); white-space: nowrap; }
+  .grp-total span { font-size: 12px; color: var(--cool600); font-weight: 500; margin-left: 3px; }
+
+  .bar-track { height: 12px; background: var(--paper4); border-radius: 2px; overflow: hidden; display: flex; }
+  .bar-fill { height: 100%; }
+  .bar-fill.c1 { background: var(--bn-orange); }
+  .bar-fill.c2 { background: var(--bn-navy); }
+  .bar-fill.c3 { background: var(--cool400); }
+  .bar-fill.c4 { background: var(--warm300); }
+  .bar-fill.c0 { background: repeating-linear-gradient(45deg, var(--warm300) 0 5px, var(--paper4) 5px 10px); }
+
+  .subs { margin-top: 12px; display: grid; gap: 7px; }
+  .sub {
+    display: grid; grid-template-columns: 12px 1fr auto; gap: 10px; align-items: center;
+    font-size: 13.5px; line-height: 1.5;
+  }
+  .swatch { width: 12px; height: 12px; border-radius: 2px; }
+  .swatch.c1 { background: var(--bn-orange); }
+  .swatch.c2 { background: var(--bn-navy); }
+  .swatch.c3 { background: var(--cool400); }
+  .swatch.c4 { background: var(--warm300); }
+  .swatch.c0 { background: repeating-linear-gradient(45deg, var(--warm300) 0 4px, var(--paper4) 4px 8px); }
+  .sub-name { color: var(--bn-black); }
+  .sub-name em { font-style: normal; color: var(--cool600); font-size: 12.5px; }
+  .sub-val { font-weight: 700; white-space: nowrap; color: var(--bn-black); }
+  .sub-val.na { color: var(--cool400); font-weight: 500; font-size: 12.5px; }
+
+  .fine-print {
+    margin-top: 20px; padding-top: 14px; border-top: 1px solid var(--hairline);
+    font-size: 11.5px; line-height: 1.75; color: var(--cool600);
+  }
+
+  /* ===== Project cards（第三檢視） ===== */
+  .projs { display: grid; gap: 12px; }
+  .proj {
+    background: var(--paper); border: 1px solid var(--warm300);
+    border-radius: 8px; padding: 16px 18px;
+  }
+  .proj.lead { border-color: var(--bn-orange); background: rgba(255,107,26,.05); }
+  .proj-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 4px; flex-wrap: wrap; }
+  .proj-name { font-size: 16px; font-weight: 800; }
+  .proj-tag {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 10.5px; letter-spacing: .06em; text-transform: uppercase;
+    color: var(--cool600); border: 1px solid var(--warm300);
+    border-radius: 999px; padding: 2px 9px; white-space: nowrap;
+  }
+  .proj.lead .proj-tag { color: var(--bn-orange); border-color: var(--bn-orange); }
+  .proj-scale {
+    font-family: "Inter", sans-serif; font-feature-settings:'tnum' 1;
+    font-size: 14px; font-weight: 700; color: var(--bn-orange); margin-bottom: 8px;
+  }
+  .proj-scale.na { color: var(--cool400); font-weight: 500; font-size: 13px; }
+  .proj-desc { font-size: 13.5px; line-height: 1.75; color: var(--bn-black); }
+  .proj-desc b { font-weight: 700; }
+
+  /* ===== Footer ===== */
+  footer { margin-top: 34px; padding-top: 18px; border-top: 1px solid var(--hairline); }
+  .footer-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+  .footer-logo { width: 32px; height: 32px; object-fit: contain; border-radius: 4px; }
+  .footer-meta {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 11px; color: var(--cool600); letter-spacing: .05em;
+  }
+  .footer-meta strong { color: var(--bn-black); font-weight: 500; }
+  .footer-note { font-size: 11.5px; color: var(--cool600); line-height: 1.75; }
+
+  /* ===== 雙軌 ===== */
+  @container (max-width: 640px) {
+    h1 { font-size: 23px; }
+    .deck { font-size: 14px; }
+    .meta-bar { flex-direction: column; gap: 4px; }
+    .stats { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .stat-num { font-size: 24px; }
+    .chart-card { padding: 18px 14px 14px; }
+    .grp-head { flex-direction: column; gap: 2px; }
+    .grp-name { font-size: 15px; }
+    .toggle button { flex: 1 1 auto; font-size: 13px; padding: 9px 10px; }
+    .sub { font-size: 13px; }
+  }
+
+  /* ===== Preview toolbar ===== */
+  .preview-toolbar {
+    display: none; position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%);
+    background: var(--bn-navy); border-radius: 8px; padding: 5px; gap: 2px; z-index: 99;
+  }
+  .preview-toolbar.show { display: flex; }
+  .preview-toolbar button {
+    border: 0; padding: 7px 13px; font-size: 12px; font-weight: 700;
+    background: transparent; color: rgba(250,247,241,.55);
+    cursor: pointer; border-radius: 4px; transition: all .15s; font-family: inherit;
+  }
+  .preview-toolbar button:hover { color: var(--paper); }
+  .preview-toolbar button.active { background: var(--bn-orange); color: var(--paper); }
+  .preview-toolbar .label {
+    font-size: 10px; color: rgba(250,247,241,.45); padding: 0 8px;
+    align-self: center; letter-spacing: .5px; text-transform: uppercase;
+  }
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+  <header>
+    <div class="kicker">Korea · Mega Project 2026</div>
+    <h1>4,755兆韓元，<span class="bn-underline">韓國打算怎麼花</span></h1>
+    <p class="deck">2026年6月29日，韓國總統李在明在青瓦台主持「大躍進三大超級計畫國民報告會」，三星電子與SK集團各自報告投資承諾，合計4,755兆韓元、約新台幣107兆元。這筆錢分給了哪些產業、哪些地區，又對應到哪三個計畫。</p>
+  </header>
+
+  <div class="meta-bar">
+    <span class="meta-chunk">資料時點：<strong class="nw">2026 / 08 / 18</strong></span>
+    <span class="meta-chunk">單位：<strong class="nw">兆韓元</strong>　匯率：<strong class="nw">1韓元≈0.0226新台幣</strong></span>
+    <span class="meta-chunk">整理：<strong>《數位時代》編輯部</strong></span>
+  </div>
+
+  <div class="stats">
+    <div class="stat peak">
+      <div class="stat-label">兩大集團承諾總額</div>
+      <div class="stat-num">4,755<span class="stat-unit">兆韓元</span></div>
+      <div class="stat-sub">≈ 新台幣107兆元</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">首都圈（平澤・龍仁）</div>
+      <div class="stat-num">2,630<span class="stat-unit">兆</span></div>
+      <div class="stat-sub">占總額55%，兩家的既有主力基地</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">湖南（西南圈）新聚落</div>
+      <div class="stat-num">825<span class="stat-unit">兆</span></div>
+      <div class="stat-sub">兩家各蓋2座，共4座晶圓廠</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">已經董事會決議的部分</div>
+      <div class="stat-num">54.3<span class="stat-unit">兆</span></div>
+      <div class="stat-sub">SK 2026/08/07，約占其承諾5%</div>
+    </div>
+  </div>
+
+  <div class="toggle-label">切換檢視</div>
+  <div class="toggle" id="toggle">
+    <button type="button" class="active" data-view="corp">依集團</button>
+    <button type="button" data-view="region">依地區</button>
+    <button type="button" data-view="project">三大計畫是什麼</button>
+  </div>
+
+  <div class="chart-card">
+    <div class="view-note" id="viewNote"></div>
+    <div id="chart"></div>
+    <p class="fine-print">依集團與依地區兩種檢視使用同一組數字，皆為三星與SK公布的承諾金額，兩者均可加總為4,755兆韓元。政府端另有以專案為單位的口徑（例如西南圈800兆、忠清圈81兆），涵蓋範圍與本表不同，不宜直接對比。</p>
+  </div>
+
+  <footer>
+    <div class="footer-row">
+      <img src="../_assets/logos/businessnext-logo.jpg" alt="數位時代" class="footer-logo" onerror="this.style.display='none'">
+      <div class="footer-meta"><strong>《數位時代》</strong>　|　資料整理：編輯部</div>
+    </div>
+    <p class="footer-note">註：金額為韓元原始幣別，新台幣為概算。三星與SK的承諾至今未經董事會決議，兩家公告均載明為「為幫助理解而提供的指引」，可能隨市場與經營環境變動。資料來源：韓國產業通商部、《世界日報》、《디일렉》、ZDNet Korea、《京鄉新聞》、《韓國經濟》、SK海力士新聞室。</p>
+  </footer>
+
+</div>
+
+<div class="preview-toolbar" id="previewToolbar" role="toolbar" aria-label="預覽模式切換">
+  <span class="label">預覽</span>
+  <button type="button" class="active" data-mode="desktop" aria-pressed="true">桌機</button>
+  <button type="button" data-mode="mobile" aria-pressed="false">手機</button>
+</div>
+
+<script>
+var DATA = {
+  corp: {
+    note: '兩家公司在報告會上<b>各自宣布</b>的金額。三星是10年國內投資總額，SK含半導體與AI資料中心兩塊。',
+    max: 2655,
+    groups: [
+      { name: '三星電子', total: 2655, subs: [
+        { n: '首都圈（平澤・龍仁）半導體聚落', v: 2030, c: 'c1' },
+        { n: '湖南', s: '光州新記憶體廠＋海南AI資料中心', v: 425, c: 'c2' },
+        { n: '忠清', s: 'HBM廠56兆、顯示器67兆、電池、封裝基板', v: 140, c: 'c3' },
+        { n: '嶺南', s: '製造業AI與機器人轉換', v: 60, c: 'c4' }
+      ]},
+      { name: 'SK集團', total: 2100, subs: [
+        { n: 'AI資料中心', s: '至2035年，SK電訊主導', v: 1000, c: 'c2' },
+        { n: '龍仁', s: 'DRAM', v: 600, c: 'c1' },
+        { n: '西南圈（湖南）', s: '新聚落，2座晶圓廠', v: 400, c: 'c3' },
+        { n: '清州', s: 'NAND', v: 100, c: 'c4' }
+      ]}
+    ]
+  },
+  region: {
+    note: '同一筆錢換成地區來看。<b>過半仍留在首都圈</b>——平澤與龍仁是兩家的既有主力基地；新增的重心則在湖南，那是這次計畫最受矚目、也最具爭議的一塊。',
+    max: 2630,
+    groups: [
+      { name: '首都圈', sub: '平澤・龍仁', total: 2630, subs: [
+        { n: '三星', s: '平澤・龍仁半導體聚落', v: 2030, c: 'c1' },
+        { n: 'SK', s: '龍仁，DRAM', v: 600, c: 'c2' }
+      ]},
+      { name: '湖南（西南圈）', sub: '新聚落，4座晶圓廠', total: 825, subs: [
+        { n: '三星', s: '光州新記憶體廠＋海南AI資料中心', v: 425, c: 'c1' },
+        { n: 'SK', s: '2座晶圓廠', v: 400, c: 'c2' }
+      ]},
+      { name: '忠清', sub: 'HBM與後段封裝', total: 240, subs: [
+        { n: '三星', s: '天安・溫陽HBM廠、牙山顯示器、封裝基板', v: 140, c: 'c1' },
+        { n: 'SK', s: '清州，NAND', v: 100, c: 'c2' }
+      ]},
+      { name: '嶺南', sub: '製造業AI與機器人轉換', total: 60, subs: [
+        { n: '三星', s: '龜尾、蔚山、釜山、巨濟', v: 60, c: 'c1' }
+      ]},
+      { name: '全國（AI資料中心）', sub: '未按地區拆分', total: 1000, subs: [
+        { n: 'SK', s: '至2035年建置15GW，SK電訊主導', v: 1000, c: 'c2' }
+      ]}
+    ]
+  },
+  project: {
+    type: 'cards',
+    note: '這筆錢對應到政府提的三個計畫。<b>半導體與AI資料中心是主體</b>，兩者加起來就是4,755兆的絕大部分；實體AI的主角是現代汽車集團，政府只給了戰略與目標。',
+    cards: [
+      {
+        name: '半導體', tag: '3S ＋ 1F', lead: true,
+        scale: '西南圈800兆 ／ 忠清81兆 ／ 未來15年30兆以上',
+        desc: '政府端戰略分四塊：<b>速度戰</b>把龍仁完工時程提前、五年內DRAM產能翻倍；<b>據點戰</b>在西南圈蓋4座晶圓廠、忠清做封裝據點；<b>先導戰</b>投入規模小但成長快的市場；<b>全力支援</b>則是電力、用水、道路與資金的總力支援體系。'
+      },
+      {
+        name: 'AI資料中心', tag: 'SK 主導',
+        scale: '第一階段8.4GW，550兆韓元',
+        desc: '第一階段由政府加上<b>SK、GS、Naver</b>共同建置8.4GW；第二階段政府與SK再把5GW擴張到<b>15GW</b>。SK自己承諾的1,000兆韓元投資即屬此項，至2035年分階段完成。'
+      },
+      {
+        name: '實體AI', tag: '3M ／ 現代汽車主導',
+        scale: '政府未公布總投資金額',
+        na: true,
+        desc: '目標2030年做到AI機器人全球前三強、實體AI全球第一強。作法包括每年在產線部署<b>1,000台以上</b>AI機器人、10大業種建資料工廠、培育1萬名專業人力，並在<b>新萬金</b>設機器人代工廠與零組件聚落。'
+      }
+    ]
+  }
+};
+
+function fmt(n) { return n.toLocaleString('en-US'); }
+
+function render(view) {
+  var d = DATA[view];
+  document.getElementById('viewNote').innerHTML = d.note;
+  var html = '';
+
+  if (d.type === 'cards') {
+    html += '<div class="projs">';
+    d.cards.forEach(function(c) {
+      html += '<div class="proj' + (c.lead ? ' lead' : '') + '">';
+      html += '<div class="proj-head"><div class="proj-name">' + c.name + '</div>';
+      html += '<div class="proj-tag">' + c.tag + '</div></div>';
+      html += '<div class="proj-scale' + (c.na ? ' na' : '') + '">' + c.scale + '</div>';
+      html += '<div class="proj-desc">' + c.desc + '</div>';
+      html += '</div>';
+    });
+    html += '</div>';
+    document.getElementById('chart').innerHTML = html;
+    return;
+  }
+
+  d.groups.forEach(function(g) {
+    var pct = g.total > 0 ? (g.total / d.max * 100) : 0;
+    html += '<div class="grp">';
+    html += '<div class="grp-head"><div class="grp-name">' + g.name + (g.sub ? ' <em class="grp-sub">／' + g.sub + '</em>' : '') + '</div>';
+    if (g.total > 0) {
+      html += '<div class="grp-total">' + fmt(g.total) + '<span>' + (g.totalNote || '兆韓元') + '</span></div>';
+    } else {
+      html += '<div class="grp-total" style="color:var(--cool400);font-size:13px;">未公布總額</div>';
+    }
+    html += '</div>';
+
+    html += '<div class="bar-track">';
+    if (g.total > 0) {
+      g.subs.forEach(function(s) {
+        if (s.v > 0) {
+          html += '<div class="bar-fill ' + s.c + '" style="width:' + (s.v / d.max * 100) + '%"></div>';
+        }
+      });
+    } else {
+      html += '<div class="bar-fill c0" style="width:100%"></div>';
+    }
+    html += '</div>';
+
+    html += '<div class="subs">';
+    g.subs.forEach(function(s) {
+      html += '<div class="sub"><span class="swatch ' + s.c + '"></span>';
+      html += '<span class="sub-name">' + s.n + (s.s ? ' <em>／' + s.s + '</em>' : '') + '</span>';
+      if (s.na) {
+        html += '<span class="sub-val na">' + s.na + '</span>';
+      } else {
+        html += '<span class="sub-val">' + fmt(s.v) + (s.suffix || '') + '</span>';
+      }
+      html += '</div>';
+    });
+    html += '</div></div>';
+  });
+  document.getElementById('chart').innerHTML = html;
+}
+
+document.getElementById('toggle').addEventListener('click', function(e) {
+  var btn = e.target.closest('button[data-view]');
+  if (!btn) return;
+  this.querySelectorAll('button').forEach(function(b) { b.classList.toggle('active', b === btn); });
+  render(btn.dataset.view);
+});
+
+render('corp');
+
+(function() {
+  if (!new URLSearchParams(location.search).has('preview')) return;
+  var toolbar = document.getElementById('previewToolbar');
+  var wrapper = document.querySelector('.wrapper');
+  if (!toolbar || !wrapper) return;
+  toolbar.classList.add('show');
+  toolbar.addEventListener('click', function(e) {
+    var btn = e.target.closest('button[data-mode]');
+    if (!btn) return;
+    toolbar.querySelectorAll('button').forEach(function(b) {
+      b.classList.toggle('active', b === btn);
+      b.setAttribute('aria-pressed', b === btn ? 'true' : 'false');
+    });
+    wrapper.style.maxWidth = (btn.dataset.mode === 'mobile') ? '390px' : '880px';
+  });
+})();
+</script>
+</body>
+</html>

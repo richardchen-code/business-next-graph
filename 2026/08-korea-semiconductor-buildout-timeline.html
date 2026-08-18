@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>承諾與產能之間：韓國半導體大投資的時間表 ｜數位時代</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bn-orange: #FF6B1A;
+    --bn-navy: #0F1A2E;
+    --bn-black: #1A1A1A;
+    --paper: #FAF7F1;
+    --paper2: #F5F3EF;
+    --paper3: #ECE8DF;
+    --paper4: #E3DECF;
+    --warm300: #D4D0C8;
+    --cool600: #5C6470;
+    --cool400: #8A93A0;
+    --alert-red: #E63946;
+    --hairline: rgba(15, 26, 46, 0.12);
+  }
+
+  body {
+    font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", -apple-system, sans-serif;
+    background: var(--paper);
+    color: var(--bn-black);
+    line-height: 1.75;
+    padding: 32px 16px;
+    text-wrap: pretty;
+  }
+  h1, .section-headline, .deck { text-wrap: balance; }
+  .num, .stat-num, .yr, .ms-year { font-family: "Inter", "Noto Sans TC", sans-serif; font-feature-settings: 'tnum' 1; font-variant-numeric: tabular-nums; }
+
+  .wrapper { max-width: 880px; margin: 0 auto; container-type: inline-size; transition: max-width .25s ease; }
+
+  /* ===== Header ===== */
+  header { padding: 8px 0 24px; border-bottom: 1px solid var(--hairline); margin-bottom: 20px; }
+  .kicker {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 12px; letter-spacing: .08em; font-weight: 500;
+    color: var(--bn-orange); text-transform: uppercase; margin-bottom: 12px;
+  }
+  h1 { font-size: 28px; font-weight: 900; line-height: 1.45; margin-bottom: 12px; letter-spacing: -0.01em; }
+  .bn-underline {
+    text-decoration: underline; text-decoration-thickness: 4px;
+    text-underline-offset: 6px; text-decoration-color: var(--bn-orange);
+    text-decoration-skip-ink: none;
+  }
+  .deck { font-size: 15px; color: var(--cool600); line-height: 1.8; max-width: 760px; }
+
+  .meta-bar {
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 11px; color: var(--cool600); padding: 12px 0 22px; letter-spacing: .06em;
+    border-bottom: 1px solid var(--hairline); margin-bottom: 28px;
+  }
+  .meta-bar strong { color: var(--bn-black); font-weight: 500; }
+  .nw { white-space: nowrap; }
+
+  /* ===== Stats ===== */
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 34px; }
+  .stat { background: var(--paper2); border: 1px solid var(--warm300); border-radius: 8px; padding: 16px 14px; }
+  .stat.peak { background: rgba(255,107,26,.06); border-color: var(--bn-orange); }
+  .stat-label { font-size: 11.5px; color: var(--cool600); margin-bottom: 6px; letter-spacing: .04em; line-height: 1.5; font-weight: 500; }
+  .stat-num { font-size: 28px; font-weight: 700; line-height: 1.15; letter-spacing: -0.01em; }
+  .stat.peak .stat-num { color: var(--bn-orange); }
+  .stat-unit { font-size: 13px; font-weight: 500; color: var(--cool600); margin-left: 3px; }
+  .stat-sub { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 10.5px; color: var(--cool600); margin-top: 6px; letter-spacing: .03em; line-height: 1.6; }
+  .stat.peak .stat-sub { color: var(--bn-orange); font-weight: 500; }
+
+  /* ===== Section ===== */
+  .section-title {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 11px; color: var(--cool600); letter-spacing: .08em; font-weight: 500;
+    margin-bottom: 8px; text-transform: uppercase;
+  }
+  .section-headline {
+    font-size: 20px; font-weight: 800; margin-bottom: 20px;
+    border-left: 4px solid var(--bn-orange); padding-left: 12px; line-height: 1.45;
+  }
+
+  /* ===== Gantt ===== */
+  .chart-card { background: var(--paper2); border: 1px solid var(--warm300); border-radius: 8px; padding: 22px 20px 14px; margin-bottom: 30px; }
+  .legend { display: flex; flex-wrap: wrap; gap: 10px 20px; margin-bottom: 18px; font-size: 12px; }
+  .lg { display: inline-flex; align-items: center; gap: 6px; color: var(--bn-black); }
+  .lg-sw { width: 20px; height: 10px; border-radius: 2px; }
+  .lg-sw.build { background: var(--warm300); }
+  .lg-sw.ramp { background: var(--bn-navy); }
+  .lg-sw.run { background: var(--bn-orange); }
+  .lg-sw.risk { background: repeating-linear-gradient(45deg, rgba(230,57,70,.28) 0 4px, transparent 4px 8px); border: 1px solid rgba(230,57,70,.5); }
+
+  .gantt { position: relative; }
+  .axis { display: grid; grid-template-columns: 150px 1fr; gap: 12px; margin-bottom: 6px; }
+  .axis-years { position: relative; height: 18px; }
+  .axis-years .yr {
+    position: absolute; top: 0; transform: translateX(-50%);
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 10.5px; color: var(--cool600); letter-spacing: .03em;
+  }
+
+  .row { display: grid; grid-template-columns: 150px 1fr; gap: 12px; align-items: center; margin-bottom: 10px; }
+  .row-label { font-size: 13px; line-height: 1.45; font-weight: 500; }
+  .row-label em { font-style: normal; display: block; font-size: 11px; color: var(--cool600); font-weight: 400; }
+  .track { position: relative; height: 26px; background: var(--paper4); border-radius: 3px; overflow: hidden; }
+  .seg { position: absolute; top: 0; height: 100%; display: flex; align-items: center; padding: 0 8px; }
+  .seg span {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 10px; letter-spacing: .03em; white-space: nowrap; font-weight: 500;
+  }
+  .seg.build { background: var(--warm300); }
+  .seg.build span { color: var(--bn-black); }
+  .seg.ramp { background: var(--bn-navy); }
+  .seg.ramp span { color: var(--paper); }
+  .seg.run { background: var(--bn-orange); }
+  .seg.run span { color: #fff; }
+
+  .riskband {
+    position: absolute; top: 0; bottom: 0;
+    background: repeating-linear-gradient(45deg, rgba(230,57,70,.16) 0 5px, transparent 5px 10px);
+    border-left: 1px dashed rgba(230,57,70,.6); border-right: 1px dashed rgba(230,57,70,.6);
+    pointer-events: none; z-index: 2;
+  }
+  .risk-note {
+    display: grid; grid-template-columns: 150px 1fr; gap: 12px; margin-top: 4px;
+  }
+  .risk-note-inner { position: relative; height: 34px; }
+  .risk-tag {
+    position: absolute; top: 4px; transform: translateX(-50%);
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 10px; letter-spacing: .04em; color: var(--alert-red);
+    text-align: center; line-height: 1.5; white-space: nowrap;
+  }
+
+  /* ===== Milestones ===== */
+  .ms-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 30px; }
+  .ms {
+    background: var(--paper2); border: 1px solid var(--warm300);
+    border-radius: 8px; padding: 14px 14px 13px;
+  }
+  .ms.done { border-left: 4px solid var(--bn-orange); }
+  .ms-year {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 11px; letter-spacing: .06em; color: var(--bn-orange);
+    font-weight: 500; margin-bottom: 5px;
+  }
+  .ms.future .ms-year { color: var(--cool600); }
+  .ms-text { font-size: 13px; line-height: 1.65; }
+  .ms-text b { font-weight: 700; }
+
+  /* ===== Callout ===== */
+  .callout { background: rgba(255,107,26,.06); border: 1px solid var(--bn-orange); border-radius: 8px; padding: 16px 18px; }
+  .callout-title {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 11px; letter-spacing: .08em; text-transform: uppercase;
+    color: var(--bn-orange); font-weight: 500; margin-bottom: 8px;
+  }
+  .callout p { font-size: 13.5px; line-height: 1.8; }
+  .callout p + p { margin-top: 8px; }
+  .callout b { font-weight: 700; }
+
+  /* ===== Footer ===== */
+  footer { margin-top: 34px; padding-top: 18px; border-top: 1px solid var(--hairline); }
+  .footer-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+  .footer-logo { width: 32px; height: 32px; object-fit: contain; border-radius: 4px; }
+  .footer-meta { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 11px; color: var(--cool600); letter-spacing: .05em; }
+  .footer-meta strong { color: var(--bn-black); font-weight: 500; }
+  .footer-note { font-size: 11.5px; color: var(--cool600); line-height: 1.75; }
+
+  /* ===== 雙軌 ===== */
+  @container (max-width: 640px) {
+    h1 { font-size: 23px; }
+    .deck { font-size: 14px; }
+    .meta-bar { flex-direction: column; gap: 4px; }
+    .stats { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .stat-num { font-size: 24px; }
+    .chart-card { padding: 18px 12px 12px; }
+    .axis, .row, .risk-note { grid-template-columns: 96px 1fr; gap: 8px; }
+    .row-label { font-size: 12px; }
+    .row-label em { font-size: 10.5px; }
+    .seg { padding: 0 5px; }
+    .seg span { font-size: 9px; }
+    .axis-years .yr { font-size: 9.5px; }
+    .risk-tag { font-size: 9px; }
+    .ms-list { grid-template-columns: 1fr; }
+  }
+
+  /* ===== Preview toolbar ===== */
+  .preview-toolbar {
+    display: none; position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%);
+    background: var(--bn-navy); border-radius: 8px; padding: 5px; gap: 2px; z-index: 99;
+  }
+  .preview-toolbar.show { display: flex; }
+  .preview-toolbar button {
+    border: 0; padding: 7px 13px; font-size: 12px; font-weight: 700;
+    background: transparent; color: rgba(250,247,241,.55);
+    cursor: pointer; border-radius: 4px; transition: all .15s; font-family: inherit;
+  }
+  .preview-toolbar button:hover { color: var(--paper); }
+  .preview-toolbar button.active { background: var(--bn-orange); color: var(--paper); }
+  .preview-toolbar .label {
+    font-size: 10px; color: rgba(250,247,241,.45); padding: 0 8px;
+    align-self: center; letter-spacing: .5px; text-transform: uppercase;
+  }
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+  <header>
+    <div class="kicker">Korea · Buildout Timeline 2026–2040</div>
+    <h1>承諾與產能之間，<span class="bn-underline">隔著七年</span></h1>
+    <p class="deck">韓國政府與兩大集團在2026年喊出4,755兆韓元，但晶圓廠不是喊完就有。從動工到第一間無塵室、再到真正量產，最快也要三到五年。如果AI需求在2032年前後放緩，這些廠會在折舊最重的時候遇上。</p>
+  </header>
+
+  <div class="meta-bar">
+    <span class="meta-chunk">資料時點：<strong class="nw">2026 / 08 / 18</strong></span>
+    <span class="meta-chunk">範圍：<strong class="nw">SK海力士與三星已公布時程</strong></span>
+    <span class="meta-chunk">整理：<strong>《數位時代》編輯部</strong></span>
+  </div>
+
+  <div class="stats">
+    <div class="stat peak">
+      <div class="stat-label">最快的一座新廠開始運轉</div>
+      <div class="stat-num">2029<span class="stat-unit">年</span></div>
+      <div class="stat-sub">SK龍仁Y2首座無塵室</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">湖南第一座廠運轉</div>
+      <div class="stat-num">2031<span class="stat-unit">年</span></div>
+      <div class="stat-sub">政府訂定目標</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">龍仁一般園區完工</div>
+      <div class="stat-num">2033<span class="stat-unit">年</span></div>
+      <div class="stat-sub">自2045年提前12年</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">龍仁國家園區完工</div>
+      <div class="stat-num">2040<span class="stat-unit">年</span></div>
+      <div class="stat-sub">自2047年提前7年</div>
+    </div>
+  </div>
+
+  <div class="section-title">Figure 01</div>
+  <div class="section-headline">已宣布的動工及完工時程</div>
+
+  <div class="chart-card">
+    <div class="legend">
+      <span class="lg"><span class="lg-sw build"></span>建設期</span>
+      <span class="lg"><span class="lg-sw ramp"></span>無塵室啟用至量產爬坡</span>
+      <span class="lg"><span class="lg-sw run"></span>目標運轉／完工</span>
+      <span class="lg"><span class="lg-sw risk"></span>需求放緩風險區間</span>
+    </div>
+
+    <div class="gantt" id="gantt"></div>
+  </div>
+
+  <div class="section-title">Figure 02</div>
+  <div class="section-headline">六個關鍵日期</div>
+
+  <div class="ms-list">
+    <div class="ms done">
+      <div class="ms-year">2026 / 06 / 29</div>
+      <div class="ms-text">青瓦台國民報告會，三星與SK各自宣布投資承諾，合計<b>4,755兆韓元</b></div>
+    </div>
+    <div class="ms done">
+      <div class="ms-year">2026 / 08 / 07</div>
+      <div class="ms-text">SK海力士董事會通過龍仁Y2與清州M17，合計<b>54兆3,000億韓元</b>——這是目前唯一過了董事會的部分</div>
+    </div>
+    <div class="ms done">
+      <div class="ms-year">2026 / 08 / 11</div>
+      <div class="ms-text"><b>《半導體特別法》施行</b>，設總統親任委員長的特別委員會，基礎設施費用由國家與地方負擔50%至100%</div>
+    </div>
+    <div class="ms future">
+      <div class="ms-year">2026 / 年底</div>
+      <div class="ms-text">預計完成《<b>超級特區特別法</b>》立法，縮短許可與環境影響評估流程</div>
+    </div>
+    <div class="ms future">
+      <div class="ms-year">2028 / 下半年</div>
+      <div class="ms-text">光州軍用機場完成功能臨時遷移，騰出湖南半導體園區用地；<b>湖南第一階段供電</b>於2028年底啟動</div>
+    </div>
+    <div class="ms future">
+      <div class="ms-year">2030</div>
+      <div class="ms-text">湖南工業用水到位，四座廠全開時需<b>6.3GW電力、每日65萬噸用水</b></div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <p>台灣的產業研究者把這種大規模擴產叫做<b>資本支出陷阱</b>：若2032年前後AI需求增速放緩，新廠與設備的折舊會在最重的時候壓上來，而韓國內需市場太小，吸收不了全球需求下滑的衝擊。SK集團會長崔泰源則認為，未來五年真正的風險窗口是<b>資金與地緣政治，不是技術</b>。但兩種說法擔憂的時間點不謀而合。</p>
+  </div>
+
+  <footer>
+    <div class="footer-row">
+      <img src="../_assets/logos/businessnext-logo.jpg" alt="數位時代" class="footer-logo" onerror="this.style.display='none'">
+      <div class="footer-meta"><strong>《數位時代》</strong>　|　資料整理：編輯部</div>
+    </div>
+    <p class="footer-note">註：龍仁Y2與清州M17的動工與無塵室日期出自SK海力士2026年8月7日董事會決議；湖南2031年運轉為政府於2026年7月國家財政戰略會議提出的目標；完工時程為企業於國民報告會宣布之提前後版本。風險區間為台灣產業研究者的推估，非官方預測。資料來源：SK海力士、韓國產業通商部、大韓民國政策簡報、《韓國經濟》、《電子新聞》、《財經新聞》。</p>
+  </footer>
+
+</div>
+
+<div class="preview-toolbar" id="previewToolbar" role="toolbar" aria-label="預覽模式切換">
+  <span class="label">預覽</span>
+  <button type="button" class="active" data-mode="desktop" aria-pressed="true">桌機</button>
+  <button type="button" data-mode="mobile" aria-pressed="false">手機</button>
+</div>
+
+<script>
+var T0 = 2026, T1 = 2041, SPAN = T1 - T0;
+function pos(y) { return (y - T0) / SPAN * 100; }
+
+var ROWS = [
+  { label: 'SK　清州M17', sub: 'NAND', segs: [
+      { t: 'build', a: 2027.1, b: 2028.95, txt: '2027/02動工' },
+      { t: 'ramp',  a: 2028.95, b: 2031, txt: '2028/12無塵室' }
+  ]},
+  { label: 'SK　龍仁Y2', sub: 'DRAM', segs: [
+      { t: 'build', a: 2027.5, b: 2029.45, txt: '2027/07動工' },
+      { t: 'ramp',  a: 2029.45, b: 2031.5, txt: '2029/06無塵室' }
+  ]},
+  { label: 'SK　龍仁一般園區', sub: '4座廠全部完工', segs: [
+      { t: 'build', a: 2027.5, b: 2033, txt: '' },
+      { t: 'run',   a: 2033, b: 2034.6, txt: '2033完工' }
+  ]},
+  { label: '三星＋SK　湖南', sub: '4座廠，800兆韓元', segs: [
+      { t: 'build', a: 2028.5, b: 2031, txt: '用地與供電整備' },
+      { t: 'run',   a: 2031, b: 2032.9, txt: '2031第一座運轉' }
+  ]},
+  { label: '三星　龍仁國家園區', sub: '6座系統半導體廠', segs: [
+      { t: 'build', a: 2026.6, b: 2040, txt: '2029年首座廠檢討中' },
+      { t: 'run',   a: 2040, b: 2041, txt: '2040' }
+  ]}
+];
+
+var RISK_A = 2031.5, RISK_B = 2033.5;
+
+function render() {
+  var html = '';
+  html += '<div class="axis"><div></div><div class="axis-years">';
+  [2026, 2029, 2032, 2035, 2038, 2041].forEach(function(y) {
+    html += '<span class="yr" style="left:' + pos(y) + '%">' + y + '</span>';
+  });
+  html += '</div></div>';
+
+  ROWS.forEach(function(r) {
+    html += '<div class="row"><div class="row-label">' + r.label + '<em>' + r.sub + '</em></div>';
+    html += '<div class="track">';
+    html += '<div class="riskband" style="left:' + pos(RISK_A) + '%;width:' + (pos(RISK_B) - pos(RISK_A)) + '%"></div>';
+    r.segs.forEach(function(s) {
+      var l = pos(s.a), w = pos(s.b) - pos(s.a);
+      html += '<div class="seg ' + s.t + '" style="left:' + l + '%;width:' + w + '%">';
+      if (s.txt) html += '<span>' + s.txt + '</span>';
+      html += '</div>';
+    });
+    html += '</div></div>';
+  });
+
+  html += '<div class="risk-note"><div></div><div class="risk-note-inner">';
+  html += '<div class="risk-tag" style="left:' + ((pos(RISK_A) + pos(RISK_B)) / 2) + '%">▲ 2032年前後<br>需求放緩風險</div>';
+  html += '</div></div>';
+
+  document.getElementById('gantt').innerHTML = html;
+}
+render();
+
+(function() {
+  if (!new URLSearchParams(location.search).has('preview')) return;
+  var toolbar = document.getElementById('previewToolbar');
+  var wrapper = document.querySelector('.wrapper');
+  if (!toolbar || !wrapper) return;
+  toolbar.classList.add('show');
+  toolbar.addEventListener('click', function(e) {
+    var btn = e.target.closest('button[data-mode]');
+    if (!btn) return;
+    toolbar.querySelectorAll('button').forEach(function(b) {
+      b.classList.toggle('active', b === btn);
+      b.setAttribute('aria-pressed', b === btn ? 'true' : 'false');
+    });
+    wrapper.style.maxWidth = (btn.dataset.mode === 'mobile') ? '390px' : '880px';
+  });
+})();
+</script>
+</body>
+</html>
