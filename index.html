@@ -204,7 +204,7 @@
         <button class="btn btn--copy"
                 data-src="https://richardchen-code.github.io/business-next-graph/2026/08-openai-codex-growth-by-function.html"
                 data-height="1480"
-                data-h700="1700" data-h520="1830" data-h400="2070"
+                data-hmid="1750" data-hsm="1900" data-hxs="2260"
                 data-title="Codex成長最快的不是工程師：法務職能每週活躍企業用戶成長108倍、工程師5倍，以及前端企業與典型企業的token產出差距">
           複製 iframe 嵌入碼
         </button>
@@ -225,7 +225,7 @@
         <button class="btn btn--copy"
                 data-src="https://richardchen-code.github.io/business-next-graph/2026/08-korea-semiconductor-buildout-timeline.html"
                 data-height="1700"
-                data-h700="2210" data-h520="2340" data-h400="2540"
+                data-hmid="2210" data-hsm="2390" data-hxs="2720"
                 data-title="承諾與產能之間，隔著七年：韓國半導體大投資的動工、無塵室與完工時程，以及2032年前後的需求放緩風險區間">
           複製 iframe 嵌入碼
         </button>
@@ -246,7 +246,7 @@
         <button class="btn btn--copy"
                 data-src="https://richardchen-code.github.io/business-next-graph/2026/08-korea-mega-project-4755-breakdown.html"
                 data-height="1590"
-                data-h700="1850" data-h520="1990" data-h400="2190"
+                data-hmid="1920" data-hsm="2040" data-hxs="2390"
                 data-title="4,755兆韓元，韓國打算怎麼花：三星與SK的三大超級計畫投資承諾，依集團、依地區與三大計畫三種檢視">
           複製 iframe 嵌入碼
         </button>
@@ -267,7 +267,7 @@
         <button class="btn btn--copy"
                 data-src="https://richardchen-code.github.io/business-next-graph/2026/08-hbm-17years-sk-hynix-vs-samsung.html"
                 data-height="1580"
-                data-h700="2140" data-h520="2320" data-h400="2500"
+                data-hmid="2210" data-hsm="2400" data-hxs="2670"
                 data-title="HBM十七年：SK海力士與三星的兩條路，2019年一邊裁撤團隊、一邊發表全球第一顆HBM2E">
           複製 iframe 嵌入碼
         </button>
@@ -545,17 +545,25 @@
       const title = btn.dataset.title;
 
       let code;
-      if (btn.dataset.h700) {
-        // 分段高度版：配件是雙軌版型，手機版明顯較高，單一固定高度必有一端出錯。
-        // 斷點對應的是「iframe 實際寬度」跨過 container query 的 640px 翻轉點，
-        // 但 media query 讀的是視窗寬度，若內文欄寬明顯窄於視窗需回頭校正。
+      if (btn.dataset.hmid) {
+        // 分段高度版。配件是雙軌版型（container query 640px 翻轉），單一固定高度必有一端出錯。
+        //
+        // 斷點依 bnext.com.tw 文章頁實測的內文欄寬推導（2026-08-26，三篇文章結果一致）：
+        //   視窗 ≥1280        → 欄寬 736（固定）      → 桌機版型
+        //   視窗 1197–1279    → 欄寬 673–755          → 桌機版型
+        //   視窗 1024–1196    → 欄寬 500–672          → 手機版型（側欄仍在，主欄被擠窄）
+        //   視窗 705–1023     → 欄寬 673–959          → 桌機版型
+        //   視窗 ≤704         → 欄寬 ≤672             → 手機版型
+        //
+        // 注意 1024–1196 這段：筆電視窗會跑手機版型，需求高度和小手機同級。
         const cls = 'bn-embed-' + src.split('/').pop().replace('.html', '');
         code = [
           '<style>',
           `.${cls}{width:100%;max-width:880px;height:${height}px;border:0;display:block;margin:24px auto}`,
-          `@media (max-width:700px){.${cls}{height:${btn.dataset.h700}px}}`,
-          `@media (max-width:520px){.${cls}{height:${btn.dataset.h520}px}}`,
-          `@media (max-width:400px){.${cls}{height:${btn.dataset.h400}px}}`,
+          `@media (min-width:1024px) and (max-width:1196px){.${cls}{height:${btn.dataset.hmid}px}}`,
+          `@media (max-width:704px){.${cls}{height:${btn.dataset.hmid}px}}`,
+          `@media (max-width:520px){.${cls}{height:${btn.dataset.hsm}px}}`,
+          `@media (max-width:400px){.${cls}{height:${btn.dataset.hxs}px}}`,
           '</style>',
           `<iframe class="${cls}"`,
           `        src="${src}"`,
