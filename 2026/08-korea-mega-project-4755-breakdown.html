@@ -107,7 +107,7 @@
   }
   .view-note b { color: var(--bn-black); font-weight: 700; }
 
-  .grp { margin-bottom: 26px; }
+  .grp { margin-bottom: 22px; }
   .grp:last-child { margin-bottom: 4px; }
   .grp-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 8px; }
   .grp-name { font-size: 16px; font-weight: 800; letter-spacing: .01em; }
@@ -124,6 +124,9 @@
   .bar-fill.c0 { background: repeating-linear-gradient(45deg, var(--warm300) 0 5px, var(--paper4) 5px 10px); }
 
   .subs { margin-top: 12px; display: grid; gap: 7px; }
+  .subs.inline { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 10px; }
+  .subs.inline .sub { display: inline-flex; align-items: center; gap: 8px; }
+  .subs.inline .sub-val { margin-left: 2px; }
   .sub {
     display: grid; grid-template-columns: 12px 1fr auto; gap: 10px; align-items: center;
     font-size: 13.5px; line-height: 1.5;
@@ -145,10 +148,10 @@
   }
 
   /* ===== Project cards（第三檢視） ===== */
-  .projs { display: grid; gap: 12px; }
+  .projs { display: grid; gap: 10px; }
   .proj {
     background: var(--paper); border: 1px solid var(--warm300);
-    border-radius: 8px; padding: 16px 18px;
+    border-radius: 8px; padding: 14px 16px;
   }
   .proj.lead { border-color: var(--bn-orange); background: rgba(255,107,26,.05); }
   .proj-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 4px; flex-wrap: wrap; }
@@ -301,25 +304,22 @@ var DATA = {
   },
   region: {
     note: '同一筆錢換成地區來看。<b>過半仍留在首都圈</b>——平澤與龍仁是兩家的既有主力基地；新增的重心則在湖南，那是這次計畫最受矚目、也最具爭議的一塊。',
-    max: 2630,
+    max: 2630, inlineSubs: true,
     groups: [
-      { name: '首都圈', sub: '平澤・龍仁', total: 2630, subs: [
-        { n: '三星', s: '平澤・龍仁半導體聚落', v: 2030, c: 'c1' },
-        { n: 'SK', s: '龍仁，DRAM', v: 600, c: 'c2' }
+      { name: '首都圈', sub: '平澤與龍仁，兩家的既有主力基地', total: 2630, subs: [
+        { n: '三星', v: 2030, c: 'c1' }, { n: 'SK', v: 600, c: 'c2' }
       ]},
-      { name: '湖南（西南圈）', sub: '新聚落，4座晶圓廠', total: 825, subs: [
-        { n: '三星', s: '光州新記憶體廠＋海南AI資料中心', v: 425, c: 'c1' },
-        { n: 'SK', s: '2座晶圓廠', v: 400, c: 'c2' }
+      { name: '湖南（西南圈）', sub: '新聚落，兩家各蓋2座、共4座晶圓廠，另有海南AI資料中心', total: 825, subs: [
+        { n: '三星', v: 425, c: 'c1' }, { n: 'SK', v: 400, c: 'c2' }
       ]},
-      { name: '忠清', sub: 'HBM與後段封裝', total: 240, subs: [
-        { n: '三星', s: '天安・溫陽HBM廠、牙山顯示器、封裝基板', v: 140, c: 'c1' },
-        { n: 'SK', s: '清州，NAND', v: 100, c: 'c2' }
+      { name: '忠清', sub: '三星的天安與溫陽HBM廠、牙山顯示器；SK的清州NAND廠', total: 240, subs: [
+        { n: '三星', v: 140, c: 'c1' }, { n: 'SK', v: 100, c: 'c2' }
       ]},
-      { name: '嶺南', sub: '製造業AI與機器人轉換', total: 60, subs: [
-        { n: '三星', s: '龜尾、蔚山、釜山、巨濟', v: 60, c: 'c1' }
+      { name: '嶺南', sub: '龜尾、蔚山、釜山、巨濟，製造業的AI與機器人轉換', total: 60, subs: [
+        { n: '三星', v: 60, c: 'c1' }
       ]},
-      { name: '全國（AI資料中心）', sub: '未按地區拆分', total: 1000, subs: [
-        { n: 'SK', s: '至2035年建置15GW，SK電訊主導', v: 1000, c: 'c2' }
+      { name: '全國（AI資料中心）', sub: 'SK至2035年建置15GW，未按地區拆分', total: 1000, subs: [
+        { n: 'SK', v: 1000, c: 'c2' }
       ]}
     ]
   },
@@ -330,7 +330,7 @@ var DATA = {
       {
         name: '半導體', tag: '3S ＋ 1F', lead: true,
         scale: '西南圈800兆 ／ 忠清81兆 ／ 未來15年30兆以上',
-        desc: '政府端戰略分四塊：<b>速度戰</b>把龍仁完工時程提前、五年內DRAM產能翻倍；<b>據點戰</b>在西南圈蓋4座晶圓廠、忠清做封裝據點；<b>先導戰</b>投入規模小但成長快的市場；<b>全力支援</b>則是電力、用水、道路與資金的總力支援體系。'
+        desc: '政府端戰略分四塊：<b>速度戰</b>提前龍仁完工、五年內DRAM產能翻倍；<b>據點戰</b>在西南圈蓋4座廠、忠清做封裝據點；<b>先導戰</b>投入規模小但成長快的市場；<b>全力支援</b>包辦電力、用水、道路與資金。'
       },
       {
         name: 'AI資料中心', tag: 'SK 主導',
@@ -392,7 +392,7 @@ function render(view) {
     }
     html += '</div>';
 
-    html += '<div class="subs">';
+    html += '<div class="subs' + (d.inlineSubs ? ' inline' : '') + '">';
     g.subs.forEach(function(s) {
       html += '<div class="sub"><span class="swatch ' + s.c + '"></span>';
       html += '<span class="sub-name">' + s.n + (s.s ? ' <em>／' + s.s + '</em>' : '') + '</span>';
