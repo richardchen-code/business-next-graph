@@ -203,7 +203,8 @@
       <div class="card-actions">
         <button class="btn btn--copy"
                 data-src="https://richardchen-code.github.io/business-next-graph/2026/08-openai-codex-growth-by-function.html"
-                data-height="1870"
+                data-height="1480"
+                data-h700="1700" data-h520="1830" data-h400="2070"
                 data-title="Codex成長最快的不是工程師：法務職能每週活躍企業用戶成長108倍、工程師5倍，以及前端企業與典型企業的token產出差距">
           複製 iframe 嵌入碼
         </button>
@@ -223,7 +224,8 @@
       <div class="card-actions">
         <button class="btn btn--copy"
                 data-src="https://richardchen-code.github.io/business-next-graph/2026/08-korea-semiconductor-buildout-timeline.html"
-                data-height="1690"
+                data-height="1700"
+                data-h700="2210" data-h520="2340" data-h400="2540"
                 data-title="承諾與產能之間，隔著七年：韓國半導體大投資的動工、無塵室與完工時程，以及2032年前後的需求放緩風險區間">
           複製 iframe 嵌入碼
         </button>
@@ -243,7 +245,8 @@
       <div class="card-actions">
         <button class="btn btn--copy"
                 data-src="https://richardchen-code.github.io/business-next-graph/2026/08-korea-mega-project-4755-breakdown.html"
-                data-height="1500"
+                data-height="1590"
+                data-h700="1850" data-h520="1990" data-h400="2190"
                 data-title="4,755兆韓元，韓國打算怎麼花：三星與SK的三大超級計畫投資承諾，依集團、依地區與三大計畫三種檢視">
           複製 iframe 嵌入碼
         </button>
@@ -263,7 +266,8 @@
       <div class="card-actions">
         <button class="btn btn--copy"
                 data-src="https://richardchen-code.github.io/business-next-graph/2026/08-hbm-17years-sk-hynix-vs-samsung.html"
-                data-height="1660"
+                data-height="1580"
+                data-h700="2140" data-h520="2320" data-h400="2500"
                 data-title="HBM十七年：SK海力士與三星的兩條路，2019年一邊裁撤團隊、一邊發表全球第一顆HBM2E">
           複製 iframe 嵌入碼
         </button>
@@ -539,7 +543,29 @@
       const src = btn.dataset.src;
       const height = btn.dataset.height;
       const title = btn.dataset.title;
-      const code = `<iframe src="${src}"\n        width="100%" height="${height}"\n        style="border:0; max-width:880px; display:block; margin:24px auto;"\n        loading="lazy"\n        title="${title}"></iframe>`;
+
+      let code;
+      if (btn.dataset.h700) {
+        // 分段高度版：配件是雙軌版型，手機版明顯較高，單一固定高度必有一端出錯。
+        // 斷點對應的是「iframe 實際寬度」跨過 container query 的 640px 翻轉點，
+        // 但 media query 讀的是視窗寬度，若內文欄寬明顯窄於視窗需回頭校正。
+        const cls = 'bn-embed-' + src.split('/').pop().replace('.html', '');
+        code = [
+          '<style>',
+          `.${cls}{width:100%;max-width:880px;height:${height}px;border:0;display:block;margin:24px auto}`,
+          `@media (max-width:700px){.${cls}{height:${btn.dataset.h700}px}}`,
+          `@media (max-width:520px){.${cls}{height:${btn.dataset.h520}px}}`,
+          `@media (max-width:400px){.${cls}{height:${btn.dataset.h400}px}}`,
+          '</style>',
+          `<iframe class="${cls}"`,
+          `        src="${src}"`,
+          '        loading="lazy"',
+          `        title="${title}"></iframe>`
+        ].join('\n');
+      } else {
+        // 舊配件：維持單一高度格式
+        code = `<iframe src="${src}"\n        width="100%" height="${height}"\n        style="border:0; max-width:880px; display:block; margin:24px auto;"\n        loading="lazy"\n        title="${title}"></iframe>`;
+      }
 
       try {
         await navigator.clipboard.writeText(code);
