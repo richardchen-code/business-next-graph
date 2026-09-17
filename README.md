@@ -28,6 +28,8 @@ business-next-graph/
 
 | 日期 | 配件 | 檔案 |
 |---|---|---|
+| 2026 / 09 / 17 | 任期越短的世代，越不覺得公司在乎自己（Z世代1.1年 × 雇主關係雙圖） | `2026/09-gen-z-tenure-vs-employer-care.html` |
+| 2026 / 09 / 17 | Z世代想要的工作型態，正在離開「一份全職」（現況與理想啞鈴圖） | `2026/09-gen-z-work-mode-shift.html` |
 | 2026 / 08 / 10 | HBM十七年：SK海力士與三星的兩條路（2019分岔點雙軌時間軸） | `2026/08-hbm-17years-sk-hynix-vs-samsung.html` |
 | 2026 / 07 / 27 | AI工程有哪些，差異一次看懂：五種AI工程一層包一層（提示→情境→駕馭→迴圈→圖結構工程） | `2026/07-ai-engineering-five-layers.html` |
 | 2026 / 07 / 21 | AI程式開發實測 1 / 2：貴一倍的模型帳單反而更便宜（成本×分數象限） | `2026/07-cognition-cost-score-quadrant.html` |
