@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>日本名目GDP，即將遭印度、英國超車 ｜數位時代</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bn-orange: #FF6B1A;
+    --bn-navy: #0F1A2E;
+    --bn-black: #1A1A1A;
+    --paper: #FAF7F1;
+    --paper2: #F5F3EF;
+    --paper3: #ECE8DF;
+    --paper4: #E3DECF;
+    --warm300: #D4D0C8;
+    --cool600: #5C6470;
+    --cool400: #8A93A0;
+    --hairline: rgba(15, 26, 46, 0.12);
+    /* 資料序列色：經 dataviz validator 驗證（light, surface #FAF7F1）
+       CVD 最差相鄰對 ΔE 13.1、常色視覺 19.6，全數通過 */
+    --c-jp: #FF6B1A;
+    --c-de: #2F6DB5;
+    --c-gb: #1F9E78;
+    --c-in: #9B59B6;
+  }
+
+  body {
+    font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", -apple-system, sans-serif;
+    background: var(--paper);
+    color: var(--bn-black);
+    line-height: 1.75;
+    padding: 32px 16px;
+    text-wrap: pretty;
+  }
+  h1, .deck, .section-headline { text-wrap: balance; }
+
+  .stat-num, .lg-val, table { font-family: "Inter", "Noto Sans TC", sans-serif; }
+  .lg-val, table td, table th { font-variant-numeric: tabular-nums; }
+
+  .wrapper {
+    max-width: 880px; margin: 0 auto;
+    container-type: inline-size;
+    transition: max-width 0.25s ease;
+  }
+
+  /* ===== Header ===== */
+  header { padding: 8px 0 24px; border-bottom: 1px solid var(--hairline); margin-bottom: 20px; }
+  .kicker {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 12px; letter-spacing: 0.08em; font-weight: 500;
+    color: var(--bn-orange); text-transform: uppercase; margin-bottom: 12px;
+  }
+  h1 { font-size: 28px; font-weight: 900; line-height: 1.45; margin-bottom: 12px; letter-spacing: -0.01em; }
+  .bn-underline {
+    display: inline-block;
+    text-decoration: underline; text-decoration-thickness: 4px;
+    text-underline-offset: 6px; text-decoration-color: var(--bn-orange);
+    text-decoration-skip-ink: none;
+  }
+  .deck { font-size: 15px; color: var(--cool600); line-height: 1.8; max-width: 760px; }
+
+  .meta-bar {
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 11px; color: var(--cool600); padding: 12px 0 22px;
+    letter-spacing: 0.06em;
+    border-bottom: 1px solid var(--hairline); margin-bottom: 26px;
+  }
+  .meta-bar strong { color: var(--bn-black); font-weight: 500; }
+  .nw { white-space: nowrap; }
+
+  /* ===== Stats ===== */
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 26px; }
+  .stat { background: var(--paper2); border: 1px solid var(--warm300); border-radius: 8px; padding: 16px 14px; }
+  .stat.peak { background: rgba(255,107,26,.06); border-color: var(--bn-orange); }
+  .stat-label { font-size: 11.5px; color: var(--cool600); margin-bottom: 6px; letter-spacing: .04em; line-height: 1.5; font-weight: 500; }
+  .stat-num { font-size: 28px; font-weight: 700; line-height: 1.15; letter-spacing: -0.01em; }
+  .stat.peak .stat-num { color: var(--bn-orange); }
+  .stat-unit { font-size: 13px; font-weight: 500; color: var(--cool600); margin-left: 3px; }
+  .stat-sub {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 10.5px; color: var(--cool600); margin-top: 6px; letter-spacing: .03em; line-height: 1.6;
+  }
+  .stat.peak .stat-sub { color: var(--bn-orange); font-weight: 500; }
+
+  /* ===== Chart card ===== */
+  .chart-card { background: var(--paper2); border: 1px solid var(--warm300); border-radius: 8px; padding: 20px 18px 16px; }
+  .chart-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; margin-bottom: 4px; }
+  .section-title {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 10.5px; color: var(--cool400); letter-spacing: .08em;
+    text-transform: uppercase; margin-bottom: 8px;
+  }
+  .section-headline { font-size: 17px; font-weight: 800; line-height: 1.5; }
+  .axis-label {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 10.5px; color: var(--cool400); letter-spacing: .05em;
+    padding-bottom: 12px; margin-bottom: 10px; border-bottom: 1px solid var(--hairline);
+    line-height: 1.6;
+  }
+
+  .toggle {
+    flex: none;
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 10.5px; letter-spacing: .06em;
+    border: 1px solid var(--warm300); background: var(--paper);
+    color: var(--cool600); padding: 5px 11px; border-radius: 999px; cursor: pointer;
+    transition: all .15s cubic-bezier(.2,.7,.2,1);
+  }
+  .toggle:hover { border-color: var(--bn-black); color: var(--bn-black); }
+  .toggle[aria-pressed="true"] { background: var(--bn-navy); border-color: var(--bn-navy); color: var(--paper); }
+
+  /* 注意：變體切換的選擇器必須與 .plot svg 同特異度（0,1,1），
+     否則 .plot svg 的 display 會壓過 .svg-mobile，兩張圖會同時渲染 */
+  .plot svg { width: 100%; height: auto; overflow: visible; }
+  .plot .svg-desktop { display: block; }
+  .plot .svg-mobile { display: none; }
+  .ax { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 11px; fill: var(--cool400); letter-spacing: .04em; }
+  .anno { font-family: "Noto Sans TC", sans-serif; font-size: 11px; fill: var(--cool600); font-weight: 500; }
+  .anno-strong { fill: var(--bn-black); font-weight: 700; }
+  .grid { stroke: rgba(15,26,46,.10); stroke-width: 1; }
+  .base { stroke: rgba(15,26,46,.22); stroke-width: 1; }
+  .ln { fill: none; stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+  .ln.fc { stroke-dasharray: 5 4; }
+  .dot { stroke: var(--paper2); stroke-width: 2; }
+  .hit { fill: transparent; cursor: crosshair; }
+
+  /* ===== Legend ===== */
+  .legend {
+    display: flex; flex-wrap: wrap; gap: 8px 18px;
+    margin-top: 14px; padding-top: 13px; border-top: 1px solid var(--hairline);
+  }
+  .lg { display: flex; align-items: center; gap: 7px; }
+  .lg-key { width: 16px; height: 3px; border-radius: 2px; flex: none; }
+  .lg-name { font-size: 13px; font-weight: 700; color: var(--bn-black); }
+  .lg-val { font-size: 13px; font-weight: 600; color: var(--bn-black); }
+  .lg-unit { font-size: 11px; color: var(--cool600); font-weight: 500; }
+
+  .fine-print {
+    margin-top: 14px; padding-top: 11px; border-top: 1px solid var(--hairline);
+    font-size: 11.5px; line-height: 1.75; color: var(--cool600);
+  }
+
+  /* ===== Table view ===== */
+  /* max-height 對齊折線圖高度，避免切到表格時把 iframe 撐高、留下空白 */
+  .tableview { display: none; max-height: 256px; overflow: auto; margin-top: 4px; }
+  .tableview table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+  .tableview th, .tableview td { padding: 6px 8px; text-align: right; white-space: nowrap; }
+  .tableview th:first-child, .tableview td:first-child { text-align: left; }
+  .tableview thead th {
+    position: sticky; top: 0; background: var(--paper2);
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 10.5px; letter-spacing: .04em; color: var(--cool600); font-weight: 500;
+    border-bottom: 1px solid var(--warm300);
+  }
+  .tableview td { border-bottom: 1px solid var(--hairline); color: var(--bn-black); }
+  .tableview tr.fc td { color: var(--cool600); font-style: italic; }
+  .th-key { display: inline-block; width: 10px; height: 3px; border-radius: 2px; margin-right: 5px; vertical-align: middle; }
+
+  /* ===== Readout ===== */
+  .readout {
+    margin-top: 16px; background: var(--paper3); border: 1px solid var(--warm300);
+    border-left: 4px solid var(--bn-orange); border-radius: 8px; padding: 16px 18px;
+    font-size: 13.5px; line-height: 1.8; color: var(--bn-black);
+  }
+  .readout b { font-weight: 700; }
+
+  /* ===== Footer ===== */
+  footer { margin-top: 30px; padding-top: 18px; border-top: 1px solid var(--hairline); }
+  .footer-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+  .footer-logo { width: 32px; height: 32px; object-fit: contain; border-radius: 4px; }
+  .footer-meta {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 11px; color: var(--cool600); letter-spacing: .05em;
+  }
+  .footer-meta strong { color: var(--bn-black); font-weight: 500; }
+  .footer-note { font-size: 11.5px; color: var(--cool600); line-height: 1.75; }
+
+  /* ===== 雙軌 ===== */
+  @container (max-width: 640px) {
+    h1 { font-size: 22px; }
+    .deck { font-size: 14px; }
+    .meta-bar { flex-direction: column; gap: 4px; }
+    .stats { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .stats .stat:last-child { grid-column: 1 / -1; }
+    .stat-num { font-size: 24px; }
+    .chart-card { padding: 16px 14px 14px; }
+    .section-headline { font-size: 16px; }
+    .plot .svg-desktop { display: none; }
+    .plot .svg-mobile { display: block; }
+    .legend { gap: 7px 14px; }
+    .lg-name, .lg-val { font-size: 12.5px; }
+    .readout { font-size: 13px; padding: 14px 15px; }
+    .tableview { max-height: 248px; }
+  }
+
+  @media (max-width: 640px) {
+    body { padding: 20px 10px; }
+  }
+
+  /* ===== Preview toolbar ===== */
+  .preview-toolbar {
+    display: none; position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%);
+    background: var(--bn-navy); border-radius: 8px; padding: 5px; gap: 2px; z-index: 99;
+  }
+  .preview-toolbar.show { display: flex; }
+  .preview-toolbar button {
+    border: 0; padding: 7px 13px; font-size: 12px; font-weight: 700;
+    background: transparent; color: rgba(250,247,241,.55);
+    cursor: pointer; border-radius: 4px; transition: all .15s; font-family: inherit;
+  }
+  .preview-toolbar button:hover { color: var(--paper); }
+  .preview-toolbar button.active { background: var(--bn-orange); color: var(--paper); }
+  .preview-toolbar .label {
+    font-size: 10px; color: rgba(250,247,241,.45); padding: 0 8px;
+    align-self: center; letter-spacing: .5px; text-transform: uppercase;
+  }
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+  <header>
+    <div class="kicker">IMF · World Economic Outlook · 2026年10月</div>
+    <h1>日本名目GDP，<span class="bn-underline nw">即將遭印度、英國超車</span></h1>
+    <p class="deck">從1995年至今，日本以美元計價的名目GDP在2012年見頂後持續下滑，2027年將低於1995年的水準。同一段期間，德國、英國、印度一路逼近，先後完成超車。</p>
+  </header>
+
+  <div class="meta-bar">
+    <span>資料來源：<strong>IMF《世界經濟展望》</strong></span>
+    <span>單位：<strong class="nw">兆美元／名目、美元計價</strong></span>
+    <span>整理：<strong>《數位時代》編輯部</strong></span>
+  </div>
+
+  <div class="stats">
+    <div class="stat peak">
+      <div class="stat-label">日本2027年GDP對比1995年</div>
+      <div class="stat-num">−20.8<span class="stat-unit">%</span></div>
+      <div class="stat-sub">5.64兆 → 4.47兆美元</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">日本GDP相當於英國的倍數</div>
+      <div class="stat-num">4.2<span class="stat-unit">倍 → 被超越</span></div>
+      <div class="stat-sub">1995年 → 2027年</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">印度同期成長</div>
+      <div class="stat-num">12.5<span class="stat-unit">倍</span></div>
+      <div class="stat-sub">0.36兆 → 4.52兆美元</div>
+    </div>
+  </div>
+
+  <div class="chart-card">
+    <div class="chart-head">
+      <div>
+        <div class="section-title">Figure 01 ／ 1995－2027</div>
+        <h2 class="section-headline">四國名目GDP走勢，日本被逐一追上</h2>
+      </div>
+      <button type="button" class="toggle" id="tgl" aria-pressed="false" aria-controls="tv">看數據表</button>
+    </div>
+    <div class="axis-label">單位：兆美元　／　軸線 0 至 6.5兆　／　虛線為IMF預測值（2026、2027年）</div>
+
+    <div class="plot" id="plot">
+
+      <!-- ===== 桌機 ===== -->
+      <svg class="svg-desktop" viewBox="0 0 800 340" role="img" aria-label="1995至2027年日本、德國、英國、印度名目GDP走勢折線圖">
+        <line class="grid" x1="48" y1="41.5"  x2="724" y2="41.5"/>
+        <line class="grid" x1="48" y1="127.7" x2="724" y2="127.7"/>
+        <line class="grid" x1="48" y1="213.8" x2="724" y2="213.8"/>
+        <line class="base" x1="48" y1="300"   x2="724" y2="300"/>
+
+        <text class="ax" x="40" y="45.5"  text-anchor="end">6兆</text>
+        <text class="ax" x="40" y="131.7" text-anchor="end">4兆</text>
+        <text class="ax" x="40" y="217.8" text-anchor="end">2兆</text>
+        <text class="ax" x="40" y="304"   text-anchor="end">0</text>
+
+        <text class="ax" x="48"  y="318" text-anchor="middle">1995</text>
+        <text class="ax" x="153.6" y="318" text-anchor="middle">2000</text>
+        <text class="ax" x="259.3" y="318" text-anchor="middle">2005</text>
+        <text class="ax" x="364.9" y="318" text-anchor="middle">2010</text>
+        <text class="ax" x="470.5" y="318" text-anchor="middle">2015</text>
+        <text class="ax" x="576.1" y="318" text-anchor="middle">2020</text>
+        <text class="ax" x="724"  y="318" text-anchor="middle">2027</text>
+
+        <!-- 2023 德國超越 -->
+        <line class="grid" x1="639.5" y1="20" x2="639.5" y2="300"/>
+        <text class="anno" x="645" y="206" text-anchor="start">2023 德國超越日本</text>
+
+        <!-- 印度 -->
+        <polyline class="ln" stroke="#9B59B6" points="48.0,284.5 69.1,283.1 90.3,282.1 111.4,281.8 132.5,280.2 153.6,279.8 174.8,279.1 195.9,277.8 217.0,273.8 238.1,269.5 259.3,264.7 280.4,259.5 301.5,247.6 322.6,248.4 343.8,242.2 364.9,227.8 386.0,221.5 407.1,221.5 428.3,220.4 449.4,212.8 470.5,210.3 491.6,202.3 512.8,187.4 533.9,185.5 555.0,180.2 576.1,187.3 597.3,166.9 618.4,159.7 639.5,148.7 660.6,138.0 681.8,131.6"/>
+        <polyline class="ln fc" stroke="#9B59B6" points="681.8,131.6 702.9,125.1 724.0,105.2"/>
+        <!-- 英國 -->
+        <polyline class="ln" stroke="#1F9E78" points="48.0,242.1 69.1,238.8 90.3,232.7 111.4,228.7 132.5,227.3 153.6,228.1 174.8,228.9 195.9,223.1 217.0,211.5 238.1,195.7 259.3,190.4 280.4,183.1 301.5,166.7 322.6,172.1 343.8,195.2 364.9,192.4 386.0,184.7 407.1,182.7 428.3,179.2 449.4,166.9 470.5,173.0 491.6,182.9 512.8,183.3 533.9,174.7 555.0,175.5 576.1,182.2 597.3,161.8 618.4,161.9 639.5,151.8 660.6,140.0 681.8,127.2"/>
+        <polyline class="ln fc" stroke="#1F9E78" points="681.8,127.2 702.9,116.1 724.0,106.6"/>
+        <!-- 德國 -->
+        <polyline class="ln" stroke="#2F6DB5" points="48.0,188.2 69.1,192.0 90.3,204.3 111.4,203.0 132.5,204.5 153.6,215.2 174.8,215.3 195.9,209.5 217.0,190.8 238.1,177.2 259.3,175.3 280.4,168.8 301.5,149.9 322.6,136.0 343.8,150.3 364.9,150.5 386.0,135.3 407.1,144.9 428.3,135.8 449.4,128.9 470.5,152.1 491.6,147.2 512.8,137.2 533.9,124.4 555.0,128.4 576.1,129.0 597.3,110.7 618.4,117.9 639.5,101.8 660.6,95.5 681.8,79.6"/>
+        <polyline class="ln fc" stroke="#2F6DB5" points="681.8,79.6 702.9,64.3 724.0,56.1"/>
+        <!-- 日本 -->
+        <polyline class="ln" stroke="#FF6B1A" points="48.0,57.1 69.1,83.7 90.3,102.7 111.4,121.2 132.5,98.0 153.6,82.8 174.8,108.8 195.9,117.1 217.0,103.0 238.1,87.1 259.3,90.0 280.4,99.8 301.5,100.8 322.6,77.7 343.8,70.1 364.9,49.7 386.0,29.5 407.1,27.2 428.3,72.9 449.4,85.2 470.5,104.7 491.6,79.9 512.8,83.0 533.9,78.0 555.0,74.0 576.1,76.5 597.3,74.8 618.4,108.5 639.5,110.9 660.6,118.7 681.8,108.2"/>
+        <polyline class="ln fc" stroke="#FF6B1A" points="681.8,108.2 702.9,113.0 724.0,107.5"/>
+
+        <!-- 日本2012高點 -->
+        <circle cx="407.1" cy="27.2" r="4.5" fill="#FF6B1A" class="dot"/>
+        <text class="anno anno-strong" x="418" y="24">日本高點 6.33兆（2012年）</text>
+
+        <!-- 2027 三國貼身 -->
+        <ellipse cx="724" cy="106.4" rx="11" ry="9" fill="none" stroke="rgba(15,26,46,.45)" stroke-width="1"/>
+        <line x1="735" y1="106.4" x2="745" y2="106.4" stroke="rgba(15,26,46,.45)" stroke-width="1"/>
+        <text class="anno anno-strong" x="748" y="103">2027</text>
+        <text class="anno" x="748" y="117">三國差距1.2%</text>
+
+        <!-- 端點 -->
+        <circle cx="724" cy="56.1"  r="4.5" fill="#2F6DB5" class="dot"/>
+        <circle cx="724" cy="105.2" r="4.5" fill="#9B59B6" class="dot"/>
+        <circle cx="724" cy="106.6" r="4.5" fill="#1F9E78" class="dot"/>
+        <circle cx="724" cy="107.5" r="4.5" fill="#FF6B1A" class="dot"/>
+
+        <g id="hoverLayer" style="display:none; pointer-events:none">
+          <line id="hvLine" y1="20" y2="300" stroke="rgba(15,26,46,.32)" stroke-width="1"/>
+          <circle id="hvJP" r="4.5" fill="#FF6B1A" class="dot"/>
+          <circle id="hvDE" r="4.5" fill="#2F6DB5" class="dot"/>
+          <circle id="hvGB" r="4.5" fill="#1F9E78" class="dot"/>
+          <circle id="hvIN" r="4.5" fill="#9B59B6" class="dot"/>
+          <g id="hvTip">
+            <rect id="hvBox" rx="6" width="146" height="104" fill="#0F1A2E" opacity=".96"/>
+            <text id="hvYear" class="ax" style="fill:#C9CDD5" x="0" y="0"></text>
+            <g id="hvRows"></g>
+          </g>
+        </g>
+        <g id="hitLayer"></g>
+      </svg>
+
+      <!-- ===== 手機 ===== -->
+      <svg class="svg-mobile" viewBox="0 0 400 326" role="img" aria-label="1995至2027年四國名目GDP走勢折線圖（手機版）">
+        <line class="grid" x1="38" y1="36.8"  x2="388" y2="36.8"/>
+        <line class="grid" x1="38" y1="119.8" x2="388" y2="119.8"/>
+        <line class="grid" x1="38" y1="202.9" x2="388" y2="202.9"/>
+        <line class="base" x1="38" y1="286"   x2="388" y2="286"/>
+
+        <text class="ax" x="32" y="40.8"  text-anchor="end">6兆</text>
+        <text class="ax" x="32" y="123.8" text-anchor="end">4兆</text>
+        <text class="ax" x="32" y="206.9" text-anchor="end">2兆</text>
+        <text class="ax" x="32" y="290"   text-anchor="end">0</text>
+
+        <text class="ax" x="38"  y="304" text-anchor="middle">1995</text>
+        <text class="ax" x="147.4" y="304" text-anchor="middle">2005</text>
+        <text class="ax" x="256.8" y="304" text-anchor="middle">2015</text>
+        <text class="ax" x="388" y="304" text-anchor="end">2027</text>
+
+        <line class="grid" x1="344.3" y1="16" x2="344.3" y2="286"/>
+
+        <polyline class="ln" stroke="#9B59B6" points="38.0,271.0 48.9,269.7 59.9,268.7 70.8,268.5 81.8,266.9 92.7,266.5 103.6,265.8 114.6,264.6 125.5,260.8 136.4,256.5 147.4,251.9 158.3,246.9 169.3,235.5 180.2,236.2 191.1,230.3 202.1,216.4 213.0,210.3 223.9,210.3 234.9,209.2 245.8,201.9 256.8,199.5 267.7,191.8 278.6,177.5 289.6,175.6 300.5,170.5 311.4,177.3 322.4,157.6 333.3,150.7 344.3,140.1 355.2,129.8 366.1,123.6"/>
+        <polyline class="ln fc" stroke="#9B59B6" points="366.1,123.6 377.1,117.3 388.0,98.2"/>
+        <polyline class="ln" stroke="#1F9E78" points="38.0,230.2 48.9,227.0 59.9,221.1 70.8,217.3 81.8,215.9 92.7,216.7 103.6,217.5 114.6,211.8 125.5,200.6 136.4,185.4 147.4,180.3 158.3,173.3 169.3,157.4 180.2,162.7 191.1,184.9 202.1,182.2 213.0,174.8 223.9,172.9 234.9,169.5 245.8,157.6 256.8,163.6 267.7,173.1 278.6,173.5 289.6,165.1 300.5,165.9 311.4,172.4 322.4,152.7 333.3,152.9 344.3,143.1 355.2,131.7 366.1,119.3"/>
+        <polyline class="ln fc" stroke="#1F9E78" points="366.1,119.3 377.1,108.7 388.0,99.5"/>
+        <polyline class="ln" stroke="#2F6DB5" points="38.0,178.2 48.9,181.8 59.9,193.7 70.8,192.5 81.8,193.9 92.7,204.3 103.6,204.3 114.6,198.7 125.5,180.7 136.4,167.6 147.4,165.7 158.3,159.5 169.3,141.3 180.2,127.8 191.1,141.7 202.1,141.9 213.0,127.2 223.9,136.4 234.9,127.7 245.8,121.0 256.8,143.4 267.7,138.7 278.6,129.1 289.6,116.7 300.5,120.5 311.4,121.1 322.4,103.5 333.3,110.4 344.3,94.8 355.2,88.8 366.1,73.5"/>
+        <polyline class="ln fc" stroke="#2F6DB5" points="366.1,73.5 377.1,58.7 388.0,50.8"/>
+        <polyline class="ln" stroke="#FF6B1A" points="38.0,51.7 48.9,77.4 59.9,95.8 70.8,113.6 81.8,91.2 92.7,76.5 103.6,101.6 114.6,109.6 125.5,96.0 136.4,80.7 147.4,83.5 158.3,92.9 169.3,93.9 180.2,71.7 191.1,64.3 202.1,44.6 213.0,25.2 223.9,22.9 234.9,67.0 245.8,78.9 256.8,97.6 267.7,73.7 278.6,76.7 289.6,71.9 300.5,68.1 311.4,70.4 322.4,68.9 333.3,101.4 344.3,103.7 355.2,111.2 366.1,101.0"/>
+        <polyline class="ln fc" stroke="#FF6B1A" points="366.1,101.0 377.1,105.6 388.0,100.4"/>
+
+        <circle cx="223.9" cy="22.9" r="4" fill="#FF6B1A" class="dot"/>
+        <text class="anno anno-strong" x="232" y="26" style="font-size:10.5px">2012年高點 6.33兆</text>
+        <text class="anno" x="341" y="222" text-anchor="end" style="font-size:10.5px">2023 德國超越</text>
+
+        <circle cx="388" cy="50.8"  r="4" fill="#2F6DB5" class="dot"/>
+        <circle cx="388" cy="98.2"  r="4" fill="#9B59B6" class="dot"/>
+        <circle cx="388" cy="99.5"  r="4" fill="#1F9E78" class="dot"/>
+        <circle cx="388" cy="100.4" r="4" fill="#FF6B1A" class="dot"/>
+      </svg>
+    </div>
+
+    <div class="tableview" id="tv" hidden>
+      <table>
+        <caption class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">1995至2027年四國名目GDP（十億美元）</caption>
+        <thead>
+          <tr>
+            <th scope="col">年</th>
+            <th scope="col"><span class="th-key" style="background:#FF6B1A"></span>日本</th>
+            <th scope="col"><span class="th-key" style="background:#2F6DB5"></span>德國</th>
+            <th scope="col"><span class="th-key" style="background:#1F9E78"></span>英國</th>
+            <th scope="col"><span class="th-key" style="background:#9B59B6"></span>印度</th>
+          </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+
+    <div class="legend">
+      <div class="lg"><span class="lg-key" style="background:#FF6B1A"></span><span class="lg-name">日本</span><span class="lg-val">4.47</span><span class="lg-unit">兆</span></div>
+      <div class="lg"><span class="lg-key" style="background:#2F6DB5"></span><span class="lg-name">德國</span><span class="lg-val">5.66</span><span class="lg-unit">兆</span></div>
+      <div class="lg"><span class="lg-key" style="background:#1F9E78"></span><span class="lg-name">英國</span><span class="lg-val">4.49</span><span class="lg-unit">兆</span></div>
+      <div class="lg"><span class="lg-key" style="background:#9B59B6"></span><span class="lg-name">印度</span><span class="lg-val">4.52</span><span class="lg-unit">兆</span></div>
+      <div class="lg"><span class="lg-unit">數值為2027年IMF預測</span></div>
+    </div>
+
+    <div class="fine-print">美國與中國因規模差距過大未列入本圖：2027年美國約34.4兆美元、中國約22.9兆美元。</div>
+  </div>
+
+  <div class="readout">
+    <b>這張圖在說什麼：</b>日本的美元計價GDP在2012年達到6.33兆美元的高點後一路下滑，2027年的4.47兆美元不僅低於高點，也低於1995年的5.64兆美元。同期德國、英國、印度一路往上，日本則先後在2010年被中國超越（中國未列入本圖）、2023年被德國超越，2027年再被英國與印度追過。1995年日本的經濟規模還是英國的4.2倍，32年後兩國幾乎並駕齊驅。
+  </div>
+
+  <footer>
+    <div class="footer-row">
+      <img src="../_assets/logos/businessnext-logo.jpg" alt="數位時代" class="footer-logo" onerror="this.style.display='none'">
+      <div class="footer-meta"><strong>《數位時代》</strong>　|　資料整理：編輯部</div>
+    </div>
+    <p class="footer-note">資料來源：IMF《世界經濟展望》2026年10月版，指標為名目GDP、以當期美元計價（NGDPD）。1995至2025年為實際值與估計值，2026、2027年為IMF預測值，圖中以虛線表示。所有數值均取自IMF原始資料；「−20.8%」、「4.2倍」、「12.5倍」與「三國差距1.2%」為《數位時代》依IMF數值計算。以美元計價的GDP同時受各國實質成長、國內物價與匯率變動影響，排名變化不等同於實質產出的增減。</p>
+  </footer>
+
+</div>
+
+<div class="preview-toolbar" id="previewToolbar" role="toolbar" aria-label="預覽模式切換">
+  <span class="label">預覽</span>
+  <button type="button" class="active" data-mode="desktop" aria-pressed="true">桌機</button>
+  <button type="button" data-mode="mobile" aria-pressed="false">手機</button>
+</div>
+
+<script>
+var DATA=[[1995,5639.7,2595.3,1343.8,360.3],[1996,5021.4,2507.4,1420.9,392.9],[1997,4579.8,2221.5,1562.7,415.9],[1998,4150.4,2250.8,1654.1,421.4],[1999,4689.0,2216.1,1686.6,458.8],[2000,5042.4,1967.9,1668.1,468.4],[2001,4438.8,1966.4,1649.9,485.4],[2002,4245.9,2100.9,1785.9,514.9],[2003,4573.4,2534.1,2054.8,607.7],[2004,4941.5,2851.0,2421.2,709.2],[2005,4875.6,2895.0,2544.0,820.4],[2006,4648.1,3046.5,2712.7,940.3],[2007,4624.7,3484.5,3095.2,1216.7],[2008,5160.2,3807.8,2968.2,1198.9],[2009,5336.8,3474.8,2434.0,1341.9],[2010,5811.6,3469.9,2498.4,1675.6],[2011,6279.4,3823.3,2677.5,1823.1],[2012,6333.8,3600.6,2722.6,1823.2],[2013,5272.3,3811.1,2804.2,1847.8],[2014,4985.8,3971.2,3090.2,2024.4],[2015,4534.4,3433.4,2947.6,2083.3],[2016,5110.4,3546.5,2717.9,2267.1],[2017,5038.2,3778.4,2708.1,2613.1],[2018,5154.3,4076.8,2909.5,2657.3],[2019,5245.8,3983.1,2890.8,2780.9],[2020,5189.2,3969.0,2734.9,2616.8],[2021,5227.0,4394.5,3209.4,3090.9],[2022,4444.9,4226.7,3205.0,3257.3],[2023,4389.3,4602.0,3439.8,3511.7],[2024,4207.6,4746.9,3713.6,3759.8],[2025,4453.1,5115.6,4012.2,3909.0],[2026,4342.0,5471.3,4268.4,4060.2],[2027,4467.6,5661.3,4488.9,4521.2]];
+
+(function(){
+  var NS='http://www.w3.org/2000/svg';
+  var SERIES=[{k:'日本',c:'#FF6B1A',i:1},{k:'德國',c:'#2F6DB5',i:2},{k:'英國',c:'#1F9E78',i:3},{k:'印度',c:'#9B59B6',i:4}];
+  var X0=48, STEP=21.125, Y1=300, H=280, YMAX=6500;
+  var px=function(i){return X0+i*STEP;};
+  var py=function(v){return Y1-(v/YMAX)*H;};
+  var fmt=function(v){return (v/1000).toFixed(2);};
+
+  /* ---- 表格檢視 ---- */
+  var tb=document.getElementById('tbody');
+  if(tb){
+    DATA.forEach(function(r){
+      var tr=document.createElement('tr');
+      if(r[0]>=2026) tr.className='fc';
+      var th=document.createElement('td'); th.textContent=r[0]+(r[0]>=2026?'*':''); tr.appendChild(th);
+      for(var j=1;j<=4;j++){ var td=document.createElement('td'); td.textContent=fmt(r[j]); tr.appendChild(td); }
+      tb.appendChild(tr);
+    });
+  }
+  var tgl=document.getElementById('tgl'), tv=document.getElementById('tv'), plot=document.getElementById('plot');
+  if(tgl){
+    tgl.addEventListener('click',function(){
+      var on=tgl.getAttribute('aria-pressed')==='true';
+      tgl.setAttribute('aria-pressed',on?'false':'true');
+      tgl.textContent=on?'看數據表':'看折線圖';
+      tv.hidden=on; tv.style.display=on?'none':'block';
+      plot.style.display=on?'block':'none';
+    });
+  }
+
+  /* ---- hover 十字線（桌機） ---- */
+  var hit=document.getElementById('hitLayer'), hv=document.getElementById('hoverLayer');
+  if(!hit||!hv) return;
+  var line=document.getElementById('hvLine'), tip=document.getElementById('hvTip'),
+      box=document.getElementById('hvBox'), yr=document.getElementById('hvYear'), rows=document.getElementById('hvRows');
+  var dots=[document.getElementById('hvJP'),document.getElementById('hvDE'),document.getElementById('hvGB'),document.getElementById('hvIN')];
+
+  SERIES.forEach(function(s,n){
+    var key=document.createElementNS(NS,'rect');
+    key.setAttribute('width','11'); key.setAttribute('height','3'); key.setAttribute('rx','1.5');
+    key.setAttribute('fill',s.c); key.setAttribute('x','10'); key.setAttribute('y',String(30+n*18));
+    rows.appendChild(key);
+    var nm=document.createElementNS(NS,'text');
+    nm.setAttribute('class','ax'); nm.setAttribute('x','27'); nm.setAttribute('y',String(36+n*18));
+    nm.setAttribute('style','fill:#FAF7F1;font-size:11.5px'); nm.textContent=s.k;
+    rows.appendChild(nm);
+    var vl=document.createElementNS(NS,'text');
+    vl.setAttribute('class','ax'); vl.setAttribute('x','136'); vl.setAttribute('y',String(36+n*18));
+    vl.setAttribute('text-anchor','end'); vl.setAttribute('style','fill:#FAF7F1;font-size:11.5px;font-weight:600');
+    vl.setAttribute('id','hvV'+n); rows.appendChild(vl);
+  });
+
+  DATA.forEach(function(r,i){
+    var rect=document.createElementNS(NS,'rect');
+    rect.setAttribute('class','hit');
+    rect.setAttribute('x',String(px(i)-STEP/2));
+    rect.setAttribute('y','20');
+    rect.setAttribute('width',String(STEP));
+    rect.setAttribute('height',String(Y1-20));
+    rect.addEventListener('mouseenter',function(){show(i);});
+    rect.addEventListener('focus',function(){show(i);});
+    rect.setAttribute('tabindex','0');
+    hit.appendChild(rect);
+  });
+  hit.addEventListener('mouseleave',function(){hv.style.display='none';});
+
+  function show(i){
+    var r=DATA[i], x=px(i);
+    hv.style.display='';
+    line.setAttribute('x1',x); line.setAttribute('x2',x);
+    SERIES.forEach(function(s,n){
+      dots[n].setAttribute('cx',x); dots[n].setAttribute('cy',py(r[s.i]));
+      document.getElementById('hvV'+n).textContent=fmt(r[s.i])+'兆';
+    });
+    var tx = x>470 ? x-158 : x+12;
+    tip.setAttribute('transform','translate('+tx+',26)');
+    yr.setAttribute('x','10'); yr.setAttribute('y','18');
+    yr.setAttribute('style','fill:#C9CDD5;font-size:11px');
+    yr.textContent=r[0]+(r[0]>=2026?' 預測':'');
+  }
+})();
+
+(function() {
+  if (!new URLSearchParams(location.search).has('preview')) return;
+  var toolbar = document.getElementById('previewToolbar');
+  var wrapper = document.querySelector('.wrapper');
+  if (!toolbar || !wrapper) return;
+  toolbar.classList.add('show');
+  toolbar.addEventListener('click', function(e) {
+    var btn = e.target.closest('button[data-mode]');
+    if (!btn) return;
+    toolbar.querySelectorAll('button').forEach(function(b) {
+      b.classList.toggle('active', b === btn);
+      b.setAttribute('aria-pressed', b === btn ? 'true' : 'false');
+    });
+    wrapper.style.maxWidth = (btn.dataset.mode === 'mobile') ? '390px' : '880px';
+  });
+})();
+</script>
+</body>
+</html>
