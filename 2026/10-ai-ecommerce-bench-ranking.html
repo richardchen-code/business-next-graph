@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>18款AI模型經營網路商店365天：誰賺最多、誰被詐騙 ｜數位時代</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bn-orange: #FF6B1A;
+    --bn-navy: #0F1A2E;
+    --bn-black: #1A1A1A;
+    --paper: #FAF7F1;
+    --paper2: #F5F3EF;
+    --paper3: #ECE8DF;
+    --paper4: #E3DECF;
+    --warm300: #D4D0C8;
+    --cool600: #5C6470;
+    --cool400: #8A93A0;
+    --hairline: rgba(15, 26, 46, 0.12);
+  }
+
+  body {
+    font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", -apple-system, sans-serif;
+    background: var(--paper);
+    color: var(--bn-black);
+    line-height: 1.75;
+    padding: 32px 16px;
+    text-wrap: pretty;
+  }
+  h1, .deck, .section-headline { text-wrap: balance; }
+
+  .num, .stat-num, .r-val, .m-num {
+    font-family: "Inter", "Noto Sans TC", sans-serif;
+    font-feature-settings: 'tnum' 1;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .wrapper {
+    max-width: 880px; margin: 0 auto;
+    container-type: inline-size;
+    transition: max-width 0.25s ease;
+  }
+
+  /* ===== Header ===== */
+  header { padding: 8px 0 24px; border-bottom: 1px solid var(--hairline); margin-bottom: 20px; }
+  .kicker {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 12px; letter-spacing: 0.08em; font-weight: 500;
+    color: var(--bn-orange); text-transform: uppercase; margin-bottom: 12px;
+  }
+  h1 { font-size: 28px; font-weight: 900; line-height: 1.45; margin-bottom: 12px; letter-spacing: -0.01em; }
+  .bn-underline {
+    text-decoration: underline; text-decoration-thickness: 4px;
+    text-underline-offset: 6px; text-decoration-color: var(--bn-orange);
+    text-decoration-skip-ink: none;
+  }
+  .deck { font-size: 15px; color: var(--cool600); line-height: 1.8; max-width: 780px; }
+
+  .meta-bar {
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px 18px;
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 11px; color: var(--cool600); padding: 12px 0 22px;
+    letter-spacing: 0.06em;
+    border-bottom: 1px solid var(--hairline); margin-bottom: 28px;
+  }
+  .meta-bar strong { color: var(--bn-black); font-weight: 500; }
+  .nw { white-space: nowrap; }
+
+  /* ===== Stats ===== */
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 34px; }
+  .stat { background: var(--paper2); border: 1px solid var(--warm300); border-radius: 8px; padding: 16px 14px; }
+  .stat.peak { background: rgba(255,107,26,.06); border-color: var(--bn-orange); }
+  .stat-label { font-size: 11.5px; color: var(--cool600); margin-bottom: 6px; letter-spacing: .04em; line-height: 1.5; font-weight: 500; }
+  .stat-num { font-size: 28px; font-weight: 700; line-height: 1.15; letter-spacing: -0.01em; }
+  .stat.peak .stat-num { color: var(--bn-orange); }
+  .stat-unit { font-size: 13px; font-weight: 500; color: var(--cool600); margin-left: 3px; }
+  .stat-sub {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 10.5px; color: var(--cool600); margin-top: 6px; letter-spacing: .03em; line-height: 1.6;
+  }
+  .stat.peak .stat-sub { color: var(--bn-orange); font-weight: 500; }
+
+  /* ===== Toggle ===== */
+  .toggle-label {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 11px; color: var(--cool600); letter-spacing: .08em;
+    text-transform: uppercase; margin-bottom: 10px;
+  }
+  .toggle { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 22px; }
+  .toggle button {
+    font-family: inherit; font-size: 14px; font-weight: 500;
+    padding: 9px 18px; border: 1px solid var(--bn-black);
+    background: var(--paper); color: var(--bn-black);
+    border-radius: 0; cursor: pointer; transition: all .18s cubic-bezier(.2,.7,.2,1);
+  }
+  .toggle button:hover { background: var(--paper3); }
+  .toggle button.active { background: var(--bn-orange); color: var(--paper); border-color: var(--bn-orange); border-radius: 0 0 8px 8px; }
+
+  /* ===== Chart card ===== */
+  .chart-card { background: var(--paper2); border: 1px solid var(--warm300); border-radius: 8px; padding: 22px 20px 18px; }
+  .view-note {
+    font-size: 13px; color: var(--cool600); line-height: 1.75;
+    padding-bottom: 16px; margin-bottom: 18px; border-bottom: 1px solid var(--hairline);
+  }
+  .view-note b { color: var(--bn-black); font-weight: 700; }
+
+  .axis-label {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 10.5px; color: var(--cool400); letter-spacing: .06em;
+    text-transform: uppercase; margin-bottom: 10px;
+  }
+
+  /* ===== Legend ===== */
+  .legend {
+    display: flex; flex-wrap: wrap; gap: 8px 16px;
+    padding-bottom: 14px; margin-bottom: 4px;
+    border-bottom: 1px solid var(--hairline);
+  }
+  .lg { display: flex; align-items: center; gap: 6px; font-size: 11.5px; color: var(--cool600); line-height: 1.5; }
+  .lg i { width: 16px; height: 9px; border-radius: 2px; flex-shrink: 0; font-style: normal; }
+  .lg i.c1 { background: var(--bn-orange); }
+  .lg i.c2 { background: var(--bn-navy); }
+  .lg i.c3 { background: var(--cool400); }
+  .lg i.base { width: 2px; height: 14px; background: var(--bn-black); opacity: .55; border-radius: 0; }
+  .lg b { color: var(--bn-black); font-weight: 700; }
+
+  /* type badge（類型的次要編碼：文字標記 + 邊框樣式，不只靠顏色） */
+  .tp {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 9.5px; letter-spacing: .02em; line-height: 1.5;
+    padding: 1px 4px; border-radius: 0; white-space: nowrap; flex-shrink: 0;
+  }
+  .tp.closed { background: var(--paper4); border: 1px solid var(--warm300); color: var(--cool600); }
+  .tp.open { background: transparent; border: 1px dashed var(--cool400); color: var(--cool600); }
+  .bk {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 10px; letter-spacing: .03em; color: var(--cool600);
+    border-bottom: 1px solid var(--warm300); white-space: nowrap; flex-shrink: 0;
+  }
+
+  /* ===== Baseline head ===== */
+  .base-head { display: grid; grid-template-columns: 238px 1fr 86px; gap: 0 14px; margin-bottom: 2px; }
+  .bh-track { position: relative; height: 20px; }
+  .bh-tag {
+    position: absolute; left: 6.99%; top: 0; transform: translateX(-3px);
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 10.5px; color: var(--bn-black); letter-spacing: .03em; white-space: nowrap;
+  }
+
+  /* ===== Rank rows ===== */
+  .row {
+    display: grid; grid-template-columns: 238px 1fr 86px; gap: 4px 14px;
+    grid-template-areas: "name bar val" "note note note";
+    align-items: center; padding: 7px 0;
+    border-bottom: 1px solid var(--hairline);
+  }
+  .row:last-child { border-bottom: 0; }
+  .r-name { grid-area: name; display: flex; align-items: center; flex-wrap: wrap; gap: 5px; line-height: 1.4; }
+  .rk {
+    font-family: "Inter", sans-serif; font-feature-settings: 'tnum' 1;
+    font-size: 12px; font-weight: 700; color: var(--cool400);
+    min-width: 17px; text-align: right; flex-shrink: 0;
+  }
+  .row.lead .rk { color: var(--bn-orange); }
+  .nm { font-size: 13.5px; font-weight: 700; letter-spacing: 0; }
+  .r-bar { grid-area: bar; }
+  .bar-track { position: relative; height: 15px; background: var(--paper4); border-radius: 2px; }
+  .bar-track::before {
+    content: ''; position: absolute; left: 6.99%; top: -5px; bottom: -5px;
+    width: 2px; background: var(--bn-black); opacity: .55; z-index: 2;
+  }
+  .bar-fill { height: 100%; border-radius: 2px; min-width: 3px; }
+  .bar-fill.c1 { background: var(--bn-orange); }
+  .bar-fill.c2 { background: var(--bn-navy); }
+  .bar-fill.c3 { background: var(--cool400); }
+  .r-val {
+    grid-area: val; text-align: right; font-size: 16px; font-weight: 700;
+    line-height: 1.25; white-space: nowrap;
+  }
+  .row.lead .r-val { color: var(--bn-orange); }
+  .row.loss .r-val { color: var(--cool600); }
+  .r-val .u { font-size: 11px; font-weight: 500; color: var(--cool600); margin-left: 1px; }
+  .r-val .mx {
+    display: block; font-style: normal; font-size: 11px; font-weight: 500;
+    color: var(--cool600); letter-spacing: .02em;
+  }
+  .r-note {
+    grid-area: note; font-size: 12.5px; color: var(--cool600); line-height: 1.7;
+    margin: 2px 0 2px 252px;
+  }
+  .r-note b { color: var(--bn-black); font-weight: 700; }
+
+  /* ===== 檢視二：體質對照表 ===== */
+  .mtx-head, .mrow {
+    display: grid; grid-template-columns: 218px 54px 1fr 70px 74px; gap: 4px 12px;
+    align-items: center;
+  }
+  .mtx-head {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 10px; color: var(--cool400); letter-spacing: .05em;
+    text-transform: uppercase; padding: 12px 0 8px; line-height: 1.5;
+    border-bottom: 1px solid var(--hairline); white-space: nowrap;
+  }
+  .mtx-head span:nth-child(n+4), .mtx-head span:nth-child(2) { text-align: right; }
+  .mrow { padding: 11px 0; border-bottom: 1px solid var(--hairline); grid-template-areas: "name rank fraud cse call" "note note note note note"; }
+  .mrow:last-child { border-bottom: 0; }
+  .m-name { grid-area: name; display: flex; align-items: center; flex-wrap: wrap; gap: 5px; font-size: 14px; font-weight: 700; line-height: 1.4; }
+  .m-rank { grid-area: rank; text-align: right; font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 12px; color: var(--cool600); }
+  .mrow.best .m-rank { color: var(--bn-black); font-weight: 500; }
+  .m-fraud { grid-area: fraud; }
+  .m-ftop { display: flex; align-items: baseline; justify-content: flex-end; gap: 8px; margin-bottom: 4px; }
+  .m-fnum { font-family: "Inter", sans-serif; font-feature-settings: 'tnum' 1; font-size: 13px; font-weight: 700; }
+  .mrow.worst .m-fnum { color: var(--bn-orange); }
+  .m-flab { display: none; font-size: 10.5px; color: var(--cool600); }
+  .m-ftrack { height: 9px; background: var(--paper4); border-radius: 2px; }
+  .m-ffill { height: 100%; border-radius: 2px; min-width: 2px; background: var(--bn-navy); }
+  .mrow.worst .m-ffill { background: var(--bn-orange); }
+  .m-cse, .m-call { text-align: right; font-family: "Inter", sans-serif; font-feature-settings: 'tnum' 1; font-size: 14px; font-weight: 700; line-height: 1.3; }
+  .m-cse { grid-area: cse; }
+  .m-call { grid-area: call; }
+  .m-cse em, .m-call em { display: block; font-style: normal; font-size: 10px; font-weight: 500; color: var(--cool600); letter-spacing: .02em; font-family: "JetBrains Mono", ui-monospace, monospace; }
+  .m-cse em { display: none; }
+  .m-note { grid-area: note; font-size: 12.5px; color: var(--cool600); line-height: 1.7; margin: 6px 0 0 230px; }
+  .m-note b { color: var(--bn-black); font-weight: 700; }
+  .m-lab { display: none; font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 10px; color: var(--cool400); letter-spacing: .04em; }
+
+  /* ===== Footer ===== */
+  .fine-print {
+    margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--hairline);
+    font-size: 11.5px; line-height: 1.8; color: var(--cool600);
+  }
+  footer { margin-top: 34px; padding-top: 18px; border-top: 1px solid var(--hairline); }
+  .footer-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+  .footer-logo { width: 32px; height: 32px; object-fit: contain; border-radius: 4px; }
+  .footer-meta {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 11px; color: var(--cool600); letter-spacing: .05em;
+  }
+  .footer-meta strong { color: var(--bn-black); font-weight: 500; }
+  .footer-note { font-size: 11.5px; color: var(--cool600); line-height: 1.8; }
+
+  /* ===== 雙軌：窄版 ===== */
+  @container (max-width: 640px) {
+    h1 { font-size: 22px; }
+    .deck { font-size: 14px; }
+    .meta-bar { flex-direction: column; gap: 4px; }
+    .stats { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .stat-num { font-size: 24px; }
+    .chart-card { padding: 18px 14px 14px; }
+    .toggle button { flex: 1 1 auto; font-size: 13px; padding: 9px 10px; }
+
+    .base-head { grid-template-columns: 1fr; }
+    .bh-spacer { display: none; }
+
+    .row {
+      grid-template-columns: 1fr auto;
+      grid-template-areas: "name val" "bar bar" "note note";
+      align-items: baseline; gap: 6px 10px; padding: 11px 0;
+    }
+    .r-val { font-size: 15px; }
+    .r-val .mx { display: inline-block; margin-left: 7px; }
+    .r-note { margin: 4px 0 0; }
+
+    .mtx-head { display: none; }
+    .mrow {
+      grid-template-columns: 1fr;
+      grid-template-areas: "name" "rank" "fraud" "cse" "call" "note";
+      gap: 7px; padding: 14px 0;
+    }
+    .m-rank, .m-cse, .m-call { text-align: left; display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+    .m-cse em, .m-call em { display: inline; margin-left: 4px; }
+    .m-lab, .m-flab { display: inline; }
+    .m-ftop { justify-content: space-between; }
+    .m-note { margin: 4px 0 0; }
+  }
+
+  @media (max-width: 640px) { body { padding: 16px 8px; } }
+
+  /* ===== Preview toolbar（編輯內部用） ===== */
+  .preview-toolbar {
+    display: none; position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%);
+    background: var(--bn-navy); border-radius: 8px; padding: 5px; gap: 2px; z-index: 99;
+  }
+  .preview-toolbar.show { display: flex; }
+  .preview-toolbar button {
+    border: 0; padding: 7px 13px; font-size: 12px; font-weight: 700;
+    background: transparent; color: rgba(250,247,241,.55);
+    cursor: pointer; border-radius: 4px; transition: all .15s; font-family: inherit;
+  }
+  .preview-toolbar button:hover { color: var(--paper); }
+  .preview-toolbar button.active { background: var(--bn-orange); color: var(--paper); }
+  .preview-toolbar .label {
+    font-size: 10px; color: rgba(250,247,241,.45); padding: 0 8px;
+    align-self: center; letter-spacing: .5px; text-transform: uppercase;
+  }
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+  <header>
+    <div class="kicker">E-Commerce Bench · 18款AI模型 · 365天</div>
+    <h1>最會賺的AI，<span class="bn-underline">不等於最會經營</span></h1>
+    <p class="deck">阿里巴巴Qwen團隊與香港科技大學發表「E-Commerce Bench」研究，讓18款AI模型各自以10萬元人民幣起家，獨立經營一家網路商店365天，比較期末總資產。資產衝到第1的GPT-5.6 Sol，有近兩成採購款被詐騙供應商拿走；防詐與議價雙料第一的Claude Opus 4.7，期末資產只排第8。</p>
+  </header>
+
+  <div class="meta-bar">
+    <span class="meta-chunk">研究：<strong class="nw">E-Commerce Bench（arXiv 2608.30730）</strong></span>
+    <span class="meta-chunk">模擬：<strong class="nw">365天 × 每款5次</strong></span>
+    <span class="meta-chunk">幣別：<strong class="nw">人民幣</strong></span>
+    <span class="meta-chunk">整理：<strong>《數位時代》編輯部</strong></span>
+  </div>
+
+  <div class="stats">
+    <div class="stat peak">
+      <div class="stat-label">最高平均期末資產</div>
+      <div class="stat-num">143.1<span class="stat-unit">萬元</span></div>
+      <div class="stat-sub">GPT-5.6 Sol・本金翻14.3倍</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">每款模型初始資金</div>
+      <div class="stat-num">10<span class="stat-unit">萬元</span></div>
+      <div class="stat-sub">期末低於此數即為虧損</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">做到虧本的模型</div>
+      <div class="stat-num">3<span class="stat-unit">／18款</span></div>
+      <div class="stat-sub">排名第16至18名</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">模擬中途破產次數</div>
+      <div class="stat-num">10<span class="stat-unit">／90次</span></div>
+      <div class="stat-sub">18款模型各跑5次</div>
+    </div>
+  </div>
+
+  <div class="toggle-label">切換檢視</div>
+  <div class="toggle" id="toggle">
+    <button type="button" class="active" data-view="rank">18款模型賺賠排行</button>
+    <button type="button" data-view="quality">前段班的經營體質</button>
+  </div>
+
+  <div class="chart-card">
+    <div class="view-note" id="viewNote"></div>
+    <div id="chart"></div>
+    <p class="fine-print" id="finePrint"></p>
+  </div>
+
+  <footer>
+    <div class="footer-row">
+      <img src="../_assets/logos/businessnext-logo.jpg" alt="數位時代" class="footer-logo" onerror="this.style.display='none'">
+      <div class="footer-meta"><strong>《數位時代》</strong>　|　資料整理：編輯部</div>
+    </div>
+    <p class="footer-note">資料來源：Qwen Team, Alibaba Group &amp; HKUST，〈E-Commerce Bench〉（arXiv:2608.30730）Table 2；ITmedia NEWS（2026年10月21日）。所有數值取自論文公布的平均值，未經二次計算。本實驗全程在模擬環境中進行，不涉及真實商品、金流或供應商。</p>
+  </footer>
+
+</div>
+
+<div class="preview-toolbar" id="previewToolbar" role="toolbar" aria-label="預覽模式切換">
+  <span class="label">預覽</span>
+  <button type="button" class="active" data-mode="desktop" aria-pressed="true">桌機</button>
+  <button type="button" data-mode="mobile" aria-pressed="false">手機</button>
+</div>
+
+<script>
+var RANK = [
+  { r: 1,  n: 'GPT-5.6 Sol',             v: 143.1, x: '14.3', t: 'closed', bk: 0, c: 'c1', lead: true,
+    note: '唯一把10萬元做到百萬以上的模型，但<b>18.48%的採購款流向詐騙供應商</b>，防詐表現在18款中排第16。' },
+  { r: 2,  n: 'Fable5',                  v: 80.5,  x: '8.1',  t: 'closed', bk: 0, c: 'c2',
+    note: '每一次工具呼叫創造<b>479元獲利</b>，18款中最高。用一半的操作量，做到冠軍逾半的資產。' },
+  { r: 3,  n: 'GPT-5.5',                 v: 70.2,  x: '7.0',  t: 'closed', bk: 2, c: 'c2' },
+  { r: 4,  n: 'Claude Opus 4.8',         v: 49.8,  x: '5.0',  t: 'closed', bk: 0, c: 'c2' },
+  { r: 5,  n: 'Qwen3.8-Max-Preview',     v: 41.6,  x: '4.2',  t: 'open',   bk: 0, c: 'c2',
+    note: '開放權重模型中的最高名次，也是<b>長期學習指標AnchorRatio 0.834的第一名</b>，最能把前期經驗沿用到後期。' },
+  { r: 6,  n: 'GLM 5.2（high）',          v: 30.1,  x: '3.0',  t: 'open',   bk: 0, c: 'c2' },
+  { r: 7,  n: 'Kimi K3',                 v: 26.5,  x: '2.7',  t: 'open',   bk: 0, c: 'c2' },
+  { r: 8,  n: 'Claude Opus 4.7',         v: 25.9,  x: '2.6',  t: 'closed', bk: 0, c: 'c2',
+    note: '防詐第一（詐騙支出僅0.12%）、議價第一（CSE+ 0.811），<b>資產卻只排第8</b>。守得住錢，不代表賺得多。' },
+  { r: 9,  n: 'Claude Opus 4.6',         v: 25.8,  x: '2.6',  t: 'closed', bk: 2, c: 'c2' },
+  { r: 10, n: 'GLM 5.1',                 v: 22.6,  x: '2.3',  t: 'open',   bk: 0, c: 'c2' },
+  { r: 11, n: 'Gemini 3.5 Flash',        v: 19.0,  x: '1.9',  t: 'closed', bk: 0, c: 'c2' },
+  { r: 12, n: 'DeepSeek-V4-Pro-Preview', v: 19.0,  x: '1.9',  t: 'open',   bk: 0, c: 'c2' },
+  { r: 13, n: 'Qwen3.7-Max',             v: 16.5,  x: '1.7',  t: 'open',   bk: 0, c: 'c2' },
+  { r: 14, n: 'Gemini 3.1 Pro',          v: 13.0,  x: '1.3',  t: 'closed', bk: 2, c: 'c2' },
+  { r: 15, n: 'GLM 5.2（max）',           v: 11.5,  x: '1.2',  t: 'open',   bk: 0, c: 'c2' },
+  { r: 16, n: 'Kimi K2.6',               v: 7.0,   x: '0.7',  t: 'open',   bk: 0, c: 'c3', loss: true },
+  { r: 17, n: 'Qwen3.6-Plus',            v: 4.7,   x: '0.5',  t: 'open',   bk: 0, c: 'c3', loss: true },
+  { r: 18, n: 'Qwen3.5-Plus',            v: 0.11,  x: '0.01', t: 'open',   bk: 4, c: 'c3', loss: true,
+    note: '五次模擬有<b>四次中途破產</b>，平均期末只剩1,100元，等於把10萬元本金幾乎賠光。' }
+];
+
+var QUALITY = [
+  { n: 'GPT-5.6 Sol',         t: 'closed', rank: 1, fraud: 18.48, cse: '0.672', call: '3,668', worst: true,
+    note: '賺最多，也被坑最多。近兩成採購款付給詐騙供應商，靠的是高頻操作把損失賺回來。' },
+  { n: 'Fable5',              t: 'closed', rank: 2, fraud: 3.46,  cse: '0.772', call: '1,469',
+    note: '工具呼叫數只有冠軍四成，<b>每次呼叫創造479元獲利</b>為18款最高，效率型選手。' },
+  { n: 'GPT-5.5',             t: 'closed', rank: 3, fraud: 16.59, cse: '0.700', call: '3,143' },
+  { n: 'Qwen3.8-Max-Preview', t: 'open',   rank: 5, fraud: 6.13,  cse: '0.713', call: '1,826',
+    note: '長期學習指標AnchorRatio 0.834為18款最高，愈到後期愈能沿用先前累積的經驗。' },
+  { n: 'Claude Opus 4.7',     t: 'closed', rank: 8, fraud: 0.12,  cse: '0.811', call: '1,023', best: true,
+    note: '詐騙支出與議價能力都是<b>18款第一</b>，但保守的採購與較少的操作量，也讓它的資產停在第8名。' }
+];
+
+var TPL  = { closed: '閉源', open: '開放' };
+var TPLF = { closed: '閉源', open: '開放權重' };
+var MAXV = 143.1, MAXF = 20;
+function fmt(v) { return (v < 1) ? v.toString() : v.toFixed(1); }
+
+function viewRank() {
+  document.getElementById('viewNote').innerHTML =
+    '每款模型獨立經營365天、重複5次，取平均期末總資產。前四名清一色是閉源模型，開放權重陣營最好的名次是第5名的Qwen3.8-Max-Preview。';
+  document.getElementById('finePrint').innerHTML =
+    '註：數值為論文Table 2公布的平均期末總資產，幣別為人民幣。「破產」指該次模擬中資產歸零、提前結束經營，90次模擬中共發生10次。GLM 5.2的high與max為同一模型的兩種推理設定。全程為模擬環境，不涉及真實交易。';
+
+  var h = '<div class="axis-label">平均期末總資產（萬元人民幣）／ 初始資金10萬元</div>';
+  h += '<div class="legend">';
+  h += '<span class="lg"><i class="base"></i>10萬元初始資金線</span>';
+  h += '<span class="lg"><i class="c1"></i>資產第1名</span>';
+  h += '<span class="lg"><i class="c2"></i>獲利（高於本金）</span>';
+  h += '<span class="lg"><i class="c3"></i>虧損（低於本金）</span>';
+  h += '<span class="lg"><em class="tp closed">閉源</em>閉源模型</span>';
+  h += '<span class="lg"><em class="tp open">開放</em>開放權重模型</span>';
+  h += '</div>';
+
+  h += '<div class="base-head"><div class="bh-spacer"></div><div class="bh-track"><span class="bh-tag">▼ 10萬元本金線</span></div><div class="bh-spacer"></div></div>';
+
+  RANK.forEach(function(d) {
+    var cls = 'row' + (d.lead ? ' lead' : '') + (d.loss ? ' loss' : '');
+    h += '<div class="' + cls + '">';
+    h += '<div class="r-name"><span class="rk">' + d.r + '</span><span class="nm">' + d.n + '</span>';
+    h += '<em class="tp ' + d.t + '">' + TPL[d.t] + '</em>';
+    if (d.bk) { h += '<em class="bk">破產' + d.bk + '/5</em>'; }
+    h += '</div>';
+    h += '<div class="r-bar"><div class="bar-track"><div class="bar-fill ' + d.c + '" style="width:' + (d.v / MAXV * 100).toFixed(2) + '%"></div></div></div>';
+    h += '<div class="r-val">' + fmt(d.v) + '<span class="u">萬</span><i class="mx">' + d.x + '倍</i></div>';
+    if (d.note) { h += '<div class="r-note">' + d.note + '</div>'; }
+    h += '</div>';
+  });
+  return h;
+}
+
+function viewQuality() {
+  document.getElementById('viewNote').innerHTML =
+    '賺得多，不代表經營得穩。資產第1的GPT-5.6 Sol，防詐只排第16；防詐與議價都拿下第1的Claude Opus 4.7，資產排第8。';
+  document.getElementById('finePrint').innerHTML =
+    '註：詐騙支出占比指採購金額中流向詐騙供應商的比率，數值<b>越低越好</b>。CSE+為論文衡量議價能力的指標（0至1），數值<b>越高</b>代表越能在談判中守住價格。工具呼叫次數為模型完成365天經營所採取的操作總量，反映操作密度而非優劣。此處僅列出論文公布補充指標的五款模型。';
+
+  var h = '<div class="axis-label">五款前段班模型的經營體質對照</div>';
+  h += '<div class="legend">';
+  h += '<span class="lg">詐騙供應商支出占比：<b>越低越好</b></span>';
+  h += '<span class="lg">議價CSE+（0至1）：<b>越高越好</b></span>';
+  h += '<span class="lg">工具呼叫：操作密度，非優劣</span>';
+  h += '</div>';
+  h += '<div class="mtx-head"><span>模型</span><span>資產名次</span><span>詐騙供應商支出占比</span><span>議價CSE+</span><span>工具呼叫</span></div>';
+
+  QUALITY.forEach(function(d) {
+    var cls = 'mrow' + (d.worst ? ' worst' : '') + (d.best ? ' best' : '');
+    h += '<div class="' + cls + '">';
+    h += '<div class="m-name">' + d.n + '<em class="tp ' + d.t + '">' + TPLF[d.t] + '</em></div>';
+    h += '<div class="m-rank"><span class="m-lab">資產名次</span><span>第' + d.rank + '名</span></div>';
+    h += '<div class="m-fraud"><div class="m-ftop"><span class="m-flab">詐騙供應商支出占比</span><span class="m-fnum">' + d.fraud + '%</span></div>';
+    h += '<div class="m-ftrack"><div class="m-ffill" style="width:' + (d.fraud / MAXF * 100).toFixed(2) + '%"></div></div></div>';
+    h += '<div class="m-cse"><span class="m-lab">議價CSE+</span><span>' + d.cse + '<em>越高越好</em></span></div>';
+    h += '<div class="m-call"><span class="m-lab">工具呼叫</span><span>' + d.call + '<em>次</em></span></div>';
+    if (d.note) { h += '<div class="m-note">' + d.note + '</div>'; }
+    h += '</div>';
+  });
+  return h;
+}
+
+function render(view) {
+  document.getElementById('chart').innerHTML = (view === 'quality') ? viewQuality() : viewRank();
+}
+
+document.getElementById('toggle').addEventListener('click', function(e) {
+  var btn = e.target.closest('button[data-view]');
+  if (!btn) return;
+  this.querySelectorAll('button').forEach(function(b) { b.classList.toggle('active', b === btn); });
+  render(btn.dataset.view);
+});
+
+render('rank');
+
+(function() {
+  if (!new URLSearchParams(location.search).has('preview')) return;
+  var toolbar = document.getElementById('previewToolbar');
+  var wrapper = document.querySelector('.wrapper');
+  if (!toolbar || !wrapper) return;
+  toolbar.classList.add('show');
+  toolbar.addEventListener('click', function(e) {
+    var btn = e.target.closest('button[data-mode]');
+    if (!btn) return;
+    toolbar.querySelectorAll('button').forEach(function(b) {
+      b.classList.toggle('active', b === btn);
+      b.setAttribute('aria-pressed', b === btn ? 'true' : 'false');
+    });
+    wrapper.style.maxWidth = (btn.dataset.mode === 'mobile') ? '390px' : '880px';
+  });
+})();
+</script>
+</body>
+</html>
